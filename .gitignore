@@ -1,0 +1,9 @@
+custom.el
+*~
+elpa*
+session.*
+*.elc
+history
+places
+recentf
+org-clock-save.el
