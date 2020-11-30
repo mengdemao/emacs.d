@@ -1,21 +1,23 @@
+(require 'cl-lib)
+
 ;; 设置title
 (setq frame-title-format (list "["
-				   '(:eval (projectile-project-name))
-				   "]" " @ " '(buffer-file-name "%f" (dired-directory dired-directory
-										  "%b"))))
+							   '(:eval (projectile-project-name))
+							   "]" " @ " '(buffer-file-name "%f" (dired-directory dired-directory
+																				  "%b"))))
 
 ;;中文与外文字体设置
 (defun set-font (english chinese english-size chinese-size)
   "Set fonts."
   (if (display-graphic-p)
 	  (progn
-	(set-face-attribute 'default nil :font
-				(format   "%s:pixelsize=%d"  english english-size))
-	(dolist (charset '(kana han symbol cjk-misc bopomofo))
-	  (set-fontset-font (frame-parameter nil 'font) charset
-				(font-spec :family chinese :size chinese-size))))))
+		(set-face-attribute 'default nil :font
+							(format   "%s:pixelsize=%d"  english english-size))
+		(dolist (charset '(kana han symbol cjk-misc bopomofo))
+		  (set-fontset-font (frame-parameter nil 'font) charset
+							(font-spec :family chinese :size chinese-size))))))
 
-(set-font   "Source Code Pro" "Source Sans Pro" 22 22)
+(set-font   "Source Code Pro" "Source Sans Pro" 18 18)
 
 ;; 编码
 (prefer-coding-system 'utf-8)
@@ -46,13 +48,13 @@
 (setq time-stamp-format "%:y-%02m-%02d %3a %02H:%02M:%02S mengdemao")
 
 ;; TAB按键的长度设置
-(setq c-default-style "linux")				 ;;
-(setq c-basic-offset 4)					 ;;
-(setq default-tab-width 4)				 ;;
-(setq tab-width 4)					 ;;
-(setq indent-tab-mode t)				 ;;
-(setq tab-stop-list '(2 4))				 ;;
+(setq c-default-style "linux")				;;
+(setq default-tab-width 4)					;;
+(setq tab-width 4)							;;
 (setq indent-tabs-mode t)
+(cl-loop for x downfrom 40 to 1 do
+		 (setq tab-stop-list (cons (* x 4) tab-stop-list)))
+(setq backward-delete-char-untabify-method nil)             ;;tab退格删除
 (add-hook 'before-save-hook 'delete-trailing-whitespace) ;;关闭时自动删除多余空格
 
 (global-font-lock-mode 1)        ;; 开启语法高亮
@@ -74,10 +76,10 @@
 (global-set-key [(meta ?/)] 'hippie-expand) ;; 绑定自动补全按键
 (setq hippie-expand-try-functions-list      ;; 搜索路径
 	  '(try-expand-dabbrev try-expand-dabbrev-visible try-expand-dabbrev-all-buffers
-			   try-expand-dabbrev-from-kill try-complete-file-name-partially
-			   try-complete-file-name try-expand-all-abbrevs try-expand-list
-			   try-expand-line try-complete-lisp-symbol-partially
-			   try-complete-lisp-symbol))
+						   try-expand-dabbrev-from-kill try-complete-file-name-partially
+						   try-complete-file-name try-expand-all-abbrevs try-expand-list
+						   try-expand-line try-complete-lisp-symbol-partially
+						   try-complete-lisp-symbol))
 
 ;; 设置行号
 (require 'linum)
@@ -121,38 +123,38 @@
   :bind (("C-x C-r" . recentf-open-files))
   :hook (after-init . recentf-mode)
   :init (setq recentf-max-saved-items 300
-		  recentf-exclude
-		  '("\\.?cache" ".cask" "url" "COMMIT_EDITMSG\\'" "bookmarks"
-		"\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
-		"\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
-		"^/tmp/" "^/var/folders/.+$" ; "^/ssh:"
-		(lambda (file) (file-in-directory-p file package-user-dir))))
+			  recentf-exclude
+			  '("\\.?cache" ".cask" "url" "COMMIT_EDITMSG\\'" "bookmarks"
+				"\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\|bmp\\|xpm\\)$"
+				"\\.?ido\\.last$" "\\.revive$" "/G?TAGS$" "/.elfeed/"
+				"^/tmp/" "^/var/folders/.+$" ; "^/ssh:"
+				(lambda (file) (file-in-directory-p file package-user-dir))))
   :config (push (expand-file-name recentf-save-file) recentf-exclude))
 
 (use-package savehist
   :ensure nil
   :hook (after-init . savehist-mode)
   :init (setq enable-recursive-minibuffers t ; Allow commands in minibuffers
-		  history-length 1000
-		  savehist-additional-variables '(mark-ring
-						  global-mark-ring
-						  search-ring
-						  regexp-search-ring
-						  extended-command-history)
-		  savehist-autosave-interval 300))
+			  history-length 1000
+			  savehist-additional-variables '(mark-ring
+											  global-mark-ring
+											  search-ring
+											  regexp-search-ring
+											  extended-command-history)
+			  savehist-autosave-interval 300))
 
 (use-package simple
   :ensure nil
   :hook ((after-init . size-indication-mode)
-	 (text-mode . visual-line-mode)
-	 ((prog-mode markdown-mode conf-mode) . enable-trailing-whitespace))
+		 (text-mode . visual-line-mode)
+		 ((prog-mode markdown-mode conf-mode) . enable-trailing-whitespace))
   :init
   (setq column-number-mode t
-	line-number-mode t
-	;; kill-whole-line t               ; Kill line including '\n'
-	line-move-visual nil
-	track-eol t                     ; Keep cursor at end of lines. Require line-move-visual is nil.
-	set-mark-command-repeat-pop t)  ; Repeating C-SPC after popping mark pops it again
+		line-number-mode t
+		;; kill-whole-line t               ; Kill line including '\n'
+		line-move-visual nil
+		track-eol t                     ; Keep cursor at end of lines. Require line-move-visual is nil.
+		set-mark-command-repeat-pop t)  ; Repeating C-SPC after popping mark pops it again
 
   ;; Visualize TAB, (HARD) SPACE, NEWLINE
   (setq-default show-trailing-whitespace nil) ; Don't show trailing whitespace by default
@@ -165,16 +167,16 @@
 ;; Scroll one line at a time (less "jumpy" than defaults)
 (when (display-graphic-p)
   (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))
-	mouse-wheel-progressive-speed nil))
+		mouse-wheel-progressive-speed nil))
 (setq scroll-step 1
 	  scroll-margin 0
 	  scroll-conservatively 100000)
 
 ;; Misc
 (setq-default major-mode 'text-mode
-		  fill-column 80
-		  tab-width 4
-		  indent-tabs-mode t)
+			  fill-column 80
+			  tab-width 4
+			  indent-tabs-mode t)
 
 (setq visible-bell t
 	  inhibit-compacting-font-caches t  ; Don’t compact font caches during GC.

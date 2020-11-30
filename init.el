@@ -21,7 +21,7 @@
 
 (when (or (< emacs-major-version 26)
 	  (and (= emacs-major-version 26)
-		   (< emacs-minor-version 3)))
+		   (< emacs-minor-version 1)))
   (x-popup-dialog t `(,(format "Sorry, you need GNU Emacs version 26.6 or higher
 to run Dema Emacs.
 
@@ -82,5 +82,4 @@ Your installed Emacs reports:
 		(unless (server-running-p)
 		  (server-start))))
 
-;; init file end here
 (provide 'init)

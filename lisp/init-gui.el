@@ -84,7 +84,10 @@
 (add-hook 'after-init-hook 'default-text-scale-mode)
 
 (require 'disable-mouse)
+(require 'window-numbering)
+(window-numbering-mode t)
 
+(require 'powerline)
 
 (provide 'init-gui)
 ;;; init-gui.el ends here
