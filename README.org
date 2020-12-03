@@ -1,1 +1,1 @@
-* Emacs配置
+ Emacs配置

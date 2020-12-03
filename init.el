@@ -60,10 +60,10 @@ Your installed Emacs reports:
   (load custom-file))
 
 ;; 基础配置
-(require 'init-conf)
+(require 'init-user)
 (require 'init-site)
 (require 'init-elpa)
-(require 'init-base)
+(require 'init-basic)
 (require 'init-gui)
 (require 'init-themes)
 (require 'init-compile)
@@ -74,6 +74,9 @@ Your installed Emacs reports:
 
 ;; 扩展配置
 (require 'init-company)
+(require 'init-git)
+(require 'init-svn)
+(require 'init-flycheck)
 
 ;; server模式启动
 (add-hook 'after-init-hook
@@ -83,3 +86,4 @@ Your installed Emacs reports:
 		  (server-start))))
 
 (provide 'init)
+;;; init.el ends here

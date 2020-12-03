@@ -19,6 +19,8 @@
 
 (set-font   "Source Code Pro" "Source Sans Pro" 18 18)
 
+(setq backup-inhibited -1)                                        ;;不产生备份;
+
 ;; 编码
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
@@ -190,4 +192,4 @@
 	  sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
 	  sentence-end-double-space nil)
 
-(provide 'init-base)
+(provide 'init-basic)

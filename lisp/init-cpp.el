@@ -34,10 +34,34 @@
   (imenu-add-menubar-index)
   (which-function-mode))
 
+(add-hook 'c-mode-hook 'hs-minor-mode)
+(electric-pair-mode 1)
+(defun my-c-mode-auto-pair ()
+  (interactive)
+  (make-local-variable 'skeleton-pair-alist)
+  (setq skeleton-pair-alist  '(
+							   (?\' _ "'")
+							   (?\" _ "\"")
+							  (?\( _ ")")
+							   (?\[ _ "]")
+							   (?{ \n > _ \n ?} >)))
+  (setq skeleton-pair t)
+  (local-set-key (kbd "(") 'skeleton-pair-insert-maybe)
+  (local-set-key (kbd "{") 'skeleton-pair-insert-maybe)
+  (local-set-key (kbd "'") 'skeleton-pair-insert-maybe)
+  (local-set-key (kbd "\"") 'skeleton-pair-insert-maybe)
+  (local-set-key (kbd "[") 'skeleton-pair-insert-maybe))
+(add-hook 'c-mode-hook 'my-c-mode-auto-pair)
+
 (require 'ggtags)
 (add-hook 'c-mode-common-hook
 		  (lambda ()
 			(when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
 			  (ggtags-mode 1))))
+(global-set-key (kbd "M-[") 'ggtags-find-definition)
+
+(require 'doxymacs)
+(add-hook 'c-mode-common-hook 'doxymacs-mode)
+(add-hook 'c++-mode-common-hook 'doxymacs-mode)
 
 (provide 'init-cpp)
