@@ -77,6 +77,7 @@ Your installed Emacs reports:
 (require 'init-git)
 (require 'init-svn)
 (require 'init-flycheck)
+(require 'init-term)
 
 ;; server模式启动
 (add-hook 'after-init-hook
