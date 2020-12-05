@@ -22,22 +22,21 @@
 
 ;;; Code:
 
-(when *is-a-mac*
-  (maybe-require-package 'grab-mac-link))
-
-(maybe-require-package 'org-cliplink)
+(add-to-list 'load-path (expand-file-name "site/org-mode/lisp" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "site/org-mode/lisp/contrib/lisp" user-emacs-directory))
+(require 'org-install)
 
 (define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)
 
-(defvar sanityinc/org-global-prefix-map (make-sparse-keymap)
+(defvar org-global-prefix-map (make-sparse-keymap)
   "A keymap for handy global access to org helpers, particularly clocking.")
 
-(define-key sanityinc/org-global-prefix-map (kbd "j") 'org-clock-jump-to-current-clock)
-(define-key sanityinc/org-global-prefix-map (kbd "l") 'org-clock-in-last)
-(define-key sanityinc/org-global-prefix-map (kbd "i") 'org-clock-in)
-(define-key sanityinc/org-global-prefix-map (kbd "o") 'org-clock-out)
-(define-key global-map (kbd "C-c o") sanityinc/org-global-prefix-map)
+(define-key org-global-prefix-map (kbd "j") 'org-clock-jump-to-current-clock)
+(define-key org-global-prefix-map (kbd "l") 'org-clock-in-last)
+(define-key org-global-prefix-map (kbd "i") 'org-clock-in)
+(define-key org-global-prefix-map (kbd "o") 'org-clock-out)
+(define-key global-map (kbd "C-c o") org-global-prefix-map)
 
 
 ;; Various preferences
@@ -132,18 +131,18 @@ typical word processor."
 (advice-add 'org-refile :after (lambda (&rest _) (org-save-all-org-buffers)))
 
 ;; Exclude DONE state tasks from refile targets
-(defun sanityinc/verify-refile-target ()
+(defun verify-refile-target ()
   "Exclude todo keywords with a done state from refile targets."
   (not (member (nth 2 (org-heading-components)) org-done-keywords)))
-(setq org-refile-target-verify-function 'sanityinc/verify-refile-target)
+(setq org-refile-target-verify-function 'verify-refile-target)
 
-(defun sanityinc/org-refile-anywhere (&optional goto default-buffer rfloc msg)
+(defun org-refile-anywhere (&optional goto default-buffer rfloc msg)
   "A version of `org-refile' which allows refiling to any subtree."
   (interactive "P")
   (let ((org-refile-target-verify-function))
 	(org-refile goto default-buffer rfloc msg)))
 
-(defun sanityinc/org-agenda-refile-anywhere (&optional goto rfloc no-update)
+(defun org-agenda-refile-anywhere (&optional goto rfloc no-update)
   "A version of `org-agenda-refile' which allows refiling to any subtree."
   (interactive "P")
   (let ((org-refile-target-verify-function))
@@ -286,15 +285,16 @@ typical word processor."
 
 
 ;;; Show the clocked-in task - if any - in the header line
-(defun sanityinc/show-org-clock-in-header-line ()
+(defun show-org-clock-in-header-line ()
   (setq-default header-line-format '((" " org-mode-line-string " "))))
 
-(defun sanityinc/hide-org-clock-from-header-line ()
+(defun hide-org-clock-from-header-line ()
   (setq-default header-line-format nil))
 
-(add-hook 'org-clock-in-hook 'sanityinc/show-org-clock-in-header-line)
-(add-hook 'org-clock-out-hook 'sanityinc/hide-org-clock-from-header-line)
-(add-hook 'org-clock-cancel-hook 'sanityinc/hide-org-clock-from-header-line)
+(add-hook 'org-clock-in-hook 'show-org-clock-in-header-line)
+(add-hook 'org-clock-out-hook 'hide-org-clock-from-header-line)
+(add-hook 'org-clock-cancel-hook '
+		  hide-org-clock-from-header-line)
 
 (with-eval-after-load 'org-clock
   (define-key org-clock-mode-line-map [header-line mouse-2] 'org-clock-goto)
@@ -305,10 +305,10 @@ typical word processor."
 (when (and *is-a-mac* (file-directory-p "/Applications/org-clock-statusbar.app"))
   (add-hook 'org-clock-in-hook
 			(lambda () (call-process "/usr/bin/osascript" nil 0 nil "-e"
-								(concat "tell application \"org-clock-statusbar\" to clock in \"" org-clock-current-task "\""))))
+									 (concat "tell application \"org-clock-statusbar\" to clock in \"" org-clock-current-task "\""))))
   (add-hook 'org-clock-out-hook
 			(lambda () (call-process "/usr/bin/osascript" nil 0 nil "-e"
-								"tell application \"org-clock-statusbar\" to clock out"))))
+									 "tell application \"org-clock-statusbar\" to clock out"))))
 
 
 
@@ -354,6 +354,14 @@ typical word processor."
 
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
+(require 'toc-org)
+(if (require 'toc-org nil t)
+	(add-hook 'org-mode-hook 'toc-org-mode)
+
+  ;; enable in markdown, too
+  (add-hook 'markdown-mode-hook 'toc-org-mode)
+  (define-key markdown-mode-map (kbd "\C-c\C-o") 'toc-org-markdown-follow-thing-at-point))
 
 (provide 'init-org)
 ;;; init-org.el ends here

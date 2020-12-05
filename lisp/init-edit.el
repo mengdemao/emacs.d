@@ -10,9 +10,6 @@
 
 (maybe-require-package 'list-unicode-display)
 
-;; 高亮括号
-(require 'highlight-parentheses)
-(highlight-parentheses-mode 1)
 
 ;;; Some basic preferences
 
@@ -37,11 +34,6 @@
  truncate-lines nil
  truncate-partial-width-windows nil)
 
-(add-hook 'after-init-hook 'global-auto-revert-mode)
-(setq global-auto-revert-non-file-buffers t
-	  auto-revert-verbose nil)
-(with-eval-after-load 'autorevert
-  (diminish 'auto-revert-mode))
 
 (add-hook 'after-init-hook 'transient-mark-mode)
 

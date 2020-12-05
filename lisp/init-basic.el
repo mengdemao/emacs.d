@@ -192,4 +192,14 @@
 	  sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
 	  sentence-end-double-space nil)
 
+;; 高亮括号
+(require 'highlight-parentheses)
+(highlight-parentheses-mode 1)
+
+(add-hook 'after-init-hook 'global-auto-revert-mode)
+(setq global-auto-revert-non-file-buffers t
+	  auto-revert-verbose nil)
+(with-eval-after-load 'autorevert
+  (diminish 'auto-revert-mode))
+
 (provide 'init-basic)
