@@ -78,6 +78,7 @@ Your installed Emacs reports:
 (require 'init-flycheck)
 (require 'init-term)
 (require 'init-org)
+(require 'init-magit)
 
 ;; server模式启动
 (add-hook 'after-init-hook
