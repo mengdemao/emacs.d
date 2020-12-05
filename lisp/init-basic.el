@@ -17,7 +17,7 @@
 		  (set-fontset-font (frame-parameter nil 'font) charset
 							(font-spec :family chinese :size chinese-size))))))
 
-(set-font   "Source Code Pro" "Source Sans Pro" 18 18)
+(set-font   "Source Code Pro" "Source Sans Pro" 20 20)
 
 (setq backup-inhibited -1)                                        ;;不产生备份;
 

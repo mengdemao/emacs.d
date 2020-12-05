@@ -3,9 +3,10 @@
 ;;; Code:
 
 (add-to-list 'custom-theme-load-path (expand-file-name "themes/" user-emacs-directory))
+(setq custom-safe-themes t)
 
 (load-theme 'monokai t)
-(load-theme 'zenburn t)
+;; (load-theme 'zenburn t)
 ;; (load-theme 'grandshell t)
 ;; (load-theme 'cyberpunk t)
 ;; (load-theme 'gruvbox t)
@@ -29,7 +30,6 @@
 	  monokai-red            "#E06C75"
 	  monokai-orange         "#D19A66"
 	  monokai-yellow         "#E5C07B")
-
 
 (provide 'init-themes)
 ;; init-elpa.el ends here

@@ -10,6 +10,9 @@
 
 (maybe-require-package 'list-unicode-display)
 
+;; 高亮括号
+(require 'highlight-parentheses)
+(highlight-parentheses-mode 1)
 
 ;;; Some basic preferences
 
@@ -36,7 +39,7 @@
 
 (add-hook 'after-init-hook 'global-auto-revert-mode)
 (setq global-auto-revert-non-file-buffers t
-      auto-revert-verbose nil)
+	  auto-revert-verbose nil)
 (with-eval-after-load 'autorevert
   (diminish 'auto-revert-mode))
 
@@ -55,9 +58,9 @@
   "Find file at point with VLF."
   (interactive)
   (let ((file (ffap-file-at-point)))
-    (unless (file-exists-p file)
-      (error "File does not exist: %s" file))
-    (vlf file)))
+	(unless (file-exists-p file)
+	  (error "File does not exist: %s" file))
+	(vlf file)))
 
 
 ;;; A simple visible bell which works in all terminal types
@@ -99,10 +102,10 @@
   (global-set-key [remap goto-line] 'goto-line-preview)
 
   (when (fboundp 'display-line-numbers-mode)
-    (defun sanityinc/with-display-line-numbers (f &rest args)
-      (let ((display-line-numbers t))
-	(apply f args)))
-    (advice-add 'goto-line-preview :around #'sanityinc/with-display-line-numbers)))
+	(defun sanityinc/with-display-line-numbers (f &rest args)
+	  (let ((display-line-numbers t))
+		(apply f args)))
+	(advice-add 'goto-line-preview :around #'sanityinc/with-display-line-numbers)))
 
 
 
@@ -119,13 +122,13 @@
 
 (when (maybe-require-package 'symbol-overlay)
   (dolist (hook '(prog-mode-hook html-mode-hook yaml-mode-hook conf-mode-hook))
-    (add-hook hook 'symbol-overlay-mode))
+	(add-hook hook 'symbol-overlay-mode))
   (with-eval-after-load 'symbol-overlay
-    (diminish 'symbol-overlay-mode)
-    (define-key symbol-overlay-mode-map (kbd "M-i") 'symbol-overlay-put)
-    (define-key symbol-overlay-mode-map (kbd "M-I") 'symbol-overlay-remove-all)
-    (define-key symbol-overlay-mode-map (kbd "M-n") 'symbol-overlay-jump-next)
-    (define-key symbol-overlay-mode-map (kbd "M-p") 'symbol-overlay-jump-prev)))
+	(diminish 'symbol-overlay-mode)
+	(define-key symbol-overlay-mode-map (kbd "M-i") 'symbol-overlay-put)
+	(define-key symbol-overlay-mode-map (kbd "M-I") 'symbol-overlay-remove-all)
+	(define-key symbol-overlay-mode-map (kbd "M-n") 'symbol-overlay-jump-next)
+	(define-key symbol-overlay-mode-map (kbd "M-p") 'symbol-overlay-jump-prev)))
 
 
 ;;; Zap *up* to char is a handy pair for zap-to-char
@@ -183,8 +186,8 @@
   "Kill from point back to the first non-whitespace character on the line."
   (interactive)
   (let ((prev-pos (point)))
-    (back-to-indentation)
-    (kill-region (point) prev-pos)))
+	(back-to-indentation)
+	(kill-region (point) prev-pos)))
 
 (global-set-key (kbd "C-M-<backspace>") 'kill-back-to-indentation)
 
@@ -195,7 +198,7 @@
 (when (maybe-require-package 'page-break-lines)
   (add-hook 'after-init-hook 'global-page-break-lines-mode)
   (with-eval-after-load 'page-break-lines
-    (diminish 'page-break-lines-mode)))
+	(diminish 'page-break-lines-mode)))
 
 
 
@@ -219,10 +222,10 @@
   "Jump up to the start of the ARG'th enclosing sexp."
   (interactive "p")
   (let ((ppss (syntax-ppss)))
-    (cond ((elt ppss 3)
-	   (goto-char (elt ppss 8))
-	   (sanityinc/backward-up-sexp (1- arg)))
-	  ((backward-up-list arg)))))
+	(cond ((elt ppss 3)
+		   (goto-char (elt ppss 8))
+		   (sanityinc/backward-up-sexp (1- arg)))
+		  ((backward-up-list arg)))))
 
 (global-set-key [remap backward-up-list] 'sanityinc/backward-up-sexp) ; C-M-u, C-M-up
 
@@ -243,25 +246,25 @@ on the new line if the line would have been blank.
 With arg N, insert N newlines."
   (interactive "*p")
   (let* ((do-fill-prefix (and fill-prefix (bolp)))
-	 (do-left-margin (and (bolp) (> (current-left-margin) 0)))
-	 (loc (point-marker))
-	 ;; Don't expand an abbrev before point.
-	 (abbrev-mode nil))
-    (delete-horizontal-space t)
-    (newline n)
-    (indent-according-to-mode)
-    (when (eolp)
-      (delete-horizontal-space t))
-    (goto-char loc)
-    (while (> n 0)
-      (cond ((bolp)
-	     (if do-left-margin (indent-to (current-left-margin)))
-	     (if do-fill-prefix (insert-and-inherit fill-prefix))))
-      (forward-line 1)
-      (setq n (1- n)))
-    (goto-char loc)
-    (end-of-line)
-    (indent-according-to-mode)))
+		 (do-left-margin (and (bolp) (> (current-left-margin) 0)))
+		 (loc (point-marker))
+		 ;; Don't expand an abbrev before point.
+		 (abbrev-mode nil))
+	(delete-horizontal-space t)
+	(newline n)
+	(indent-according-to-mode)
+	(when (eolp)
+	  (delete-horizontal-space t))
+	(goto-char loc)
+	(while (> n 0)
+	  (cond ((bolp)
+			 (if do-left-margin (indent-to (current-left-margin)))
+			 (if do-fill-prefix (insert-and-inherit fill-prefix))))
+	  (forward-line 1)
+	  (setq n (1- n)))
+	(goto-char loc)
+	(end-of-line)
+	(indent-according-to-mode)))
 
 (global-set-key (kbd "C-o") 'sanityinc/open-line-with-reindent)
 
@@ -276,13 +279,13 @@ With arg N, insert N newlines."
   "Sort lines in region from BEG to END randomly."
   (interactive "r")
   (save-excursion
-    (save-restriction
-      (narrow-to-region beg end)
-      (goto-char (point-min))
-      (let ;; To make `end-of-line' and etc. to ignore fields.
-	  ((inhibit-field-text-motion t))
-	(sort-subr nil 'forward-line 'end-of-line nil nil
-		   (lambda (s1 s2) (eq (random 2) 0)))))))
+	(save-restriction
+	  (narrow-to-region beg end)
+	  (goto-char (point-min))
+	  (let ;; To make `end-of-line' and etc. to ignore fields.
+		  ((inhibit-field-text-motion t))
+		(sort-subr nil 'forward-line 'end-of-line nil nil
+				   (lambda (s1 s2) (eq (random 2) 0)))))))
 
 (require-package 'highlight-escape-sequences)
 (add-hook 'after-init-hook 'hes-mode)
@@ -297,9 +300,9 @@ With arg N, insert N newlines."
   "When running a macro, disable features that might be expensive.
 ORIG is the advised function, which is called with its ARGS."
   (let (post-command-hook
-	font-lock-mode
-	(tab-always-indent (or (eq 'complete tab-always-indent) tab-always-indent)))
-    (apply orig args)))
+		font-lock-mode
+		(tab-always-indent (or (eq 'complete tab-always-indent) tab-always-indent)))
+	(apply orig args)))
 
 (advice-add 'kmacro-call-macro :around 'sanityinc/disable-features-during-macro-call)
 

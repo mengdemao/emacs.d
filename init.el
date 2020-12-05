@@ -64,20 +64,22 @@ Your installed Emacs reports:
 (require 'init-site)
 (require 'init-elpa)
 (require 'init-basic)
+(require 'init-edit)
 (require 'init-gui)
 (require 'init-themes)
 (require 'init-compile)
 (require 'init-whitespace)
 (require 'init-cpp)
-(require 'init-swiper)
-(require 'init-org)
+;; (require 'init-swiper)
+(require 'init-helm)
 
 ;; 扩展配置
-(require 'init-company)
-(require 'init-git)
-(require 'init-svn)
-(require 'init-flycheck)
-(require 'init-term)
+;; (require 'init-company)
+;; (require 'init-git)
+;; (require 'init-svn)
+;; (require 'init-flycheck)
+;; (require 'init-term)
+;; (require 'init-org)
 
 ;; server模式启动
 (add-hook 'after-init-hook
