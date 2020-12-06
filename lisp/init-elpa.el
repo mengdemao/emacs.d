@@ -13,17 +13,17 @@
 
 (setq package-archives '
   (
-    ("gnu" . "http://mirrors.ustc.edu.cn/elpa/gnu/")
-    ("melpa" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
-    ("melpa-stable" . "http://mirrors.ustc.edu.cn/elpa/melpa-stable/")
-    ("org" . "http://mirrors.ustc.edu.cn/elpa/org/")))
+	("gnu" . "http://mirrors.ustc.edu.cn/elpa/gnu/")
+	("melpa" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
+	("melpa-stable" . "http://mirrors.ustc.edu.cn/elpa/melpa-stable/")
+	("org" . "http://mirrors.ustc.edu.cn/elpa/org/")))
 
 ;; Work-around for https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341
 (when
   (and
-    (version< emacs-version "26.3")
-    (boundp 'libgnutls-version)
-    (>= libgnutls-version 30604))
+	(version< emacs-version "26.3")
+	(boundp 'libgnutls-version)
+	(>= libgnutls-version 30604))
   (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
 
 ;;; On-demand installation of packages
@@ -34,19 +34,19 @@
 If NO-REFRESH is non-nil, the available package lists will not be
 re-downloaded in order to locate PACKAGE."
   (or
-    (package-installed-p package min-version)
-    (let*
-      (
+	(package-installed-p package min-version)
+	(let*
+	  (
 	(known
 	  (cdr
-	    (assoc package package-archive-contents)))
+		(assoc package package-archive-contents)))
 	(versions
 	  (mapcar #'package-desc-version known)))
-      (if
+	  (if
 	(cl-some
 	  (lambda
-	    (v)
-	    (version-list-<= min-version v)) versions)
+		(v)
+		(version-list-<= min-version v)) versions)
 	(package-install package)
 	(if no-refresh
 	  (error "No version of %s >= %S is available" package min-version)
@@ -61,9 +61,9 @@ Optionally require MIN-VERSION.  If NO-REFRESH is non-nil, the
 available package lists will not be re-downloaded in order to
 locate PACKAGE."
   (condition-case err
-    (require-package package min-version no-refresh)
-    (error
-      (message "Couldn't install optional package `%s': %S" package err)
+	(require-package package min-version no-refresh)
+	(error
+	  (message "Couldn't install optional package `%s': %S" package err)
 nil)))
 
 
@@ -72,7 +72,9 @@ nil)))
 (setq package-enable-at-startup nil)
 (package-initialize)
 
-
+;; 关闭校验
+(setq package-check-signatures nil)
+
 ;; package.el updates the saved version of package-selected-packages correctly only
 ;; after custom-file has been loaded, which is a bug. We work around this by adding
 ;; the required packages to package-selected-packages after startup is complete.
@@ -86,12 +88,12 @@ The package name is noted by adding it to
 `sanityinc/required-packages'.  This function is used as an
 advice for `require-package', to which ARGS are passed."
   (let
-    (
-      (available
+	(
+	  (available
 	(apply oldfun package args)))
-    (prog1
+	(prog1
 available
-      (when available
+	  (when available
 	(add-to-list 'sanityinc/required-packages package)))))
 
 (advice-add 'require-package :around 'sanityinc/note-selected-package)
@@ -100,9 +102,9 @@ available
   (fboundp 'package--save-selected-packages)
   (require-package 'seq)
   (add-hook 'after-init-hook
-    (lambda
-      ()
-      (package--save-selected-packages
+	(lambda
+	  ()
+	  (package--save-selected-packages
 	(seq-uniq
 	  (append sanityinc/required-packages package-selected-packages))))))
 
@@ -113,7 +115,7 @@ available
 
 (let
   (
-    (package-check-signature nil))
+	(package-check-signature nil))
   (require-package 'gnu-elpa-keyring-update))
 
 
@@ -121,29 +123,29 @@ available
   (col-name width)
 "Set any column with name COL-NAME to the given WIDTH."
   (when
-    (> width
-      (length col-name))
-    (cl-loop for column across tabulated-list-format
+	(> width
+	  (length col-name))
+	(cl-loop for column across tabulated-list-format
 when
-      (string= col-name
+	  (string= col-name
 	(car column))
 do
-      (setf
+	  (setf
 	(elt column 1) width))))
 
 (defun sanityinc/maybe-widen-package-menu-columns
   ()
 "Widen some columns of the package menu table to avoid truncation."
   (when
-    (boundp 'tabulated-list-format)
-    (sanityinc/set-tabulated-list-column-width "Version" 13)
-    (let
-      (
+	(boundp 'tabulated-list-format)
+	(sanityinc/set-tabulated-list-column-width "Version" 13)
+	(let
+	  (
 	(longest-archive-name
 	  (apply 'max
-	    (mapcar 'length
-	      (mapcar 'car package-archives)))))
-      (sanityinc/set-tabulated-list-column-width "Archive" longest-archive-name))))
+		(mapcar 'length
+		  (mapcar 'car package-archives)))))
+	  (sanityinc/set-tabulated-list-column-width "Archive" longest-archive-name))))
 
 (add-hook 'package-menu-mode-hook 'sanityinc/maybe-widen-package-menu-columns)
 

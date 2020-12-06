@@ -72,10 +72,11 @@ Your installed Emacs reports:
 (require 'init-helm)
 
 ;; 扩展配置
+(require 'init-server)
 (require 'init-company)
+(require 'init-flycheck)
 (require 'init-git)
 (require 'init-svn)
-(require 'init-flycheck)
 (require 'init-term)
 (require 'init-org)
 (require 'init-magit)

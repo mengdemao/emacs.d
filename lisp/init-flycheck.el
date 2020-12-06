@@ -1,18 +1,16 @@
-;;; init-flycheck.el --- Configure Flycheck global behaviour -*- lexical-binding: t -*-
-;;; Commentary:
-;;; Code:
+;; On-the-fly syntax checking
+(use-package flycheck
+  :ensure t
+  :diminish flycheck-mode
+  :init (global-flycheck-mode t))
 
-(use-package flycheck-color-mode-line
-  :ensure t)
+(use-package flycheck-ycmd
+  :commands (flycheck-ycmd-setup)
+  :init (add-hook 'ycmd-mode-hook 'flycheck-ycmd-setup))
 
-(when (require 'flycheck)
-  (add-hook 'after-init-hook 'global-flycheck-mode)
-  (setq flycheck-display-errors-function #'flycheck-display-error-messages-unless-error-list)
-
-  (when (require 'flycheck-color-mode-line)
-	(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)))
-
-(setq flycheck-emacs-lisp-load-path 'inherit)
+;; Show argument list in echo area
+(use-package eldoc
+  :diminish eldoc-mode
+  :init (add-hook 'ycmd-mode-hook 'ycmd-eldoc-setup))
 
 (provide 'init-flycheck)
-;;; init-flycheck.el ends here
