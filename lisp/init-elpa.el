@@ -72,8 +72,6 @@ nil)))
 (setq package-enable-at-startup nil)
 (package-initialize)
 
-;; 关闭校验
-(setq package-check-signatures nil)
 
 ;; package.el updates the saved version of package-selected-packages correctly only
 ;; after custom-file has been loaded, which is a bug. We work around this by adding
@@ -112,7 +110,6 @@ available
 (require 'fullframe)
 (fullframe list-packages quit-window)
 
-
 (let
   (
 	(package-check-signature nil))
