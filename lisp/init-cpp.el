@@ -63,5 +63,7 @@
 (require 'doxymacs)
 (add-hook 'c-mode-common-hook 'doxymacs-mode)
 (add-hook 'c++-mode-common-hook 'doxymacs-mode)
+(add-hook 'asm-mode-common-hook 'doxymacs-mode)
 
 (provide 'init-cpp)
+;;; init-cpp.el ends here

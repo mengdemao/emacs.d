@@ -1,5 +1,5 @@
 (use-package vterm
-  :ensure nil)
+  :ensure t)
 
 (provide 'init-term)
 ;;; init-term ends here

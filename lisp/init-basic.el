@@ -59,16 +59,16 @@
 (setq backward-delete-char-untabify-method nil)             ;;tab退格删除
 (add-hook 'before-save-hook 'delete-trailing-whitespace) ;;关闭时自动删除多余空格
 
-(global-font-lock-mode 1)        ;; 开启语法高亮
-(setq mouse-avoidance-mode 'animate)  ;; 鼠标自动避开指针
-(setq blink-cursor-mode -1)      ;; 指针停止闪动
+(global-font-lock-mode 1)			 ;; 开启语法高亮
+(setq mouse-avoidance-mode 'animate) ;; 鼠标自动避开指针
+(setq blink-cursor-mode -1)			 ;; 指针停止闪动
 (setq transient-mark-mode 1)         ;; 高亮显示要拷贝的内容
-;;(setq show-paren-mode 1)					;; 当指针到一个括号时，自动显示所匹配的另一个括号
-(setq mouse-wheel-mode t) ;; 是用滚轴鼠标
-(setq track-eol t) ;; 当光标在行尾上下移动的时候，始终保持在行尾。
-(setq transient-mark-mode t)                ;;
-(setq visible-bell t)                   ;;
-(fset 'yes-or-no-p'y-or-n-p)                ;;
+(setq show-paren-mode 1)	 ;; 当指针到一个括号时，自动显示所匹配的另一个括号
+(setq mouse-wheel-mode t)	 ;; 是用滚轴鼠标
+(setq track-eol t)			 ;; 当光标在行尾上下移动的时候，始终保持在行尾。
+(setq transient-mark-mode t) ;;
+(setq visible-bell t)		 ;;
+(fset 'yes-or-no-p'y-or-n-p) ;;
 (setq-default initial-major-mode 'fundamental-mode) ;; 设计启动为普通模式
 (setq make-backup-files nil)                ;;
 (setq auto-save-mode nil)               ;;
@@ -89,12 +89,8 @@
 (setq display-line-numbers "%4d \u2502")
 
 ;; 设置按键映射
-(global-set-key [(f12)] 'ecb-activate)         ;;定义F12键为激活ecb
-(global-set-key [(C-f12)] 'ecb-deactivate)     ;;定义Ctrl+F12为停止ecb
 (global-set-key [(f11)] 'delete-other-windows) ;;设置F11为删除其它窗口
 (global-set-key [(meta return)] 'semantic-ia-complete-symbol-menu) ;;设置Alt+Enter为自动补全菜单
-(global-set-key [C-\;] 'ecb-goto-window-edit-last)    ;;切换到编辑窗口
-(global-set-key [C-\'] 'ecb-goto-window-methods)      ;;切换到函数窗口
 (global-set-key [C-.] 'cscope-find-global-definition) ;;搜索定义
 (global-set-key [remap kill-buffer] #'kill-this-buffer)	;;C-c k 关闭 buffer 时不需要询问
 (global-set-key "\C-x\C-n" 'next-buffer) ;; 下一个buffer

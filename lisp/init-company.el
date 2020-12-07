@@ -35,6 +35,10 @@
   :config
   (add-to-list 'company-backends 'company-irony))
 
+;; Tabnine补全
+(use-package company-tabnine
+  :ensure t)
+
 ;; 头文件补全
 (use-package company-c-headers
   :ensure t

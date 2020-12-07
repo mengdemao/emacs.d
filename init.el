@@ -19,18 +19,19 @@
 
 ;;; Code:
 
-(when (or (< emacs-major-version 26)
-	  (and (= emacs-major-version 26)
-		   (< emacs-minor-version 1)))
-  (x-popup-dialog t `(,(format "Sorry, you need GNU Emacs version 26.6 or higher
-to run Dema Emacs.
+;; (when (or (< emacs-major-version 26)
+;;	  (and (= emacs-major-version 26)
+;;		   (< emacs-minor-version 1)))
+;;   (x-popup-dialog t `(,(format "Sorry, you need GNU Emacs version 26.6 or higher
+;; to run Dema Emacs.
 
-Your installed Emacs reports:
-%s" (emacs-version))
-			  ("OK :(" . t)))
-  (save-buffers-kill-emacs t))
+;; Your installed Emacs reports:
+;; %s" (emacs-version))
+;;			  ("OK :(" . t)))
+;;   (save-buffers-kill-emacs t))
 
 ;; 版本号
+
 (setq-default MAJOR_VERSION "1")
 (setq-default MINOR_VERSION "3")
 (setq-default PATCH_VERSION "2")
@@ -69,16 +70,22 @@ Your installed Emacs reports:
 (require 'init-compile)
 (require 'init-whitespace)
 (require 'init-cpp)
+
+;; 增强配置
+;; (require 'init-swiper)
 (require 'init-helm)
+(require 'init-project)
+(require 'init-org)
+(require 'init-evil)
 
 ;; 扩展配置
 (require 'init-server)
 (require 'init-company)
 (require 'init-flycheck)
+
 (require 'init-git)
 (require 'init-svn)
 (require 'init-term)
-(require 'init-org)
 (require 'init-magit)
 
 ;; server模式启动

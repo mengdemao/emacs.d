@@ -1,1 +1,50 @@
-Emacs配置
+#+TITLE: emacs配置文件
+#+AUTHOR: Meng Demao
+#+EMAIL: mengdemao19951021@163.com
+#+DATE: \today
+#+DESCRIPTION: emacs配置文件
+#+KEYWORDS: use-package
+#+LANGUAGE:  zh-CN
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+OPTIONS: author:t c:nil creator:comment d:(not LOGBOOK) date:t e:t
+#+OPTIONS: email:nil f:t inline:t num:t p:nil pri:nil stat:t tags:t
+#+OPTIONS: tasks:t tex:t timestamp:t toc:t todo:t |:t
+#+STARTUP: showeverything
+#+STARTUP: align
+#+EXCLUDE_TAGS: noexport
+#+SELECT_TAGS: export
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+#+html: <a href="http://opensource.org/licenses/GPL-3.0">
+#+html:   <img src="http://img.shields.io/:license-gpl-blue.svg" alt=":license-gpl-blue.svg" />
+#+html: </a>
+
+* 基础配置
+** 配置文件分析
+   + 基础配置
+	 - 维持可用的最小标准
+	 - 不需要下载代码
+	 - 速度最快
+   + 增强配置
+	 - 对最小功能添加补充
+	 - 不需要下载代码
+   + 扩展配置
+	 - 需要下载代码
+	 - 系统要求
+	 - 额外的程序配置
+
+** 配置文件结构
+*** lisp
+*** site
+*** snippets
+*** themes
+*** user
+
+** 用户自定义文件
+   #+BEGIN_SRC elisp
+   (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+   (add-to-list 'load-path (expand-file-name "user" user-emacs-directory))
+   #+END_SRC
+
+* 主题设置
+* 自动补全
+* 版本管理

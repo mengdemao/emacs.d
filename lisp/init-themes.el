@@ -6,9 +6,15 @@
 (setq custom-safe-themes t)
 
 (load-theme 'monokai t)
+;; 基础主题
 ;; (load-theme 'zenburn t)
 ;; (load-theme 'grandshell t)
 ;; (load-theme 'cyberpunk t)
+;; (load-theme 'dorsey t)
+;; (load-theme 'dracula t)
+;; (load-theme 'granger t)
+
+;; 扩展主题
 ;; (load-theme 'gruvbox t)
 
 (setq ;; foreground and background
