@@ -44,7 +44,7 @@
 (defconst *is-a-mac* (eq system-type 'darwin))
 
 ;; 设置调试模式
-(setq debug-on-error t)
+(setq debug-on-error nil)
 
 ;;设置垃圾回收缓存为1G,开启结束压缩,加速软件开启
 (defvar default-file-name-handler-alist file-name-handler-alist)
@@ -60,8 +60,16 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+;; 自动更新配置文件
+(defun auto-update()
+  "Autoupdate local git repository .emacs.d."
+  (interactive)
+  (compilation-start "cd ~/.emacs.d && git pull"))
+(define-key global-map (kbd "<f12>") 'auto-update)
+
 ;; 基础配置
 (require 'init-user)
+(require 'init-const)
 (require 'init-site)
 (require 'init-elpa)
 (require 'init-basic)

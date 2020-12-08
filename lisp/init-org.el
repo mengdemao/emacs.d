@@ -26,6 +26,9 @@
 (add-to-list 'load-path (expand-file-name "site/org-mode/lisp/contrib/lisp" user-emacs-directory))
 (require 'org-install)
 
+;; 禁止下划线转义
+(setq org-export-with-sub-superscripts nil)
+
 (define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)
 
@@ -362,6 +365,9 @@ typical word processor."
   ;; enable in markdown, too
   (add-hook 'markdown-mode-hook 'toc-org-mode)
   (define-key markdown-mode-map (kbd "\C-c\C-o") 'toc-org-markdown-follow-thing-at-point))
+
+;; 加载orgmode预览
+(require 'org-preview-html)
 
 (provide 'init-org)
 ;;; init-org.el ends here

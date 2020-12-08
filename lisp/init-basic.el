@@ -6,18 +6,31 @@
 							   "]" " @ " '(buffer-file-name "%f" (dired-directory dired-directory
 																				  "%b"))))
 
-;;中文与外文字体设置
-(defun set-font (english chinese english-size chinese-size)
-  "Set fonts."
-  (if (display-graphic-p)
-	  (progn
-		(set-face-attribute 'default nil :font
-							(format   "%s:pixelsize=%d"  english english-size))
-		(dolist (charset '(kana han symbol cjk-misc bopomofo))
-		  (set-fontset-font (frame-parameter nil 'font) charset
-							(font-spec :family chinese :size chinese-size))))))
+;; ;;中文与外文字体设置
+;; (defun set-font (english chinese english-size chinese-size)
+;;   "Set fonts."
+;;   (if (display-graphic-p)
+;;	  (progn
+;;		(set-face-attribute 'default nil :font
+;;							(format   "%s:pixelsize=%d"  english english-size))
+;;		(dolist (charset '(kana han symbol cjk-misc bopomofo))
+;;		  (set-fontset-font (frame-parameter nil 'font) charset
+;;							(font-spec :family chinese :size chinese-size))))))
 
-(set-font   "Source Code Pro" "Source Sans Pro" 20 20)
+;; (set-font   "Source Code Pro" "Source Sans Pro" 20 20)
+
+;;中英文字体设置
+;; ------------------------------------------------------------------------------
+(if (display-graphic-p)
+	(progn
+	  ;; Setting English Font
+	  (set-face-attribute 'default nil :font "Source Code Pro 12")
+	  ;; Chinese Font
+	  (dolist (charset '(kana han symbol cjk-misc bopomofo))
+		(set-fontset-font (frame-parameter nil 'font)
+						  charset (font-spec :family "新宋体"
+											 :size 16)))
+	  ))
 
 (setq backup-inhibited -1)                                        ;;不产生备份;
 
@@ -105,12 +118,6 @@
 (global-set-key [(meta p)] 'backward-paragraph)	;;上一个段落
 (global-set-key [(meta n)] 'forward-paragraph)	;;下一个段落
 
-(defun config-update()
-  "Autoupdate local git repository .emacs.d."
-  (interactive)
-  (compilation-start "cd ~/.emacs.d && git pull origin master"))
-(define-key global-map (kbd "<f2>") 'config-update)
-
 ;; History
 (use-package saveplace
   :ensure nil
@@ -154,8 +161,6 @@
 		track-eol t                     ; Keep cursor at end of lines. Require line-move-visual is nil.
 		set-mark-command-repeat-pop t)  ; Repeating C-SPC after popping mark pops it again
 
-  ;; Visualize TAB, (HARD) SPACE, NEWLINE
-  (setq-default show-trailing-whitespace nil) ; Don't show trailing whitespace by default
   (defun enable-trailing-whitespace ()
 	"Show trailing spaces and delete on saving."
 	(setq show-trailing-whitespace t)
@@ -197,5 +202,7 @@
 	  auto-revert-verbose nil)
 (with-eval-after-load 'autorevert
   (diminish 'auto-revert-mode))
+
+(require 'tramp)
 
 (provide 'init-basic)
