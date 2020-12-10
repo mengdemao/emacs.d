@@ -303,17 +303,6 @@ typical word processor."
   (define-key org-clock-mode-line-map [header-line mouse-2] 'org-clock-goto)
   (define-key org-clock-mode-line-map [header-line mouse-1] 'org-clock-menu))
 
-
-
-(when (and *is-a-mac* (file-directory-p "/Applications/org-clock-statusbar.app"))
-  (add-hook 'org-clock-in-hook
-			(lambda () (call-process "/usr/bin/osascript" nil 0 nil "-e"
-									 (concat "tell application \"org-clock-statusbar\" to clock in \"" org-clock-current-task "\""))))
-  (add-hook 'org-clock-out-hook
-			(lambda () (call-process "/usr/bin/osascript" nil 0 nil "-e"
-									 "tell application \"org-clock-statusbar\" to clock out"))))
-
-
 
 ;; TODO: warn about inconsistent items, e.g. TODO inside non-PROJECT
 ;; TODO: nested projects!

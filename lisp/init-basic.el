@@ -6,31 +6,31 @@
 							   "]" " @ " '(buffer-file-name "%f" (dired-directory dired-directory
 																				  "%b"))))
 
-;; ;;中文与外文字体设置
-;; (defun set-font (english chinese english-size chinese-size)
-;;   "Set fonts."
-;;   (if (display-graphic-p)
-;;	  (progn
-;;		(set-face-attribute 'default nil :font
-;;							(format   "%s:pixelsize=%d"  english english-size))
-;;		(dolist (charset '(kana han symbol cjk-misc bopomofo))
-;;		  (set-fontset-font (frame-parameter nil 'font) charset
-;;							(font-spec :family chinese :size chinese-size))))))
+;;中文与外文字体设置
+(defun set-font (english chinese english-size chinese-size)
+  "Set fonts."
+  (if (display-graphic-p)
+	  (progn
+		(set-face-attribute 'default nil :font
+							(format   "%s:pixelsize=%d"  english english-size))
+		(dolist (charset '(kana han symbol cjk-misc bopomofo))
+		  (set-fontset-font (frame-parameter nil 'font) charset
+							(font-spec :family chinese :size chinese-size))))))
 
-;; (set-font   "Source Code Pro" "Source Sans Pro" 20 20)
+(set-font   "YaHei Consolas Hybrid" "YaHei Consolas Hybrid" 17 18)
 
-;;中英文字体设置
-;; ------------------------------------------------------------------------------
-(if (display-graphic-p)
-	(progn
-	  ;; Setting English Font
-	  (set-face-attribute 'default nil :font "Source Code Pro 12")
-	  ;; Chinese Font
-	  (dolist (charset '(kana han symbol cjk-misc bopomofo))
-		(set-fontset-font (frame-parameter nil 'font)
-						  charset (font-spec :family "新宋体"
-											 :size 16)))
-	  ))
+;; ;;中英文字体设置
+;; ;; ------------------------------------------------------------------------------
+;; (if (display-graphic-p)
+;;	(progn
+;;	  ;; Setting English Font
+;;	  (set-face-attribute 'default nil :font "Source Code Pro 12")
+;;	  ;; Chinese Font
+;;	  (dolist (charset '(kana han symbol cjk-misc bopomofo))
+;;		(set-fontset-font (frame-parameter nil 'font)
+;;						  charset (font-spec :family "新宋体"
+;;											 :size 16)))
+;;	  ))
 
 (setq backup-inhibited -1)                                        ;;不产生备份;
 
@@ -72,7 +72,9 @@
 (setq backward-delete-char-untabify-method nil)             ;;tab退格删除
 (add-hook 'before-save-hook 'delete-trailing-whitespace) ;;关闭时自动删除多余空格
 
+(require 'font-lock+)
 (global-font-lock-mode 1)			 ;; 开启语法高亮
+
 (setq mouse-avoidance-mode 'animate) ;; 鼠标自动避开指针
 (setq blink-cursor-mode -1)			 ;; 指针停止闪动
 (setq transient-mark-mode 1)         ;; 高亮显示要拷贝的内容

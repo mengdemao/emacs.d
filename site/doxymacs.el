@@ -1,4 +1,3 @@
-;;; -*-emacs-lisp-*-
 ;;; doxymacs.el --- ELisp package for making doxygen related stuff easier.
 ;;
 ;;
@@ -115,11 +114,11 @@
 
 ;; Change log:
 ;;
-;; 10/06/2007 - version 1.8.0 
+;; 10/06/2007 - version 1.8.0
 ;; 02/02/2007 - bug #1490021: Allow spaces in @param [in] documentation.
 ;;              bug #1496399: Allow for different ways of user-mail-address
 ;;              to be defined.
-;; 22/04/2006 - feature #1338245: Add tokens to filladapt to match 
+;; 22/04/2006 - feature #1338245: Add tokens to filladapt to match
 ;;              doxygen markup.
 ;;            - version 1.7.0
 ;; 04/06/2005 - version 1.6.0
@@ -273,12 +272,12 @@ http://someplace.com/doc/foo/foo.xml, and all the files in
 file:///home/me/project/bar/doc/ and the XML tags file is at
 /home/me/project/bar/doc/bar.xml, then you would set this list to
 
-    '((\"^/home/me/project/foo/\"
-       \"http://someplace.com/doc/foo/foo.xml\"
-       \"http://someplace.com/doc/foo/\")
-      (\"^/home/me/project/bar/\"
-       \"~/project/bar/doc/bar.xml\"
-       \"file:///home/me/project/bar/doc/\"))"
+	'((\"^/home/me/project/foo/\"
+	   \"http://someplace.com/doc/foo/foo.xml\"
+	   \"http://someplace.com/doc/foo/\")
+	  (\"^/home/me/project/bar/\"
+	   \"~/project/bar/doc/bar.xml\"
+	   \"file:///home/me/project/bar/doc/\"))"
   :type 'list
   :group 'doxymacs)
 
@@ -439,7 +438,7 @@ by `doxymacs-doxygen-style' will be used."
 The structure is as follows:
 
  ( (dir1 . (symbol-1 . ((description-1a . url-1a) (description-1b . url-1b)))
-           (symbol-2 . ((description-2a . url-2a))))
+		   (symbol-2 . ((description-2a . url-2a))))
    ... )
 
 where
@@ -480,15 +479,15 @@ Key bindings:
 \\{doxymacs-mode-map}"
   (interactive "P")
   (setq doxymacs-mode
-        (if (null arg)
-            ;; Toggle mode
-            (not doxymacs-mode)
-          ;; Enable/Disable according to arg
-          (> (prefix-numeric-value arg) 0)))
+		(if (null arg)
+			;; Toggle mode
+			(not doxymacs-mode)
+		  ;; Enable/Disable according to arg
+		  (> (prefix-numeric-value arg) 0)))
   (when doxymacs-mode
-    (when (boundp 'filladapt-token-table)
-      ;; add tokens to filladapt to match doxygen markup
-      (let ((bullet-regexp "[@\\]\\(param\\(?:\\s-*\\[\\(?:in\\|out\\|in,out\\)\\]\\)?\\s-+\\sw+\\|return\\)"))
+	(when (boundp 'filladapt-token-table)
+	  ;; add tokens to filladapt to match doxygen markup
+	  (let ((bullet-regexp "[@\\]\\(param\\(?:\\s-*\\[\\(?:in\\|out\\|in,out\\)\\]\\)?\\s-+\\sw+\\|return\\)"))
 	(unless (assoc bullet-regexp filladapt-token-table)
 	  (setq filladapt-token-table
 		(append filladapt-token-table
@@ -520,11 +519,11 @@ Key bindings:
 
 ;;;###autoload
 (or (assoc 'doxymacs-mode minor-mode-alist)
-    (setq minor-mode-alist
+	(setq minor-mode-alist
 	  (cons '(doxymacs-mode " doxy") minor-mode-alist)))
 
 (or (assoc 'doxymacs-mode minor-mode-map-alist)
-    (setq minor-mode-map-alist
+	(setq minor-mode-map-alist
 	  (cons (cons 'doxymacs-mode doxymacs-mode-map)
 		minor-mode-map-alist)))
 
@@ -534,123 +533,123 @@ Key bindings:
 (defconst doxymacs-doxygen-keywords
   (list
    (list
-    ;; One shot keywords that take no arguments
-    (concat "\\([@\\\\]\\(brief\\|li\\|\\(end\\)?code\\|sa"
-	    "\\|note\\|\\(end\\)?verbatim\\|return\\|arg\\|fn"
-	    "\\|hideinitializer\\|showinitializer"
-	    ;; FIXME
-	    ;; How do I get & # < > % to work?
-	    ;;"\\|\\\\&\\|\\$\\|\\#\\|<\\|>\\|\\%"
-	    "\\|\\$"
-	    "\\|internal\\|nosubgrouping\\|author\\|date\\|endif"
-	    "\\|invariant\\|post\\|pre\\|remarks\\|since\\|test\\|version"
-	    "\\|\\(end\\)?htmlonly\\|\\(end\\)?latexonly\\|f\\$\\|file"
-	    "\\|\\(end\\)?xmlonly\\|\\(end\\)?manonly\\|property"
-	    "\\|mainpage\\|name\\|overload\\|typedef\\|deprecated\\|par"
-	    "\\|addindex\\|line\\|skip\\|skipline\\|until\\|see"
-	    "\\|endlink\\|callgraph\\|endcond\\|else\\)\\)\\>")
-    '(0 font-lock-keyword-face prepend))
+	;; One shot keywords that take no arguments
+	(concat "\\([@\\\\]\\(brief\\|li\\|\\(end\\)?code\\|sa"
+		"\\|note\\|\\(end\\)?verbatim\\|return\\|arg\\|fn"
+		"\\|hideinitializer\\|showinitializer"
+		;; FIXME
+		;; How do I get & # < > % to work?
+		;;"\\|\\\\&\\|\\$\\|\\#\\|<\\|>\\|\\%"
+		"\\|\\$"
+		"\\|internal\\|nosubgrouping\\|author\\|date\\|endif"
+		"\\|invariant\\|post\\|pre\\|remarks\\|since\\|test\\|version"
+		"\\|\\(end\\)?htmlonly\\|\\(end\\)?latexonly\\|f\\$\\|file"
+		"\\|\\(end\\)?xmlonly\\|\\(end\\)?manonly\\|property"
+		"\\|mainpage\\|name\\|overload\\|typedef\\|deprecated\\|par"
+		"\\|addindex\\|line\\|skip\\|skipline\\|until\\|see"
+		"\\|endlink\\|callgraph\\|endcond\\|else\\)\\)\\>")
+	'(0 font-lock-keyword-face prepend))
    ;; attention, warning, etc. given a different font
    (list
-    "\\([@\\\\]\\(attention\\|warning\\|todo\\|bug\\)\\)\\>"
-    '(0 font-lock-warning-face prepend))
+	"\\([@\\\\]\\(attention\\|warning\\|todo\\|bug\\)\\)\\>"
+	'(0 font-lock-warning-face prepend))
    ;; keywords that take a variable name as an argument
    (list
-    (concat "\\([@\\\\]\\(param\\(?:\\s-*\\[\\(?:in\\|out\\|in,out\\)\\]\\)?"
-	    "\\|a\\|namespace\\|relates\\(also\\)?"
-	    "\\|var\\|def\\)\\)\\s-+\\(\\sw+\\)")
-    '(1 font-lock-keyword-face prepend)
-    '(4 font-lock-variable-name-face prepend))
+	(concat "\\([@\\\\]\\(param\\(?:\\s-*\\[\\(?:in\\|out\\|in,out\\)\\]\\)?"
+		"\\|a\\|namespace\\|relates\\(also\\)?"
+		"\\|var\\|def\\)\\)\\s-+\\(\\sw+\\)")
+	'(1 font-lock-keyword-face prepend)
+	'(4 font-lock-variable-name-face prepend))
    ;; keywords that take a type name as an argument
    (list
-    (concat "\\([@\\\\]\\(class\\|struct\\|union\\|exception\\|enum"
-	    "\\|throw\\|interface\\|protocol\\)\\)\\s-+\\(\\(\\sw\\|:\\)+\\)")
-    '(1 font-lock-keyword-face prepend)
-    '(3 font-lock-type-face prepend))
+	(concat "\\([@\\\\]\\(class\\|struct\\|union\\|exception\\|enum"
+		"\\|throw\\|interface\\|protocol\\)\\)\\s-+\\(\\(\\sw\\|:\\)+\\)")
+	'(1 font-lock-keyword-face prepend)
+	'(3 font-lock-type-face prepend))
    ;; keywords that take a function name as an argument
    (list
-    "\\([@\\\\]retval\\)\\s-+\\([^ \t\n]+\\)"
-    '(1 font-lock-keyword-face prepend)
-    '(2 font-lock-function-name-face prepend))
+	"\\([@\\\\]retval\\)\\s-+\\([^ \t\n]+\\)"
+	'(1 font-lock-keyword-face prepend)
+	'(2 font-lock-function-name-face prepend))
    ;; bold
    (list
-    "\\([@\\\\]b\\)\\s-+\\([^ \t\n]+\\)"
-    '(1 font-lock-keyword-face prepend)
-    '(2 (quote bold) prepend))
+	"\\([@\\\\]b\\)\\s-+\\([^ \t\n]+\\)"
+	'(1 font-lock-keyword-face prepend)
+	'(2 (quote bold) prepend))
    ;; code
    (list
-    "\\([@\\\\][cp]\\)\\s-+\\([^ \t\n]+\\)"
-    '(1 font-lock-keyword-face prepend)
-    '(2 (quote underline) prepend))
+	"\\([@\\\\][cp]\\)\\s-+\\([^ \t\n]+\\)"
+	'(1 font-lock-keyword-face prepend)
+	'(2 (quote underline) prepend))
    ;; italics/emphasised
    (list
-    "\\([@\\\\]e\\(m\\)?\\)\\s-+\\([^ \t\n]+\\)"
-    '(1 font-lock-keyword-face prepend)
-    '(3 (quote italic) prepend))
+	"\\([@\\\\]e\\(m\\)?\\)\\s-+\\([^ \t\n]+\\)"
+	'(1 font-lock-keyword-face prepend)
+	'(3 (quote italic) prepend))
    ;; keywords that take a list
    (list
-    "\\([@\\\\]ingroup\\)\\s-+\\(\\(\\sw+\\s-*\\)+\\)\\s-*$"
-    '(1 font-lock-keyword-face prepend)
-    '(2 font-lock-string-face prepend))
+	"\\([@\\\\]ingroup\\)\\s-+\\(\\(\\sw+\\s-*\\)+\\)\\s-*$"
+	'(1 font-lock-keyword-face prepend)
+	'(2 font-lock-string-face prepend))
    ;; one argument that can contain arbitrary non-whitespace stuff
    (list
-    (concat "\\([@\\\\]\\(link\\|copydoc\\|xrefitem"
-	    "\\|if\\(not\\)?\\|elseif\\)\\)"
-	    "\\s-+\\([^ \t\n]+\\)")
-    '(1 font-lock-keyword-face prepend)
-    '(4 font-lock-string-face prepend))
+	(concat "\\([@\\\\]\\(link\\|copydoc\\|xrefitem"
+		"\\|if\\(not\\)?\\|elseif\\)\\)"
+		"\\s-+\\([^ \t\n]+\\)")
+	'(1 font-lock-keyword-face prepend)
+	'(4 font-lock-string-face prepend))
    ;; one optional argument that can contain arbitrary non-whitespace stuff
    (list
-    "\\([@\\\\]\\(cond\\|dir\\)\\(\\s-+[^ \t\n]+\\)?\\)"
-    '(1 font-lock-keyword-face prepend)
-    '(3 font-lock-string-face prepend t))
+	"\\([@\\\\]\\(cond\\|dir\\)\\(\\s-+[^ \t\n]+\\)?\\)"
+	'(1 font-lock-keyword-face prepend)
+	'(3 font-lock-string-face prepend t))
    ;; one optional argument with no space between
    (list
-    "\\([@\\\\]\\(~\\)\\([^ \t\n]+\\)?\\)"
-    '(1 font-lock-keyword-face prepend)
-    '(3 font-lock-string-face prepend t))
+	"\\([@\\\\]\\(~\\)\\([^ \t\n]+\\)?\\)"
+	'(1 font-lock-keyword-face prepend)
+	'(3 font-lock-string-face prepend t))
    ;; one argument that has to be a filename
    (list
-    (concat "\\([@\\\\]\\(example\\|\\(dont\\)?include\\|includelineno"
-	    "\\|htmlinclude\\|verbinclude\\)\\)\\s-+"
-	    "\\(\"?[~:\\/a-zA-Z0-9_. ]+\"?\\)")
-    '(1 font-lock-keyword-face prepend)
-    '(4 font-lock-string-face prepend))
+	(concat "\\([@\\\\]\\(example\\|\\(dont\\)?include\\|includelineno"
+		"\\|htmlinclude\\|verbinclude\\)\\)\\s-+"
+		"\\(\"?[~:\\/a-zA-Z0-9_. ]+\"?\\)")
+	'(1 font-lock-keyword-face prepend)
+	'(4 font-lock-string-face prepend))
    ;; dotfile <file> ["caption"]
    (list
-    (concat "\\([@\\\\]dotfile\\)\\s-+"
-	    "\\(\"?[~:\\/a-zA-Z0-9_. ]+\"?\\)\\(\\s-+\"[^\"]+\"\\)?")
-    '(1 font-lock-keyword-face prepend)
-    '(2 font-lock-string-face prepend)
-    '(3 font-lock-string-face prepend t))
+	(concat "\\([@\\\\]dotfile\\)\\s-+"
+		"\\(\"?[~:\\/a-zA-Z0-9_. ]+\"?\\)\\(\\s-+\"[^\"]+\"\\)?")
+	'(1 font-lock-keyword-face prepend)
+	'(2 font-lock-string-face prepend)
+	'(3 font-lock-string-face prepend t))
    ;; image <format> <file> ["caption"] [<sizeindication>=<size>]
    (list
-    "\\([@\\\\]image\\)\\s-+\\(html\\|latex\\)\\s-+\\(\"?[~:\\/a-zA-Z0-9_. ]+\"?\\)\\(\\s-+\"[^\"]+\"\\)?\\(\\s-+\\sw+=[0-9]+\\sw+\\)?"
-    '(1 font-lock-keyword-face prepend)
-    '(2 font-lock-string-face prepend)
-    '(3 font-lock-string-face prepend)
-    '(4 font-lock-string-face prepend t)
-    '(5 font-lock-string-face prepend t))
+	"\\([@\\\\]image\\)\\s-+\\(html\\|latex\\)\\s-+\\(\"?[~:\\/a-zA-Z0-9_. ]+\"?\\)\\(\\s-+\"[^\"]+\"\\)?\\(\\s-+\\sw+=[0-9]+\\sw+\\)?"
+	'(1 font-lock-keyword-face prepend)
+	'(2 font-lock-string-face prepend)
+	'(3 font-lock-string-face prepend)
+	'(4 font-lock-string-face prepend t)
+	'(5 font-lock-string-face prepend t))
    ;; one argument that has to be a word
    (list
-    (concat "\\([@\\\\]\\(addtogroup\\|defgroup\\|weakgroup"
-	    "\\|page\\|anchor\\|ref\\|section\\|subsection"
-	    "\\)\\)\\s-+\\(\\sw+\\)")
-    '(1 font-lock-keyword-face prepend)
-    '(3 font-lock-string-face prepend))))
+	(concat "\\([@\\\\]\\(addtogroup\\|defgroup\\|weakgroup"
+		"\\|page\\|anchor\\|ref\\|section\\|subsection"
+		"\\)\\)\\s-+\\(\\sw+\\)")
+	'(1 font-lock-keyword-face prepend)
+	'(3 font-lock-string-face prepend))))
 
 (defun doxymacs-font-lock ()
   "Turn on font-lock for Doxygen keywords."
   ;; FIXME How do I turn *off* font-lock for Doxygen keywords?
   (interactive)
   (if (functionp 'font-lock-add-keywords)
-      ;; Use new (proper?) font-lock-add-keywords function
-      (font-lock-add-keywords nil doxymacs-doxygen-keywords)
-    ;; Use old-school way
-    (let ((old (if (eq (car-safe font-lock-keywords) t)
+	  ;; Use new (proper?) font-lock-add-keywords function
+	  (font-lock-add-keywords nil doxymacs-doxygen-keywords)
+	;; Use old-school way
+	(let ((old (if (eq (car-safe font-lock-keywords) t)
 		 (cdr font-lock-keywords)
-	       font-lock-keywords)))
-      (setq font-lock-keywords (append old doxymacs-doxygen-keywords)))))
+		   font-lock-keywords)))
+	  (setq font-lock-keywords (append old doxymacs-doxygen-keywords)))))
 
 
 
@@ -666,8 +665,8 @@ Key bindings:
   "Lookup filename in one of our association lists and return associated
 element"
   (catch 'done
-    (while a
-      (if (string-match (caar a) f)
+	(while a
+	  (if (string-match (caar a) f)
 	  (throw 'done
 		 (cdar a))
 	(setq a (cdr a))))))
@@ -676,14 +675,14 @@ element"
   "Lookup filename in `doxymacs-doxygen-dirs' and return associated XML tags
 file."
   (let ((xml-url (doxymacs-filename-to-element f doxymacs-doxygen-dirs)))
-    (if xml-url
+	(if xml-url
 	(car xml-url))))
 
 (defun doxymacs-filename-to-url (f)
   "Lookup filename in `doxymacs-doxygen-dirs' and return associated Doxygen
 documentation URL root."
   (let ((xml-url (doxymacs-filename-to-element f doxymacs-doxygen-dirs)))
-    (if xml-url
+	(if xml-url
 	(cadr xml-url))))
 
 (defun doxymacs-filename-to-buffer (f)
@@ -698,20 +697,20 @@ completion list."
 (defun doxymacs-filename-to-dir (f)
   "Lookup filename in `doxymacs-doxygen-dirs' and return associated dir."
   (catch 'done
-    (let ((dirs doxymacs-doxygen-dirs))
-      (while dirs
+	(let ((dirs doxymacs-doxygen-dirs))
+	  (while dirs
 	(if (string-match (caar dirs) f)
-	    (throw 'done
+		(throw 'done
 		   (caar dirs))
 	  (setq dirs (cdr dirs)))))))
 
 (defun doxymacs-set-dir-element (dir l e)
   "Set the element associated with dir in l to e."
   (catch 'done
-    (while l
-      (let ((pair (car l)))
+	(while l
+	  (let ((pair (car l)))
 	(if (string= (car pair) dir)
-	    (throw 'done
+		(throw 'done
 		   (setcdr pair e))
 	  (setq l (cdr l)))))))
 
@@ -730,88 +729,88 @@ to comp-list."
   (let* ((urlobj (url-generic-parse-url url))
 	 (type (url-type urlobj))
 	 (exists nil))
-    (cond
-     ((equal type "http")
-      (cond
-       ;; Try url-file-exists, if it exists
-       ((fboundp 'url-file-exists)
+	(cond
+	 ((equal type "http")
+	  (cond
+	   ;; Try url-file-exists, if it exists
+	   ((fboundp 'url-file-exists)
 	(setq exists (url-file-exists url)))
-       ;; Otherwise, try url-file-exists-p (newer url.el)
-       ((fboundp 'url-file-exists-p)
+	   ;; Otherwise, try url-file-exists-p (newer url.el)
+	   ((fboundp 'url-file-exists-p)
 	(setq exists (url-file-exists-p url)))
-       ;; Otherwise, try wget
-       ((executable-find (if (eq system-type 'windows-nt) "wget.exe" "wget"))
+	   ;; Otherwise, try wget
+	   ((executable-find (if (eq system-type 'windows-nt) "wget.exe" "wget"))
 	(if (string-match "200 OK"
 			  (shell-command-to-string
 			   (concat "wget -S --spider " url)))
-	    (setq exists t)))
-       ;; Otherwise, try lynx
-       ((executable-find (if (eq system-type 'windows-nt) "lynx.exe" "lynx"))
+		(setq exists t)))
+	   ;; Otherwise, try lynx
+	   ((executable-find (if (eq system-type 'windows-nt) "lynx.exe" "lynx"))
 	(if (string-match "200 OK"
 			  (shell-command-to-string
 			   (concat "lynx -head -source " url)))
-	    (setq exists t)))
-       ;; Give up.
-       (t (error "Could not find url-file-exists, url-file-exists-p, wget or lynx"))))
-     ((equal type "file")
-      (setq exists (file-exists-p (url-filename urlobj))))
-     (t (error (concat "Scheme " type " not supported for URL " url))))
-    exists))
+		(setq exists t)))
+	   ;; Give up.
+	   (t (error "Could not find url-file-exists, url-file-exists-p, wget or lynx"))))
+	 ((equal type "file")
+	  (setq exists (file-exists-p (url-filename urlobj))))
+	 (t (error (concat "Scheme " type " not supported for URL " url))))
+	exists))
 
 (defun doxymacs-load-tags (f)
   "Loads a Doxygen generated XML tags file into the buffer *doxytags*."
   (let* ((tags-buffer (doxymacs-filename-to-buffer f))
 	 (dir (doxymacs-filename-to-dir f))
 	 (xml (doxymacs-filename-to-xml f)))
-    (if (and xml dir)
+	(if (and xml dir)
 	(if (or (eq tags-buffer nil)
 		(eq (buffer-live-p tags-buffer) nil))
-	    (let ((new-buffer (generate-new-buffer "*doxytags")))
-	      (if tags-buffer
+		(let ((new-buffer (generate-new-buffer "*doxytags")))
+		  (if tags-buffer
 		  ;; tags-buffer is non-nil, which means someone
 		  ;; killed the buffer... so reset it
 		  (doxymacs-set-tags-buffer dir new-buffer)
 		;; Otherwise add to list
 		(setq doxymacs-tags-buffers
-		      (cons (cons dir new-buffer) doxymacs-tags-buffers)))
-	      (message (concat "Loading " xml "..."))
-	      (let ((currbuff (current-buffer)))
+			  (cons (cons dir new-buffer) doxymacs-tags-buffers)))
+		  (message (concat "Loading " xml "..."))
+		  (let ((currbuff (current-buffer)))
 		(if (file-regular-p xml)
-		    ;;It's a regular file, so just grab it.
-		    (progn
-		      (set-buffer new-buffer)
-		      (insert-file-contents xml))
+			;;It's a regular file, so just grab it.
+			(progn
+			  (set-buffer new-buffer)
+			  (insert-file-contents xml))
 		  ;; Otherwise, try and grab it as a URL
 		  (progn
-		    (if (doxymacs-url-exists-p xml)
+			(if (doxymacs-url-exists-p xml)
 			(progn
 			  (set-buffer new-buffer)
 			  (url-insert-file-contents xml)
 			  (set-buffer-modified-p nil))
-		      (progn
+			  (progn
 			(kill-buffer new-buffer)
 			(set-buffer currbuff)
 			(error (concat
 				  "Tag file " xml " not found."))))))
 		  (set-buffer currbuff))))
-      ;; Couldn't find this file in doxymacs-doxygen-dirs
-      (error (concat "File " (buffer-file-name)
-		     " does not match any directories in"
-		     " doxymacs-doxygen-dirs.")))))
+	  ;; Couldn't find this file in doxymacs-doxygen-dirs
+	  (error (concat "File " (buffer-file-name)
+			 " does not match any directories in"
+			 " doxymacs-doxygen-dirs.")))))
 
 (defun doxymacs-add-to-completion-list (symbol desc url)
   "Add a symbol to our completion list, along with its description and URL."
   (let ((check (assoc symbol doxymacs-current-completion-list)))
-    (if check
+	(if check
 	;; There is already a symbol with the same name in the list
 	(if (not (assoc desc (cdr check)))
-	    ;; If there is not yet a symbol with this desc, add it
-	    ;; FIXME: what to do if there is already a symbol??
-	    (setcdr check (cons (cons desc url)
+		;; If there is not yet a symbol with this desc, add it
+		;; FIXME: what to do if there is already a symbol??
+		(setcdr check (cons (cons desc url)
 				(cdr check))))
-      ;; There is not yet a symbol with this name in the list
-      (setq doxymacs-current-completion-list
-	    (cons (cons symbol (list (cons desc url)))
+	  ;; There is not yet a symbol with this name in the list
+	  (setq doxymacs-current-completion-list
+		(cons (cons symbol (list (cons desc url)))
 		  doxymacs-current-completion-list)))))
 
 (defun doxymacs-fill-completion-list-with-external-parser (f)
@@ -822,38 +821,38 @@ completion list."
 	(dir (doxymacs-filename-to-dir f))
 	(comp-list (doxymacs-filename-to-completion-list f))
 	(tags-buffer (doxymacs-filename-to-buffer f)))
-    (set-buffer tags-buffer)
-    (goto-char (point-min))
-    (doxymacs-set-completion-list dir nil)
-    (message (concat
-	      "Executing external process "
-	      doxymacs-external-xml-parser-executable
-	      "..."))
-    (let ((status (call-process-region
+	(set-buffer tags-buffer)
+	(goto-char (point-min))
+	(doxymacs-set-completion-list dir nil)
+	(message (concat
+		  "Executing external process "
+		  doxymacs-external-xml-parser-executable
+		  "..."))
+	(let ((status (call-process-region
 		   (point-min) (point-max)
 		   doxymacs-external-xml-parser-executable
 		   t t)))
-      (if (eq status 0)
+	  (if (eq status 0)
 	  (progn
-	    (goto-char (point-min))
-	    (message "Reading completion list...")
-	    (let ((new-list (read (current-buffer))))
-	      (if comp-list
+		(goto-char (point-min))
+		(message "Reading completion list...")
+		(let ((new-list (read (current-buffer))))
+		  (if comp-list
 		  ;; Replace
 		  (doxymacs-set-completion-list dir new-list)
 		;; Add
 		(setq doxymacs-completion-lists
-		      (cons (cons dir new-list)
-			    doxymacs-completion-lists))))
-	    (message "Done.")
-	    (set-buffer-modified-p nil)
-	    (kill-buffer tags-buffer)
-	    (set-buffer currbuff))
+			  (cons (cons dir new-list)
+				doxymacs-completion-lists))))
+		(message "Done.")
+		(set-buffer-modified-p nil)
+		(kill-buffer tags-buffer)
+		(set-buffer currbuff))
 	(progn
 	  (switch-to-buffer tags-buffer)
 	  (message (concat
-		    "There were problems parsing "
-		    (doxymacs-filename-to-xml f) ".")))))))
+			"There were problems parsing "
+			(doxymacs-filename-to-xml f) ".")))))))
 
 
 (defun doxymacs-xml-progress-callback (amount-done)
@@ -867,80 +866,80 @@ completion list."
   (let ((currbuff (current-buffer))
 	(dir (doxymacs-filename-to-dir f))
 	(tags-buffer (doxymacs-filename-to-buffer f)))
-    (set-buffer tags-buffer)
-    (goto-char (point-min))
-    (setq doxymacs-current-completion-list nil)
-    (let ((xml (read-xml 'doxymacs-xml-progress-callback))) ;Parse the file
-      (let* ((compound-list (xml-tag-children xml))
-	     (num-compounds (length compound-list))
-	     (curr-compound-num 0))
+	(set-buffer tags-buffer)
+	(goto-char (point-min))
+	(setq doxymacs-current-completion-list nil)
+	(let ((xml (read-xml 'doxymacs-xml-progress-callback))) ;Parse the file
+	  (let* ((compound-list (xml-tag-children xml))
+		 (num-compounds (length compound-list))
+		 (curr-compound-num 0))
 	(if (not (string= (xml-tag-name xml) "tagfile"))
-	    (error (concat "Invalid tag file: " (doxymacs-filename-to-xml f)))
+		(error (concat "Invalid tag file: " (doxymacs-filename-to-xml f)))
 	  ;; Go through the compounds, adding them and their members to the
 	  ;; completion list.
 	  (while compound-list
-	    (let* ((curr-compound (car compound-list))
+		(let* ((curr-compound (car compound-list))
 		   (compound-name (cadr (xml-tag-child curr-compound "name")))
 		   (compound-kind (xml-tag-attr curr-compound "kind"))
 		   (compound-url (cadr
 				  (xml-tag-child curr-compound "filename")))
 		   (compound-desc (concat compound-kind " " compound-name)))
-	      ;; Work around apparent bug in Doxygen 1.2.18
-	      (if (not (string-match "\\.html$" compound-url))
+		  ;; Work around apparent bug in Doxygen 1.2.18
+		  (if (not (string-match "\\.html$" compound-url))
 		  (setq compound-url (concat compound-url ".html")))
 
-	      ;; Add this compound to our completion list for this directory
-	      (doxymacs-add-to-completion-list compound-name
-					       compound-desc
-					       compound-url)
-	      ;; Add its members
-	      (doxymacs-add-compound-members curr-compound
-					     compound-name
-					     compound-url)
-	      ;; On to the next compound
-	      (message (concat
+		  ;; Add this compound to our completion list for this directory
+		  (doxymacs-add-to-completion-list compound-name
+						   compound-desc
+						   compound-url)
+		  ;; Add its members
+		  (doxymacs-add-compound-members curr-compound
+						 compound-name
+						 compound-url)
+		  ;; On to the next compound
+		  (message (concat
 			"Building completion table... "
 			(format "%0.1f"
 				(* (/
-				    (float curr-compound-num)
-				    (float num-compounds))
+					(float curr-compound-num)
+					(float num-compounds))
 				   100))
 			"%%"))
-	      (setq curr-compound-num (1+ curr-compound-num))
-	      (setq compound-list (cdr compound-list)))))))
-    (if (doxymacs-filename-to-completion-list f)
+		  (setq curr-compound-num (1+ curr-compound-num))
+		  (setq compound-list (cdr compound-list)))))))
+	(if (doxymacs-filename-to-completion-list f)
 	;; Replace
 	(doxymacs-set-completion-list dir doxymacs-current-completion-list)
-      ;; Add
-      (setq doxymacs-completion-lists
-	    (cons (cons dir doxymacs-current-completion-list)
+	  ;; Add
+	  (setq doxymacs-completion-lists
+		(cons (cons dir doxymacs-current-completion-list)
 		  doxymacs-completion-lists)))
-    (setq doxymacs-current-completion-list nil)
-    (message "Done.")
-    ;; Don't need the doxytags buffer anymore
-    (set-buffer-modified-p nil)
-    (kill-buffer tags-buffer)
-    (set-buffer currbuff)))
+	(setq doxymacs-current-completion-list nil)
+	(message "Done.")
+	;; Don't need the doxytags buffer anymore
+	(set-buffer-modified-p nil)
+	(kill-buffer tags-buffer)
+	(set-buffer currbuff)))
 
 (defun doxymacs-add-compound-members (compound compound-name compound-url)
   "Get the members of the given compound"
   (let ((children (xml-tag-children compound)))
-    ;; Run through the children looking for ones with the "member" tag
-    (while children
-      (let* ((curr-child (car children)))
+	;; Run through the children looking for ones with the "member" tag
+	(while children
+	  (let* ((curr-child (car children)))
 	(if (string= (xml-tag-name curr-child) "member")
-	    ;; Found a member.  Throw it on the list.
-	    (let* ((member-name (cadr (xml-tag-child curr-child "name")))
+		;; Found a member.  Throw it on the list.
+		(let* ((member-name (cadr (xml-tag-child curr-child "name")))
 		   (member-anchor (cadr (xml-tag-child curr-child "anchor")))
 		   (member-url (concat compound-url "#" member-anchor))
 		   (member-args (if (cdr (xml-tag-child curr-child "arglist"))
-				    (cadr (xml-tag-child curr-child "arglist"))
+					(cadr (xml-tag-child curr-child "arglist"))
 				  ""))
 		   (member-desc (concat compound-name "::"
 					member-name member-args)))
-	      (doxymacs-add-to-completion-list member-name
-					       member-desc
-					       member-url)))
+		  (doxymacs-add-to-completion-list member-name
+						   member-desc
+						   member-url)))
 	(setq children (cdr children))))))
 
 (defun doxymacs-display-url (root url)
@@ -953,21 +952,21 @@ completion list."
 (defun doxymacs-symbol-near-point ()
   "Return the first textual item to the nearest point."
   (if (fboundp 'symbol-near-point)
-      (symbol-near-point)
-    ;;alg stolen from etag.el
-    (save-excursion
-      (if (not (memq (char-syntax (preceding-char)) '(?w ?_)))
+	  (symbol-near-point)
+	;;alg stolen from etag.el
+	(save-excursion
+	  (if (not (memq (char-syntax (preceding-char)) '(?w ?_)))
 	  (while (not (looking-at "\\sw\\|\\s_\\|\\'"))
-	    (forward-char 1)))
-      (while (looking-at "\\sw\\|\\s_")
+		(forward-char 1)))
+	  (while (looking-at "\\sw\\|\\s_")
 	(forward-char 1))
-      (if (re-search-backward "\\sw\\|\\s_" nil t)
+	  (if (re-search-backward "\\sw\\|\\s_" nil t)
 	  (regexp-quote
 	   (progn (forward-char 1)
 		  (buffer-substring (point)
-				    (progn (forward-sexp -1)
+					(progn (forward-sexp -1)
 					   (while (looking-at "\\s'")
-					     (forward-char 1))
+						 (forward-char 1))
 					   (point)))))
 	nil))))
 
@@ -976,13 +975,13 @@ completion list."
   (interactive
    (let* ((f (buffer-file-name))
 	  (completion-list (doxymacs-filename-to-completion-list f)))
-     (if (eq f nil)
+	 (if (eq f nil)
 	 (error "Current buffer has no file name associated with it.")
-       (progn
+	   (progn
 	 (save-excursion
 	   (if (eq completion-list nil)
-	       ;;Build our completion list if not already done
-	       (if doxymacs-use-external-xml-parser
+		   ;;Build our completion list if not already done
+		   (if doxymacs-use-external-xml-parser
 		   (doxymacs-fill-completion-list-with-external-parser f)
 		 (doxymacs-fill-completion-list-with-internal-parser f)))
 	   (let ((symbol (completing-read
@@ -990,68 +989,68 @@ completion list."
 			  completion-list nil nil
 			  (doxymacs-symbol-near-point)))
 		 (filename f))
-	     (list symbol filename)))))))
+		 (list symbol filename)))))))
   (let ((url (doxymacs-symbol-completion
-	      symbol
-	      (doxymacs-filename-to-completion-list filename))))
-    (if url
+		  symbol
+		  (doxymacs-filename-to-completion-list filename))))
+	(if url
 	(doxymacs-display-url (doxymacs-filename-to-url filename) url))))
 
 (defun doxymacs-display-completions (initial collection &optional pred)
   "Display available completions."
   (let ((matches (all-completions initial collection pred)))
-    ;; FIXME - Is this the proper way of doing this? Seems to work, but...
-    (set-buffer (format " *Minibuf-%d*"
+	;; FIXME - Is this the proper way of doing this? Seems to work, but...
+	(set-buffer (format " *Minibuf-%d*"
 			;; Here's a kludge.
 			(if (featurep 'xemacs)
-			    (minibuffer-depth)
+				(minibuffer-depth)
 			  (1+ (minibuffer-depth)))))
-    (with-output-to-temp-buffer doxymacs-completion-buffer
-      (display-completion-list (sort matches 'string-lessp)))))
+	(with-output-to-temp-buffer doxymacs-completion-buffer
+	  (display-completion-list (sort matches 'string-lessp)))))
 
 (defun doxymacs-symbol-completion (initial collection &optional pred)
   "Do completion for given symbol."
   (let ((completion (try-completion initial collection pred)))
-    (cond ((eq completion t)
-           ;; Only one completion found.  Validate it.
-           (doxymacs-validate-symbol-completion initial collection pred))
-          ((null completion)
-           ;; No completion found
-           (message "No documentation for '%s'" initial)
-           (ding))
-          (t
-           ;; There is more than one possible completion
+	(cond ((eq completion t)
+		   ;; Only one completion found.  Validate it.
+		   (doxymacs-validate-symbol-completion initial collection pred))
+		  ((null completion)
+		   ;; No completion found
+		   (message "No documentation for '%s'" initial)
+		   (ding))
+		  (t
+		   ;; There is more than one possible completion
 	   (doxymacs-display-completions initial collection pred)
-           (let ((completion (completing-read
-			      "Select: "
-			      collection pred nil initial)))
-             (delete-window (get-buffer-window doxymacs-completion-buffer))
-             (if completion
-                 ;; If there is a completion, validate it.
-                 (doxymacs-validate-symbol-completion
+		   (let ((completion (completing-read
+				  "Select: "
+				  collection pred nil initial)))
+			 (delete-window (get-buffer-window doxymacs-completion-buffer))
+			 (if completion
+				 ;; If there is a completion, validate it.
+				 (doxymacs-validate-symbol-completion
 		  completion collection pred)
-               ;; Otherwise just return nil
-               nil))))))
+			   ;; Otherwise just return nil
+			   nil))))))
 
 (defun doxymacs-validate-symbol-completion (initial collection &optional pred)
   "Checks whether the symbol (initial) has multiple descriptions, and if so
 continue completion on those descriptions.  In the end it returns the URL for
 the completion or nil if canceled by the user."
   (let ((new-collection (cdr (assoc initial collection))))
-    (if (> (length new-collection) 1)
-        ;; More than one
-        (doxymacs-description-completion "" new-collection pred)
-      ;; Only one, return the URL
-      (cdar new-collection))))
+	(if (> (length new-collection) 1)
+		;; More than one
+		(doxymacs-description-completion "" new-collection pred)
+	  ;; Only one, return the URL
+	  (cdar new-collection))))
 
 (defun doxymacs-description-completion (initial collection &optional pred)
   "Do completion for given description."
   (doxymacs-display-completions initial collection pred)
   (let ((completion (completing-read "Select: " collection pred nil initial)))
-    (delete-window (get-buffer-window doxymacs-completion-buffer))
-    (if completion
-        ;; Return the URL if there is a completion
-        (cdr (assoc completion collection)))))
+	(delete-window (get-buffer-window doxymacs-completion-buffer))
+	(if completion
+		;; Return the URL if there is a completion
+		(cdr (assoc completion collection)))))
 
 ;;This is mostly a convenience function for the user
 (defun doxymacs-rescan-tags ()
@@ -1059,11 +1058,11 @@ the completion or nil if canceled by the user."
   (interactive)
   (let* ((f (buffer-file-name))
 	 (tags-buffer (doxymacs-filename-to-buffer f)))
-    (if (buffer-live-p tags-buffer)
+	(if (buffer-live-p tags-buffer)
 	(kill-buffer tags-buffer))
-    (if doxymacs-use-external-xml-parser
+	(if doxymacs-use-external-xml-parser
 	(doxymacs-fill-completion-list-with-external-parser f)
-      (doxymacs-fill-completion-list-with-internal-parser f))))
+	  (doxymacs-fill-completion-list-with-internal-parser f))))
 
 
 ;; These functions have to do with inserting doxygen commands in code
@@ -1075,11 +1074,11 @@ the completion or nil if canceled by the user."
 ;; complaining. This is a hack, since I don't know what the proper fix
 ;; should be.
 (if (not (fboundp 'deactivate-mark))
-    (defsubst deactivate-mark ()
-      (zmacs-deactivate-region)))	; Is this correct?
+	(defsubst deactivate-mark ()
+	  (zmacs-deactivate-region)))	; Is this correct?
 ;; Also need a hack for mark-active
 (if (not (boundp 'mark-active))
-    (defvar mark-active nil))		; Is this correct? Probably not.
+	(defvar mark-active nil))		; Is this correct? Probably not.
 
 
 ;; Default templates
@@ -1128,8 +1127,8 @@ the completion or nil if canceled by the user."
  '("/**" > n
    " * " (doxymacs-doxygen-command-char) "file   "
    (if (buffer-file-name)
-       (file-name-nondirectory (buffer-file-name))
-     "") > n
+	   (file-name-nondirectory (buffer-file-name))
+	 "") > n
    " * " (doxymacs-doxygen-command-char) "author " (user-full-name)
    (doxymacs-user-mail-address)
    > n
@@ -1145,8 +1144,8 @@ the completion or nil if canceled by the user."
  '("/*!" > n
    " " (doxymacs-doxygen-command-char) "file   "
    (if (buffer-file-name)
-       (file-name-nondirectory (buffer-file-name))
-     "") > n
+	   (file-name-nondirectory (buffer-file-name))
+	 "") > n
    " " (doxymacs-doxygen-command-char) "author " (user-full-name)
    (doxymacs-user-mail-address)
    > n
@@ -1162,8 +1161,8 @@ the completion or nil if canceled by the user."
  '("///" > n
    "/// " (doxymacs-doxygen-command-char) "file   "
    (if (buffer-file-name)
-       (file-name-nondirectory (buffer-file-name))
-     "") > n
+	   (file-name-nondirectory (buffer-file-name))
+	 "") > n
    "/// " (doxymacs-doxygen-command-char) "author " (user-full-name)
    (doxymacs-user-mail-address)
    > n
@@ -1179,7 +1178,7 @@ the completion or nil if canceled by the user."
 (defun doxymacs-parm-tempo-element (parms)
   "Inserts tempo elements for the given parms in the given style."
   (if parms
-      (let ((prompt (concat "Parameter " (car parms) ": ")))
+	  (let ((prompt (concat "Parameter " (car parms) ": ")))
 	(cond
 	 ((string= doxymacs-doxygen-style "JavaDoc")
 	  (list 'l " * " (doxymacs-doxygen-command-char)
@@ -1195,12 +1194,12 @@ the completion or nil if canceled by the user."
 		(doxymacs-parm-tempo-element (cdr parms))))
 	 (t
 	  (doxymacs-invalid-style))))
-    nil))
+	nil))
 
 
 (defconst doxymacs-JavaDoc-function-comment-template
  '((let ((next-func (doxymacs-find-next-func)))
-     (if next-func
+	 (if next-func
 	 (list
 	  'l
 	  "/** " '> 'n
@@ -1208,19 +1207,19 @@ the completion or nil if canceled by the user."
 	  " * " '> 'n
 	  (doxymacs-parm-tempo-element (cdr (assoc 'args next-func)))
 	  (unless (string-match
-                   (regexp-quote (cdr (assoc 'return next-func)))
-                   doxymacs-void-types)
-	    '(l " * " > n " * " (doxymacs-doxygen-command-char)
+				   (regexp-quote (cdr (assoc 'return next-func)))
+				   doxymacs-void-types)
+		'(l " * " > n " * " (doxymacs-doxygen-command-char)
 		"return " (p "Returns: ") > n))
 	  " */" '>)
-       (progn
+	   (progn
 	 (error "Can't find next function declaration.")
 	 nil))))
  "Default JavaDoc-style template for function documentation.")
 
 (defconst doxymacs-Qt-function-comment-template
  '((let ((next-func (doxymacs-find-next-func)))
-     (if next-func
+	 (if next-func
 	 (list
 	  'l
 	  "//! " 'p '> 'n
@@ -1228,31 +1227,31 @@ the completion or nil if canceled by the user."
 	  " " '> 'n
 	  (doxymacs-parm-tempo-element (cdr (assoc 'args next-func)))
 	  (unless (string-match
-                   (regexp-quote (cdr (assoc 'return next-func)))
-                   doxymacs-void-types)
-	    '(l " " > n "  " (doxymacs-doxygen-command-char)
+				   (regexp-quote (cdr (assoc 'return next-func)))
+				   doxymacs-void-types)
+		'(l " " > n "  " (doxymacs-doxygen-command-char)
 		"return " (p "Returns: ") > n))
 	  " */" '>)
-       (progn
+	   (progn
 	 (error "Can't find next function declaraton.")
 	 nil))))
  "Default Qt-style template for function documentation.")
 
 (defconst doxymacs-C++-function-comment-template
  '((let ((next-func (doxymacs-find-next-func)))
-     (if next-func
+	 (if next-func
 	 (list
 	  'l
 	  "/// " 'p '> 'n
 	  "///" '> 'n
 	  (doxymacs-parm-tempo-element (cdr (assoc 'args next-func)))
 	  (unless (string-match
-                   (regexp-quote (cdr (assoc 'return next-func)))
-                   doxymacs-void-types)
-	    '(l "///" > n "/// " (doxymacs-doxygen-command-char)
+				   (regexp-quote (cdr (assoc 'return next-func)))
+				   doxymacs-void-types)
+		'(l "///" > n "/// " (doxymacs-doxygen-command-char)
 		"return " (p "Returns: ") > n))
 	  "///" '>)
-       (progn
+	   (progn
 	 (error "Can't find next function declaraton.")
 	 nil))))
  "Default C++-style template for function documentation.")
@@ -1275,20 +1274,20 @@ style."
 					doxymacs-doxygen-style "-"
 					template-name "-template"))
 	 (default-template (car (read-from-string default-template-name))))
-    (cond
-     ((and (boundp user-template)	; Make sure it is a non-nil list
+	(cond
+	 ((and (boundp user-template)	; Make sure it is a non-nil list
 	   (listp (eval user-template))
 	   (eval user-template))
-      ;; Use the user's template
-      (tempo-insert-template user-template tempo-insert-region))
-     ((and (boundp default-template)
+	  ;; Use the user's template
+	  (tempo-insert-template user-template tempo-insert-region))
+	 ((and (boundp default-template)
 	   (listp (eval default-template))
 	   (eval default-template))
-      ;; Use the default template, based on the current style
-      (tempo-insert-template default-template tempo-insert-region))
-     (t
-      ;; Most likely, `doxymacs-doxygen-style' has been set wrong.
-      (doxymacs-invalid-style)))))
+	  ;; Use the default template, based on the current style
+	  (tempo-insert-template default-template tempo-insert-region))
+	 (t
+	  ;; Most likely, `doxymacs-doxygen-style' has been set wrong.
+	  (doxymacs-invalid-style)))))
 
 (defun doxymacs-insert-blank-multiline-comment ()
   "Inserts a multi-line blank Doxygen comment at the current point."
@@ -1316,12 +1315,12 @@ current point."
 ;; If anyone knows of a better/simpler way of doing this, please let me know.
 (defconst doxymacs-comment-indent-function
   (lambda (skip)
-    (save-excursion
-      (beginning-of-line)
-      (let ((eol (save-excursion (end-of-line) (point))))
+	(save-excursion
+	  (beginning-of-line)
+	  (let ((eol (save-excursion (end-of-line) (point))))
 	(and skip
-	     (re-search-forward skip eol t)
-	     (setq eol (match-beginning 0)))
+		 (re-search-forward skip eol t)
+		 (setq eol (match-beginning 0)))
 	(goto-char eol)
 	(skip-chars-backward " \t")
 	(max comment-column (1+ (current-column))))))
@@ -1336,100 +1335,100 @@ the column given by `comment-column' (much like \\[indent-for-comment])."
   (let* ((empty (save-excursion (beginning-of-line)
 				(looking-at "[ \t]*$")))
 	 (starter (or doxymacs-member-comment-start
-		      (cond
-		       ((string= doxymacs-doxygen-style "JavaDoc")
+			  (cond
+			   ((string= doxymacs-doxygen-style "JavaDoc")
 			"/**< ")
-		       ((string= doxymacs-doxygen-style "Qt")
+			   ((string= doxymacs-doxygen-style "Qt")
 			"/*!< ")
-		       ((string= doxymacs-doxygen-style "C++")
+			   ((string= doxymacs-doxygen-style "C++")
 			"///< ")
-		       (t
+			   (t
 			(doxymacs-invalid-style)))))
 	 (skip (concat (regexp-quote starter) "*"))
 	 (ender (or doxymacs-member-comment-end
-		    (cond
-		       ((string= doxymacs-doxygen-style "JavaDoc")
+			(cond
+			   ((string= doxymacs-doxygen-style "JavaDoc")
 			" */")
-		       ((string= doxymacs-doxygen-style "Qt")
+			   ((string= doxymacs-doxygen-style "Qt")
 			" */")
-		       ((string= doxymacs-doxygen-style "C++")
+			   ((string= doxymacs-doxygen-style "C++")
 			"")
-		       (t
+			   (t
 			(doxymacs-invalid-style))))))
-    (if empty
+	(if empty
 	;; Insert a blank single-line comment on empty lines
 	(doxymacs-insert-blank-singleline-comment)
-      (if (null starter)
+	  (if (null starter)
 	  (error "No Doxygen member comment syntax defined")
 	(let* ((eolpos (save-excursion (end-of-line) (point)))
-	       cpos indent begpos)
+		   cpos indent begpos)
 	  (beginning-of-line)
 	  (if (re-search-forward skip eolpos 'move)
-	      (progn (setq cpos (point-marker))
-		     ;; Find the start of the comment delimiter.
-		     ;; If there were paren-pairs in skip,
-		     ;; position at the end of the first pair.
-		     (if (match-end 1)
+		  (progn (setq cpos (point-marker))
+			 ;; Find the start of the comment delimiter.
+			 ;; If there were paren-pairs in skip,
+			 ;; position at the end of the first pair.
+			 (if (match-end 1)
 			 (goto-char (match-end 1))
-		       ;; If skip matched a string with
-		       ;; internal whitespace (not final whitespace) then
-		       ;; the delimiter start at the end of that
-		       ;; whitespace.  Otherwise, it starts at the
-		       ;; beginning of what was matched.
-		       (skip-syntax-backward " " (match-beginning 0))
-		       (skip-syntax-backward "^ " (match-beginning 0)))))
+			   ;; If skip matched a string with
+			   ;; internal whitespace (not final whitespace) then
+			   ;; the delimiter start at the end of that
+			   ;; whitespace.  Otherwise, it starts at the
+			   ;; beginning of what was matched.
+			   (skip-syntax-backward " " (match-beginning 0))
+			   (skip-syntax-backward "^ " (match-beginning 0)))))
 	  (setq begpos (point))
 	  ;; Compute desired indent.
 	  (cond
 	   ((= (current-column) 0)
-	    (goto-char begpos))
+		(goto-char begpos))
 	   ((= (current-column)
-	       (setq indent (funcall doxymacs-comment-indent-function skip)))
-	    (goto-char begpos))
+		   (setq indent (funcall doxymacs-comment-indent-function skip)))
+		(goto-char begpos))
 	   (t
-	    ;; If that's different from current, change it.
-	    (skip-chars-backward " \t")
-	    (delete-region (point) begpos)
-	    (indent-to indent)))
+		;; If that's different from current, change it.
+		(skip-chars-backward " \t")
+		(delete-region (point) begpos)
+		(indent-to indent)))
 	  ;; An existing comment?
 	  (if cpos
-	      (progn (goto-char cpos)
-		     (set-marker cpos nil))
-	    ;; No, insert one.
-	    (insert starter)
-	    (save-excursion
-	      (insert ender))))))))
+		  (progn (goto-char cpos)
+			 (set-marker cpos nil))
+		;; No, insert one.
+		(insert starter)
+		(save-excursion
+		  (insert ender))))))))
 
 (defun doxymacs-insert-grouping-comments (start end)
   "Inserts doxygen grouping comments around the current region."
   (interactive "*r")
   (let* ((starter  (or doxymacs-group-comment-start
-		      (cond
-		       ((string= doxymacs-doxygen-style "JavaDoc")
+			  (cond
+			   ((string= doxymacs-doxygen-style "JavaDoc")
 			"//@{")
-		       ((string= doxymacs-doxygen-style "Qt")
+			   ((string= doxymacs-doxygen-style "Qt")
 			"/*@{*/")
-		       ((string= doxymacs-doxygen-style "C++")
+			   ((string= doxymacs-doxygen-style "C++")
 			"/// @{")
-		       (t
+			   (t
 			(doxymacs-invalid-style)))))
 	 (ender (or doxymacs-group-comment-end
-		    (cond
-		       ((string= doxymacs-doxygen-style "JavaDoc")
+			(cond
+			   ((string= doxymacs-doxygen-style "JavaDoc")
 			"//@}")
-		       ((string= doxymacs-doxygen-style "Qt")
+			   ((string= doxymacs-doxygen-style "Qt")
 			"/*@}*/")
-		       ((string= doxymacs-doxygen-style "C++")
+			   ((string= doxymacs-doxygen-style "C++")
 			"/// @}")
-		       (t
+			   (t
 			(doxymacs-invalid-style))))))
-    (save-excursion
-      (goto-char end)
-      (end-of-line)
-      (insert ender)
-      (goto-char start)
-      (beginning-of-line)
-      (insert starter))))
+	(save-excursion
+	  (goto-char end)
+	  (end-of-line)
+	  (insert ender)
+	  (goto-char start)
+	  (beginning-of-line)
+	  (insert starter))))
 
 
 
@@ -1442,73 +1441,73 @@ the column given by `comment-column' (much like \\[indent-for-comment])."
   (cond
    ;; arg list is empty
    ((string-match "\\`[ \t\n]*\\'" args-string)
-    nil)
+	nil)
    ;; argument list consists of one word
    ((string-match "\\`[ \t\n]*\\([a-zA-Z0-9_]+\\)[ \t\n]*\\'" args-string)
-    ;; ... extract this word
-    (let ((arg (substring args-string (match-beginning 1) (match-end 1))))
-      ;; if this arg is a void type return nil
-      (if (string-match (regexp-quote arg) doxymacs-void-types)
-          nil
-        ;; else return arg
-        (list arg))))
+	;; ... extract this word
+	(let ((arg (substring args-string (match-beginning 1) (match-end 1))))
+	  ;; if this arg is a void type return nil
+	  (if (string-match (regexp-quote arg) doxymacs-void-types)
+		  nil
+		;; else return arg
+		(list arg))))
    ;; else split the string and extact var names from args
    (t
-    (doxymacs-extract-args-list-helper
-     (doxymacs-save-split args-string)))))
+	(doxymacs-extract-args-list-helper
+	 (doxymacs-save-split args-string)))))
 
 
 (defun doxymacs-save-split (args-string)
   "Splits a declaration list as string and returns list of single
 declarations."
   (let ((comma-pos (string-match "," args-string))
-        (paren-pos (string-match "(" args-string)))
-    (cond
-     ;; no comma in string found
-     ((null comma-pos)     (list args-string))
-     ;; comma but no parenthethes: split-string is save
-     ((null paren-pos)     (split-string args-string ","))
-     ;; comma first then parenthesis
-     ((< comma-pos paren-pos)
-      (cons (substring args-string 0 comma-pos)
-            (doxymacs-save-split (substring args-string (1+ comma-pos)))))
-     ;; parenthesis first then comma. there must exist a closing parenthesis
-     (t
-      ;; cut off the (...) part
-      (save-excursion
-        ;; create temporary buffer
-        (set-buffer (get-buffer-create "*doxymacs-scratch*"))
-        (erase-buffer)
-        (insert args-string)
-        (beginning-of-buffer)
-        (search-forward "(")
-        (prog1
-            (let ((depth 1)
-                  (exit)
-                  (comma-found))
-              (while (not exit)
-                ;; step through buffer
-                (forward-char 1)
-                (cond
-                 ;; end of buffer: exit
-                 ((= (point) (point-max)) (setq exit t))
-                 ;; decrease depth counter
-                 ((looking-at ")")        (setq depth (1- depth)))
-                 ;; increase depth counter
-                 ((looking-at "(")        (setq depth (1+ depth)))
-                 ;; comma at depth 0, thats it!
-                 ((and (looking-at ",") (= 0 depth))
-                  (setq exit t)
-                  (setq comma-found t))))
-              (if (not comma-found)
-                  ;; whole string is one arg
-                  (list (buffer-substring 1 (point)))
-                ;; else split at comma ...
-                (cons (buffer-substring 1 (point))
-                      ;; and split rest of declaration list
-                      (doxymacs-save-split
-                       (buffer-substring (1+ (point)) (point-max))))))
-          (kill-buffer (current-buffer))))))))
+		(paren-pos (string-match "(" args-string)))
+	(cond
+	 ;; no comma in string found
+	 ((null comma-pos)     (list args-string))
+	 ;; comma but no parenthethes: split-string is save
+	 ((null paren-pos)     (split-string args-string ","))
+	 ;; comma first then parenthesis
+	 ((< comma-pos paren-pos)
+	  (cons (substring args-string 0 comma-pos)
+			(doxymacs-save-split (substring args-string (1+ comma-pos)))))
+	 ;; parenthesis first then comma. there must exist a closing parenthesis
+	 (t
+	  ;; cut off the (...) part
+	  (save-excursion
+		;; create temporary buffer
+		(set-buffer (get-buffer-create "*doxymacs-scratch*"))
+		(erase-buffer)
+		(insert args-string)
+		(beginning-of-buffer)
+		(search-forward "(")
+		(prog1
+			(let ((depth 1)
+				  (exit)
+				  (comma-found))
+			  (while (not exit)
+				;; step through buffer
+				(forward-char 1)
+				(cond
+				 ;; end of buffer: exit
+				 ((= (point) (point-max)) (setq exit t))
+				 ;; decrease depth counter
+				 ((looking-at ")")        (setq depth (1- depth)))
+				 ;; increase depth counter
+				 ((looking-at "(")        (setq depth (1+ depth)))
+				 ;; comma at depth 0, thats it!
+				 ((and (looking-at ",") (= 0 depth))
+				  (setq exit t)
+				  (setq comma-found t))))
+			  (if (not comma-found)
+				  ;; whole string is one arg
+				  (list (buffer-substring 1 (point)))
+				;; else split at comma ...
+				(cons (buffer-substring 1 (point))
+					  ;; and split rest of declaration list
+					  (doxymacs-save-split
+					   (buffer-substring (1+ (point)) (point-max))))))
+		  (kill-buffer (current-buffer))))))))
 
 
 ;; This regexp fails if the opt. parentheses
@@ -1517,42 +1516,42 @@ declarations."
 (defun doxymacs-extract-args-list-helper (args-list)
   "Recursively get names of arguments."
   (if args-list
-      (if (string-match
-           (concat
-            "\\("
-            "([ \t\n]*\\*[ \t\n]*\\([a-zA-Z0-9_]+\\)[ \t\n]*)"; (*varname)
-            "\\|"                                        ; or
-            "\\*?[ \t\n]*\\([a-zA-Z0-9_]+\\)"            ; opt. *, varname
-            "\\)"
-            "[ \t\n]*"                                   ; opt. spaces
-            "\\(\\[[ \t\n]*[a-zA-Z0-9_]*[ \t\n]*\\]\\|"  ; opt. array bounds
-            "([^()]*)\\)?"                               ; or opt. func args
-            "[ \t\n]*"                                   ; opt. spaces
-            "\\(=[ \t\n]*[^ \t\n]+[ \t\n]*\\)?"          ; optional assignment
-            "[ \t\n]*\\'"                                ; end
-            ) (car args-list))
-          (cons
-           (cond
-            ;; var name in: (*name)
-            ((match-beginning 2)
-             (substring (car args-list) (match-beginning 2) (match-end 2)))
-            ;; var name in: *name
-            ((match-beginning 3)
-             (substring (car args-list) (match-beginning 3) (match-end 3)))
-            ;; no match: return complete declaration
-            (t
-             (car args-list)))
-           (doxymacs-extract-args-list-helper (cdr args-list)))
-        ;; else there is no match
-        nil)))
+	  (if (string-match
+		   (concat
+			"\\("
+			"([ \t\n]*\\*[ \t\n]*\\([a-zA-Z0-9_]+\\)[ \t\n]*)"; (*varname)
+			"\\|"                                        ; or
+			"\\*?[ \t\n]*\\([a-zA-Z0-9_]+\\)"            ; opt. *, varname
+			"\\)"
+			"[ \t\n]*"                                   ; opt. spaces
+			"\\(\\[[ \t\n]*[a-zA-Z0-9_]*[ \t\n]*\\]\\|"  ; opt. array bounds
+			"([^()]*)\\)?"                               ; or opt. func args
+			"[ \t\n]*"                                   ; opt. spaces
+			"\\(=[ \t\n]*[^ \t\n]+[ \t\n]*\\)?"          ; optional assignment
+			"[ \t\n]*\\'"                                ; end
+			) (car args-list))
+		  (cons
+		   (cond
+			;; var name in: (*name)
+			((match-beginning 2)
+			 (substring (car args-list) (match-beginning 2) (match-end 2)))
+			;; var name in: *name
+			((match-beginning 3)
+			 (substring (car args-list) (match-beginning 3) (match-end 3)))
+			;; no match: return complete declaration
+			(t
+			 (car args-list)))
+		   (doxymacs-extract-args-list-helper (cdr args-list)))
+		;; else there is no match
+		nil)))
 
 (defun doxymacs-core-string (s)
   "Returns the argument string with leading and trailing blank
 and new-line characters cut off."
   (string-match "\\`[ \t\n]*\\(.*?\\)[ \t\n]*\\'" s)
   (if (match-beginning 1)
-      (substring s (match-beginning 1) (match-end 1))
-    s))
+	  (substring s (match-beginning 1) (match-end 1))
+	s))
 
 (defun doxymacs-find-next-func ()
   "Returns a list describing next function declaration, or nil if not found.
@@ -1564,7 +1563,7 @@ and new-line characters cut off."
 The argument list is a list of strings."
   (interactive)
   (save-excursion
-    (if (re-search-forward
+	(if (re-search-forward
 	 (concat
 	  ;; return type
 	  "\\(\\(const[ \t\n]+\\)?[a-zA-Z0-9_]+[ \t\n*&]+\\)?"
@@ -1575,41 +1574,41 @@ The argument list is a list of strings."
 	  ) nil t)
 
 	(let* ((func (buffer-substring (match-beginning 3) (match-end 3)))
-	       (args (buffer-substring (point) (progn
-                                                (backward-char 1)
-                                                (forward-list)
-                                                (backward-char 1)
-                                                (point))))
-	       (ret (cond
-		     ;; Return type specified
-		     ((match-beginning 1)
-		      (buffer-substring (match-beginning 1) (match-end 1)))
-		     ;;Constructor/destructor
-		     ((string-match
-		       "^\\([a-zA-Z0-9_<,>:*&]+\\)[ \t\n]*::[ \t\n]*~?\\1$"
-		       func) "void")
-		     ;;Constructor in class decl.
-		     ((save-match-data
+		   (args (buffer-substring (point) (progn
+												(backward-char 1)
+												(forward-list)
+												(backward-char 1)
+												(point))))
+		   (ret (cond
+			 ;; Return type specified
+			 ((match-beginning 1)
+			  (buffer-substring (match-beginning 1) (match-end 1)))
+			 ;;Constructor/destructor
+			 ((string-match
+			   "^\\([a-zA-Z0-9_<,>:*&]+\\)[ \t\n]*::[ \t\n]*~?\\1$"
+			   func) "void")
+			 ;;Constructor in class decl.
+			 ((save-match-data
 			(re-search-backward
 			 (concat
 			  "class[ \t\n]+" (regexp-quote func) "[ \t\n]*{")
 			 nil t))
-		      "void")
-		     ;;Destructor in class decl.
-		     ((save-match-data
+			  "void")
+			 ;;Destructor in class decl.
+			 ((save-match-data
 			(and (string-match "^~\\([a-zA-Z0-9_]+\\)$" func)
-			     (save-match-data
-			       (re-search-backward
+				 (save-match-data
+				   (re-search-backward
 				(concat
 				 "class[ \t\n]+" (regexp-quote
 						  (match-string 1 func))
 				 "[ \t\n]*{") nil t))))
-		      "void")
-		     ;;Default
-		     (t "int"))))
+			  "void")
+			 ;;Default
+			 (t "int"))))
 	  (list (cons 'func func)
 		(cons 'args (doxymacs-extract-args-list args))
 		(cons 'return (doxymacs-core-string ret))))
-    nil)))
+	nil)))
 
 ;;; doxymacs.el ends here

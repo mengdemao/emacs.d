@@ -1,7 +1,7 @@
 #+TITLE: emacs配置文件
 #+AUTHOR: Meng Demao
 #+EMAIL: mengdemao19951021@163.com
-#+DATE: \today
+#+DATE:<2020-12-09 三 13:39>
 #+DESCRIPTION: emacs配置文件
 #+KEYWORDS: use-package
 #+LANGUAGE:  zh-CN
@@ -9,8 +9,8 @@
 #+OPTIONS: author:t c:nil creator:comment d:(not LOGBOOK) date:t e:t
 #+OPTIONS: email:nil f:t inline:t num:t p:nil pri:nil stat:t tags:t
 #+OPTIONS: tasks:t tex:t timestamp:t toc:t todo:t |:t
-#+STARTUP: showeverything
-#+STARTUP: align
+#+SINCE:   v3.0.0
+#+STARTUP: inlineimages nofold
 #+EXCLUDE_TAGS: noexport
 #+SELECT_TAGS: export
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup

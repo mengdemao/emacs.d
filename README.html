@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
 <head>
-<!-- 2020-12-07 一 10:16 -->
+<!-- 2020-12-09 三 13:40 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>emacs配置文件</title>
@@ -236,24 +236,24 @@ for the JavaScript code in this tag.
 <h2>&#30446;&#24405;</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org44008bf">1. 基础配置</a>
+<li><a href="#org8206b22">1. 基础配置</a>
 <ul>
-<li><a href="#org7753918">1.1. 配置文件分析</a></li>
-<li><a href="#orga054774">1.2. 配置文件结构</a>
+<li><a href="#orgb3175e2">1.1. 配置文件分析</a></li>
+<li><a href="#orgc9af88a">1.2. 配置文件结构</a>
 <ul>
-<li><a href="#org05a8d61">1.2.1. lisp</a></li>
-<li><a href="#org0a7732f">1.2.2. site</a></li>
-<li><a href="#org3426da1">1.2.3. snippets</a></li>
-<li><a href="#org4b43aa9">1.2.4. themes</a></li>
-<li><a href="#org8086d16">1.2.5. user</a></li>
+<li><a href="#org26981ab">1.2.1. lisp</a></li>
+<li><a href="#org7551115">1.2.2. site</a></li>
+<li><a href="#orgd8e289b">1.2.3. snippets</a></li>
+<li><a href="#org58a06ea">1.2.4. themes</a></li>
+<li><a href="#orgcbea857">1.2.5. user</a></li>
 </ul>
 </li>
-<li><a href="#org02f8dec">1.3. 用户自定义文件</a></li>
+<li><a href="#orgcd99115">1.3. 用户自定义文件</a></li>
 </ul>
 </li>
-<li><a href="#org7ed4a8d">2. 主题设置</a></li>
-<li><a href="#orgcada719">3. 自动补全</a></li>
-<li><a href="#org04c57a9">4. 版本管理</a></li>
+<li><a href="#orgaba8255">2. 主题设置</a></li>
+<li><a href="#orgd580eff">3. 自动补全</a></li>
+<li><a href="#orgd791f69">4. 版本管理</a></li>
 </ul>
 </div>
 </div>
@@ -261,17 +261,18 @@ for the JavaScript code in this tag.
 <img src="http://img.shields.io/:license-gpl-blue.svg" alt=":license-gpl-blue.svg" />
 </a>
 
-<div id="outline-container-org44008bf" class="outline-2">
-<h2 id="org44008bf"><span class="section-number-2">1</span> 基础配置</h2>
+<div id="outline-container-org8206b22" class="outline-2">
+<h2 id="org8206b22"><span class="section-number-2">1</span> 基础配置</h2>
 <div class="outline-text-2" id="text-1">
-</div><div id="outline-container-org7753918" class="outline-3">
-<h3 id="org7753918"><span class="section-number-3">1.1</span> 配置文件分析</h3>
+</div><div id="outline-container-orgb3175e2" class="outline-3">
+<h3 id="orgb3175e2"><span class="section-number-3">1.1</span> 配置文件分析</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>基础配置
 <ul class="org-ul">
 <li>维持可用的最小标准</li>
 <li>不需要下载代码</li>
+<li>速度最快</li>
 </ul></li>
 <li>增强配置
 <ul class="org-ul">
@@ -287,53 +288,54 @@ for the JavaScript code in this tag.
 </ul>
 </div>
 </div>
-<div id="outline-container-orga054774" class="outline-3">
-<h3 id="orga054774"><span class="section-number-3">1.2</span> 配置文件结构</h3>
+
+<div id="outline-container-orgc9af88a" class="outline-3">
+<h3 id="orgc9af88a"><span class="section-number-3">1.2</span> 配置文件结构</h3>
 <div class="outline-text-3" id="text-1-2">
-</div><div id="outline-container-org05a8d61" class="outline-4">
-<h4 id="org05a8d61"><span class="section-number-4">1.2.1</span> lisp</h4>
+</div><div id="outline-container-org26981ab" class="outline-4">
+<h4 id="org26981ab"><span class="section-number-4">1.2.1</span> lisp</h4>
 </div>
-<div id="outline-container-org0a7732f" class="outline-4">
-<h4 id="org0a7732f"><span class="section-number-4">1.2.2</span> site</h4>
+<div id="outline-container-org7551115" class="outline-4">
+<h4 id="org7551115"><span class="section-number-4">1.2.2</span> site</h4>
 </div>
-<div id="outline-container-org3426da1" class="outline-4">
-<h4 id="org3426da1"><span class="section-number-4">1.2.3</span> snippets</h4>
+<div id="outline-container-orgd8e289b" class="outline-4">
+<h4 id="orgd8e289b"><span class="section-number-4">1.2.3</span> snippets</h4>
 </div>
-<div id="outline-container-org4b43aa9" class="outline-4">
-<h4 id="org4b43aa9"><span class="section-number-4">1.2.4</span> themes</h4>
+<div id="outline-container-org58a06ea" class="outline-4">
+<h4 id="org58a06ea"><span class="section-number-4">1.2.4</span> themes</h4>
 </div>
-<div id="outline-container-org8086d16" class="outline-4">
-<h4 id="org8086d16"><span class="section-number-4">1.2.5</span> user</h4>
+<div id="outline-container-orgcbea857" class="outline-4">
+<h4 id="orgcbea857"><span class="section-number-4">1.2.5</span> user</h4>
 </div>
 </div>
 
-<div id="outline-container-org02f8dec" class="outline-3">
-<h3 id="org02f8dec"><span class="section-number-3">1.3</span> 用户自定义文件</h3>
+<div id="outline-container-orgcd99115" class="outline-3">
+<h3 id="orgcd99115"><span class="section-number-3">1.3</span> 用户自定义文件</h3>
 <div class="outline-text-3" id="text-1-3">
 <div class="org-src-container">
-<pre class="src src-elisp">(add-to-list 'load-path (expand-file-name <span style="color: #FAFFDB;">"lisp"</span> user-emacs-directory))
-(add-to-list 'load-path (expand-file-name <span style="color: #FAFFDB;">"user"</span> user-emacs-directory))
+<pre class="src src-elisp">(add-to-list 'load-path (expand-file-name <span style="color: #E6DB74;">"lisp"</span> user-emacs-directory))
+(add-to-list 'load-path (expand-file-name <span style="color: #E6DB74;">"user"</span> user-emacs-directory))
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org7ed4a8d" class="outline-2">
-<h2 id="org7ed4a8d"><span class="section-number-2">2</span> 主题设置</h2>
+<div id="outline-container-orgaba8255" class="outline-2">
+<h2 id="orgaba8255"><span class="section-number-2">2</span> 主题设置</h2>
 </div>
-<div id="outline-container-orgcada719" class="outline-2">
-<h2 id="orgcada719"><span class="section-number-2">3</span> 自动补全</h2>
+<div id="outline-container-orgd580eff" class="outline-2">
+<h2 id="orgd580eff"><span class="section-number-2">3</span> 自动补全</h2>
 </div>
-<div id="outline-container-org04c57a9" class="outline-2">
-<h2 id="org04c57a9"><span class="section-number-2">4</span> 版本管理</h2>
+<div id="outline-container-orgd791f69" class="outline-2">
+<h2 id="orgd791f69"><span class="section-number-2">4</span> 版本管理</h2>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">&#26085;&#26399;: \today</p>
+<p class="date">&#26085;&#26399;: 2020-12-09 三 13:39</p>
 <p class="author">&#20316;&#32773;: Meng Demao</p>
-<p class="date">Created: 2020-12-07 一 10:16</p>
-<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.2 (<a href="http://orgmode.org">Org</a> mode N/A)</p>
+<p class="date">Created: 2020-12-09 三 13:40</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="http://orgmode.org">Org</a> mode N/A)</p>
 <p class="validation"></p>
 </div>
 </body>

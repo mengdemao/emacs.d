@@ -1,4 +1,6 @@
-;;; init.el --- This is where all emacs start.
+;;; init.el --- Where all config file start -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
 
 ;; Copyright (C) 2020 Meng Demao
 
@@ -19,6 +21,7 @@
 
 ;;; Code:
 
+;; emacs版本号判断
 ;; (when (or (< emacs-major-version 26)
 ;;	  (and (= emacs-major-version 26)
 ;;		   (< emacs-minor-version 1)))
@@ -39,9 +42,6 @@
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "user" user-emacs-directory))
-
-(defconst *spell-check-support-enabled* nil) ;; Enable with t if you prefer
-(defconst *is-a-mac* (eq system-type 'darwin))
 
 ;; 设置调试模式
 (setq debug-on-error nil)
@@ -68,10 +68,12 @@
 (define-key global-map (kbd "<f12>") 'auto-update)
 
 ;; 基础配置
+(require 'init-benchmark)
 (require 'init-user)
 (require 'init-const)
 (require 'init-site)
 (require 'init-elpa)
+
 (require 'init-basic)
 (require 'init-gui)
 (require 'init-themes)
