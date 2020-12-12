@@ -13,18 +13,18 @@
     (add-to-list 'auto-mode-alist (cons pattern mode))))
 
 ;; Like diminish, but for major modes
-(defun sanityinc/set-major-mode-name (name)
+(defun set-major-mode-name (name)
   "Override the major mode NAME in this buffer."
   (setq-local mode-name name))
 
-(defun sanityinc/major-mode-lighter (mode name)
+(defun major-mode-lighter (mode name)
   (add-hook (derived-mode-hook-name mode)
-            (apply-partially 'sanityinc/set-major-mode-name name)))
+            (apply-partially 'set-major-mode-name name)))
 
 ;;----------------------------------------------------------------------------
 ;; String utilities missing from core emacs
 ;;----------------------------------------------------------------------------
-(defun sanityinc/string-all-matches (regex str &optional group)
+(defun string-all-matches (regex str &optional group)
   "Find all matches for `REGEX' within `STR', returning the full match string or group `GROUP'."
   (let ((result nil)
         (pos 0)

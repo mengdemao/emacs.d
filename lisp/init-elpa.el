@@ -77,13 +77,13 @@ nil)))
 ;; after custom-file has been loaded, which is a bug. We work around this by adding
 ;; the required packages to package-selected-packages after startup is complete.
 
-(defvar sanityinc/required-packages nil)
+(defvar required-packages nil)
 
-(defun sanityinc/note-selected-package
+(defun note-selected-package
   (oldfun package &rest args)
 "If OLDFUN reports PACKAGE was successfully installed, note that fact.
 The package name is noted by adding it to
-`sanityinc/required-packages'.  This function is used as an
+`required-packages'.  This function is used as an
 advice for `require-package', to which ARGS are passed."
   (let
 	(
@@ -92,9 +92,9 @@ advice for `require-package', to which ARGS are passed."
 	(prog1
 available
 	  (when available
-	(add-to-list 'sanityinc/required-packages package)))))
+	(add-to-list 'required-packages package)))))
 
-(advice-add 'require-package :around 'sanityinc/note-selected-package)
+(advice-add 'require-package :around 'note-selected-package)
 
 (when
   (fboundp 'package--save-selected-packages)
@@ -104,7 +104,7 @@ available
 	  ()
 	  (package--save-selected-packages
 	(seq-uniq
-	  (append sanityinc/required-packages package-selected-packages))))))
+	  (append required-packages package-selected-packages))))))
 
 
 (require 'fullframe)
@@ -116,7 +116,7 @@ available
   (require-package 'gnu-elpa-keyring-update))
 
 
-(defun sanityinc/set-tabulated-list-column-width
+(defun set-tabulated-list-column-width
   (col-name width)
 "Set any column with name COL-NAME to the given WIDTH."
   (when
@@ -130,21 +130,21 @@ do
 	  (setf
 	(elt column 1) width))))
 
-(defun sanityinc/maybe-widen-package-menu-columns
+(defun maybe-widen-package-menu-columns
   ()
 "Widen some columns of the package menu table to avoid truncation."
   (when
 	(boundp 'tabulated-list-format)
-	(sanityinc/set-tabulated-list-column-width "Version" 13)
+	(set-tabulated-list-column-width "Version" 13)
 	(let
 	  (
 	(longest-archive-name
 	  (apply 'max
 		(mapcar 'length
 		  (mapcar 'car package-archives)))))
-	  (sanityinc/set-tabulated-list-column-width "Archive" longest-archive-name))))
+	  (set-tabulated-list-column-width "Archive" longest-archive-name))))
 
-(add-hook 'package-menu-mode-hook 'sanityinc/maybe-widen-package-menu-columns)
+(add-hook 'package-menu-mode-hook 'maybe-widen-package-menu-columns)
 
 
 ;; Initialize packages

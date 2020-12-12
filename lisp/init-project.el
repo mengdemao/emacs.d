@@ -1,3 +1,7 @@
+;;; init-project.el --- Projetc Management -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+
 ;; projectile配置
 (require 'projectile)
 
@@ -11,3 +15,4 @@
 ;; 编译快捷键
 
 (provide 'init-project)
+;;; init-project ends here

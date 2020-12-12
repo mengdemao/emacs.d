@@ -44,7 +44,7 @@
 (add-to-list 'load-path (expand-file-name "user" user-emacs-directory))
 
 ;; 设置调试模式
-(setq debug-on-error nil)
+(setq debug-on-error t)
 
 ;;设置垃圾回收缓存为1G,开启结束压缩,加速软件开启
 (defvar default-file-name-handler-alist file-name-handler-alist)
@@ -89,14 +89,9 @@
 (require 'init-evil)
 
 ;; 扩展配置
-(require 'init-server)
-(require 'init-company)
-(require 'init-flycheck)
-
-(require 'init-git)
-(require 'init-svn)
+(require 'init-vcs)
 (require 'init-term)
-(require 'init-magit)
+(require 'init-complete)
 
 ;; server模式启动
 (add-hook 'after-init-hook

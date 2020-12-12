@@ -71,13 +71,13 @@
 ;;; Newline behaviour
 
 (global-set-key (kbd "RET") 'newline-and-indent)
-(defun sanityinc/newline-at-end-of-line ()
+(defun newline-at-end-of-line ()
   "Move to end of line, enter a newline, and reindent."
   (interactive)
   (move-end-of-line 1)
   (newline-and-indent))
 
-(global-set-key (kbd "S-<return>") 'sanityinc/newline-at-end-of-line)
+(global-set-key (kbd "S-<return>") 'newline-at-end-of-line)
 
 
 
@@ -94,10 +94,10 @@
   (global-set-key [remap goto-line] 'goto-line-preview)
 
   (when (fboundp 'display-line-numbers-mode)
-	(defun sanityinc/with-display-line-numbers (f &rest args)
+	(defun with-display-line-numbers (f &rest args)
 	  (let ((display-line-numbers t))
 		(apply f args)))
-	(advice-add 'goto-line-preview :around #'sanityinc/with-display-line-numbers)))
+	(advice-add 'goto-line-preview :around #'with-display-line-numbers)))
 
 
 
@@ -210,16 +210,16 @@
 
 ;;; Fix backward-up-list to understand quotes, see http://bit.ly/h7mdIL
 
-(defun sanityinc/backward-up-sexp (arg)
+(defun backward-up-sexp (arg)
   "Jump up to the start of the ARG'th enclosing sexp."
   (interactive "p")
   (let ((ppss (syntax-ppss)))
 	(cond ((elt ppss 3)
 		   (goto-char (elt ppss 8))
-		   (sanityinc/backward-up-sexp (1- arg)))
+		   (backward-up-sexp (1- arg)))
 		  ((backward-up-list arg)))))
 
-(global-set-key [remap backward-up-list] 'sanityinc/backward-up-sexp) ; C-M-u, C-M-up
+(global-set-key [remap backward-up-list] 'backward-up-sexp) ; C-M-u, C-M-up
 
 
 
@@ -231,7 +231,7 @@
 
 
 
-(defun sanityinc/open-line-with-reindent (n)
+(defun open-line-with-reindent (n)
   "A version of `open-line' which reindents the start and end positions.
 If there is a fill prefix and/or a `left-margin', insert them
 on the new line if the line would have been blank.
@@ -258,7 +258,7 @@ With arg N, insert N newlines."
 	(end-of-line)
 	(indent-according-to-mode)))
 
-(global-set-key (kbd "C-o") 'sanityinc/open-line-with-reindent)
+(global-set-key (kbd "C-o") 'open-line-with-reindent)
 
 
 
@@ -267,7 +267,7 @@ With arg N, insert N newlines."
 
 
 ;; Random line sorting
-(defun sanityinc/sort-lines-random (beg end)
+(defun sort-lines-random (beg end)
   "Sort lines in region from BEG to END randomly."
   (interactive "r")
   (save-excursion
@@ -288,7 +288,7 @@ With arg N, insert N newlines."
 (with-eval-after-load 'which-key
   (diminish 'which-key-mode))
 
-(defun sanityinc/disable-features-during-macro-call (orig &rest args)
+(defun disable-features-during-macro-call (orig &rest args)
   "When running a macro, disable features that might be expensive.
 ORIG is the advised function, which is called with its ARGS."
   (let (post-command-hook
@@ -296,7 +296,7 @@ ORIG is the advised function, which is called with its ARGS."
 		(tab-always-indent (or (eq 'complete tab-always-indent) tab-always-indent)))
 	(apply orig args)))
 
-(advice-add 'kmacro-call-macro :around 'sanityinc/disable-features-during-macro-call)
+(advice-add 'kmacro-call-macro :around 'disable-features-during-macro-call)
 
 
 (provide 'init-edit)
