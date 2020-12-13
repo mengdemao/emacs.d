@@ -17,7 +17,7 @@
 		  (set-fontset-font (frame-parameter nil 'font) charset
 							(font-spec :family chinese :size chinese-size))))))
 
-(set-font   "YaHei Consolas Hybrid" "YaHei Consolas Hybrid" 18 18)
+(set-font   "YaHei Consolas Hybrid" "YaHei Consolas Hybrid" 20 20)
 
 ;; ;;中英文字体设置
 ;; ;; ------------------------------------------------------------------------------

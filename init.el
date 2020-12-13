@@ -67,31 +67,29 @@
   (compilation-start "cd ~/.emacs.d && git pull"))
 (define-key global-map (kbd "<f12>") 'auto-update)
 
-;; 基础配置
-(require 'init-benchmark)
-(require 'init-user)
+;; 插件包配置
 (require 'init-const)
-(require 'init-site)
-(require 'init-elpa)
+(require 'init-package)
+(require 'init-benchmark)
 
+;; 基础配置
 (require 'init-basic)
-(require 'init-gui)
+(require 'init-graphic)
 (require 'init-themes)
 (require 'init-compile)
-(require 'init-whitespace)
 (require 'init-cpp)
 
 ;; 增强配置
-;; (require 'init-swiper)
 (require 'init-helm)
-(require 'init-project)
 (require 'init-org)
 (require 'init-evil)
 
 ;; 扩展配置
 (require 'init-vcs)
 (require 'init-term)
+(require 'init-project)
 (require 'init-complete)
+(require 'init-misc)
 
 ;; server模式启动
 (add-hook 'after-init-hook

@@ -70,16 +70,6 @@
   :commands (flycheck-ycmd-setup)
   :init (add-hook 'ycmd-mode-hook 'flycheck-ycmd-setup))
 
-;; rtags
-(use-package rtags
-  :ensure t)
-
-(use-package company-rtags
-  :ensure t)
-
-(use-package flycheck-rtags
-  :ensure t)
-
 ;; irony
 (use-package irony
   :ensure t
