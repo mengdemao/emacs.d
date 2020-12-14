@@ -52,7 +52,6 @@
 (tool-bar-mode 0)		;; 取消工具栏
 (menu-bar-mode 0)		;; 禁用菜单栏，F10 开启关闭菜单
 (setq gdb-many-windows t)	;; gdb多窗口模式
-(setq inhibit-startup-screen t)	;; 禁止开始桌面
 (global-hl-line-mode 1)		;; 高亮当前行
 (global-auto-revert-mode t)	;; 自动载入文件
 (add-hook 'before-save-hook 'whitespace-cleanup) ;; 保存时删除多余的空格个

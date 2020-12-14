@@ -6,18 +6,6 @@
 ;; Dashboard
 ;;----------------------------------------------------------------------------
 
-(use-package dashboard
-  :init
-  (dashboard-setup-startup-hook)
-  :config
-  (setq dashboard-banner-logo-title "Happy Emacs")
-  (setq dashboard-startup-banner "~/.emacs.d/logo.png")
-  (setq dashboard-items
-		'((recents . 5)
-		  (bookmarks . 5)
-		  (projects . 3)
-		  (agenda . 5))))
-
 ;;----------------------------------------------------------------------------
 ;; Suppress GUI features
 ;;----------------------------------------------------------------------------

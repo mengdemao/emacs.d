@@ -18,4 +18,4 @@
 ;; 编译快捷键
 
 (provide 'init-project)
-;;; init-project ends here
+;;; init-project.el ends here
