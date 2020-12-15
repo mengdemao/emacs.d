@@ -21,17 +21,17 @@
 
 ;;; Code:
 
-;; emacs版本号判断
+;; ;; emacs版本号判断
 ;; (when (or (< emacs-major-version 26)
 ;;	  (and (= emacs-major-version 26)
-;;		   (< emacs-minor-version 1)))
-;;   (x-popup-dialog t `(,(format "Sorry, you need GNU Emacs version 26.6 or higher
-;; to run Dema Emacs.
-
+;;		   (< emacs-minor-version 6)))
+;;  (x-popup-dialog t `(,(format "Sorry, you need GNU Emacs version 26.6 or higher
+;; to run DogLock Emacs.
+;;
 ;; Your installed Emacs reports:
 ;; %s" (emacs-version))
 ;;			  ("OK :(" . t)))
-;;   (save-buffers-kill-emacs t))
+;; (save-buffers-kill-emacs t))
 
 ;; 版本号
 
@@ -61,25 +61,27 @@
   (load custom-file))
 
 ;; 自动更新配置文件
-(defun auto-update()
+(defun doglock-update()
   "Autoupdate local git repository .emacs.d."
   (interactive)
   (compilation-start "cd ~/.emacs.d && git pull"))
-(define-key global-map (kbd "<f12>") 'auto-update)
+(define-key global-map (kbd "<f12>") 'doglock-update)
 
 ;; 插件包配置
-(require 'init-const)
+(require 'init-custom)
 (require 'init-package)
 (require 'init-benchmark)
 
 ;; 基础配置
-(require 'init-basic)
 (require 'init-graphic)
+(require 'init-basic)
 (require 'init-themes)
+(require 'init-edit)
 (require 'init-compile)
 (require 'init-cpp)
 
 ;; 增强配置
+(require 'init-dashboard)
 (require 'init-helm)
 (require 'init-org)
 (require 'init-evil)
@@ -87,9 +89,12 @@
 ;; 扩展配置
 (require 'init-vcs)
 (require 'init-term)
+;; (require 'init-project)
+;; (require 'init-complete)
 (require 'init-project)
 (require 'init-complete)
 (require 'init-misc)
+(require 'init-hugo)
 
 ;; server模式启动
 (add-hook 'after-init-hook

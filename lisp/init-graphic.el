@@ -3,16 +3,12 @@
 ;;; Code:
 
 ;;----------------------------------------------------------------------------
-;; Dashboard
-;;----------------------------------------------------------------------------
-
-;;----------------------------------------------------------------------------
 ;; Suppress GUI features
 ;;----------------------------------------------------------------------------
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
 (setq inhibit-startup-screen t)
-
+(blink-cursor-mode -1) ;; 禁止光标闪烁
 ;;----------------------------------------------------------------------------
 ;; Window size and features
 ;;----------------------------------------------------------------------------
@@ -75,6 +71,14 @@
 
 (setq-default show-trailing-whitespace nil)
 
+(require 'page-break-lines)
+(set-fontset-font "fontset-default"
+				  (cons page-break-lines-char page-break-lines-char)
+				  (face-attribute 'default :family))
+(turn-on-page-break-lines-mode)
+
+(require 'all-the-icons)
+
 ;;; Whitespace
 
 (defun show-trailing-whitespace ()
@@ -90,6 +94,11 @@
   (diminish 'whitespace-cleanup-mode))
 
 (global-set-key [remap just-one-space] 'cycle-spacing)
+
+;; neotree
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
+(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 
 (provide 'init-graphic)
 ;;; init-graphic.el ends here

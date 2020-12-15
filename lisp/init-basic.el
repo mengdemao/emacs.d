@@ -34,6 +34,27 @@
 
 (setq backup-inhibited -1)                                        ;;不产生备份;
 
+(setq-default
+ blink-cursor-interval 0.4
+ bookmark-default-file (expand-file-name ".bookmarks.el" user-emacs-directory)
+ buffers-menu-max-size 30
+ case-fold-search t
+ column-number-mode t
+ delete-selection-mode t
+ ediff-split-window-function 'split-window-horizontally
+ ediff-window-setup-function 'ediff-setup-windows-plain
+ indent-tabs-mode nil
+ create-lockfiles nil
+ auto-save-default nil
+ make-backup-files nil
+ mouse-yank-at-point t
+ save-interprogram-paste-before-kill t
+ scroll-preserve-screen-position 'always
+ set-mark-command-repeat-pop t
+ tooltip-delay 1.5
+ truncate-lines nil
+ truncate-partial-width-windows nil)
+
 ;; 编码
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
@@ -73,7 +94,6 @@
 
 (require 'font-lock+)
 (global-font-lock-mode 1)			 ;; 开启语法高亮
-
 (setq mouse-avoidance-mode 'animate) ;; 鼠标自动避开指针
 (setq blink-cursor-mode -1)			 ;; 指针停止闪动
 (setq transient-mark-mode 1)         ;; 高亮显示要拷贝的内容
@@ -195,8 +215,13 @@
 	  sentence-end-double-space nil)
 
 ;; 高亮括号
+(show-paren-mode 1)
 (require 'highlight-parentheses)
-(highlight-parentheses-mode 1)
+(define-globalized-minor-mode global-highlight-parentheses-mode
+  highlight-parentheses-mode
+  (lambda ()
+	(highlight-parentheses-mode t)))
+(global-highlight-parentheses-mode t)
 
 (add-hook 'after-init-hook 'global-auto-revert-mode)
 (setq global-auto-revert-non-file-buffers t
@@ -204,6 +229,14 @@
 (with-eval-after-load 'autorevert
   (diminish 'auto-revert-mode))
 
+(require 'undo-tree)
+(global-undo-tree-mode)
+(defadvice undo-tree-visualizer-mode (after undo-tree-face activate)
+  (buffer-face-mode))
+
 (require 'tramp)
+
+(use-package smartparens
+  :ensure t)
 
 (provide 'init-basic)
