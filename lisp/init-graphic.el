@@ -66,16 +66,19 @@
 (require 'window-numbering)
 (window-numbering-mode t)
 
-(require 'spaceline-config)
-(spaceline-spacemacs-theme)
+(use-package spaceline
+  :ensure t)
+
+(use-package spaceline-config
+  :ensure spaceline
+  :config
+  (spaceline-helm-mode 1)
+  (spaceline-emacs-theme)
+  (spaceline-toggle-org-clock-on)
+  (spaceline-toggle-minor-modes-off)
+(spaceline-toggle-version-control-off))
 
 (setq-default show-trailing-whitespace nil)
-
-(require 'page-break-lines)
-(set-fontset-font "fontset-default"
-				  (cons page-break-lines-char page-break-lines-char)
-				  (face-attribute 'default :family))
-(turn-on-page-break-lines-mode)
 
 (require 'all-the-icons)
 

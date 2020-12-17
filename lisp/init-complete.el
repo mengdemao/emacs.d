@@ -48,27 +48,27 @@
 (use-package company-ctags
   :ensure t)
 
-;; ycmd
-(use-package ycmd
-  :ensure t
-  :init
-  (progn
-	(add-hook 'c++-mode-hook #'ycmd-mode)
-	(add-hook 'c-mode-hook #'ycmd-mode))
-  :config
-  (set-variable 'ycmd-server-command '("python3" "/opt/ycmd/ycmd"))
-  (set-variable 'ycmd-global-config (expand-file-name "~/.ycm_conf.py"))
-  (set-variable 'ycmd-extra-conf-whitelist '("~/Repos/*")))
+;; ;; ycmd
+;; (use-package ycmd
+;;   :ensure t
+;;   :init
+;;   (progn
+;;	(add-hook 'c++-mode-hook #'ycmd-mode)
+;;	(add-hook 'c-mode-hook #'ycmd-mode))
+;;   :config
+;;   (set-variable 'ycmd-server-command '("python3" "/opt/ycmd/ycmd"))
+;;   (set-variable 'ycmd-global-config (expand-file-name "~/.ycm_conf.py"))
+;;   (set-variable 'ycmd-extra-conf-whitelist '("~/Repos/*")))
 
-;; ycmd补全
-(use-package company-ycmd
-  :ensure t
-  :init (company-ycmd-setup)
-  :config (add-to-list 'company-backends 'company-ycmd))
+;; ;; ycmd补全
+;; (use-package company-ycmd
+;;   :ensure t
+;;   :init (company-ycmd-setup)
+;;   :config (add-to-list 'company-backends 'company-ycmd))
 
-(use-package flycheck-ycmd
-  :commands (flycheck-ycmd-setup)
-  :init (add-hook 'ycmd-mode-hook 'flycheck-ycmd-setup))
+;; (use-package flycheck-ycmd
+;;   :commands (flycheck-ycmd-setup)
+;;   :init (add-hook 'ycmd-mode-hook 'flycheck-ycmd-setup))
 
 ;; Clang Tool
 (use-package flycheck-clang-analyzer

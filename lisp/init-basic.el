@@ -1,3 +1,7 @@
+;;; init-basic.el --- Basic Configure for Doglock Emacs -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+
 (require 'cl-lib)
 
 ;; 设置title
@@ -17,7 +21,7 @@
 		  (set-fontset-font (frame-parameter nil 'font) charset
 							(font-spec :family chinese :size chinese-size))))))
 
-(set-font   "YaHei Consolas Hybrid" "YaHei Consolas Hybrid" 20 20)
+(set-font   "YaHei Consolas Hybrid" "YaHei Consolas Hybrid" 18 18)
 
 ;; ;;中英文字体设置
 ;; ;; ------------------------------------------------------------------------------
@@ -238,5 +242,7 @@
 
 (use-package smartparens
   :ensure t)
+
+(require 'bug-hunter)
 
 (provide 'init-basic)

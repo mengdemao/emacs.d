@@ -89,10 +89,8 @@
 ;; 扩展配置
 (require 'init-vcs)
 (require 'init-term)
-;; (require 'init-project)
 ;; (require 'init-complete)
 (require 'init-project)
-(require 'init-complete)
 (require 'init-misc)
 (require 'init-hugo)
 
