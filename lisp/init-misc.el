@@ -28,6 +28,9 @@
 (use-package editorconfig
   :ensure t)
 
+(use-package yaml-mode
+  :ensure t)
+
 ;; Makrdown Mode
 (use-package markdown-mode
   :ensure
@@ -43,7 +46,10 @@
   (setq inferior-lisp-program "sbcl"))
 
 (use-package geiser
-  :ensure t)
+  :ensure t
+  :config
+  (progn
+	(setq geiser-active-implementations '(chez))))
 
 (use-package avy
   :ensure t
