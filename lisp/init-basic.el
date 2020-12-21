@@ -21,7 +21,7 @@
 		  (set-fontset-font (frame-parameter nil 'font) charset
 							(font-spec :family chinese :size chinese-size))))))
 
-(set-font   "YaHei Consolas Hybrid" "YaHei Consolas Hybrid" 18 18)
+(set-font   "Source Code Pro" "YaHei Consolas Hybrid" 18 17)
 
 ;; ;;中英文字体设置
 ;; ;; ------------------------------------------------------------------------------
@@ -98,6 +98,11 @@
 
 (require 'font-lock+)
 (global-font-lock-mode 1)			 ;; 开启语法高亮
+(require 'modern-cpp-font-lock)		 ;; cpp font-lock
+
+(add-hook 'c++-mode-hook #'modern-c++-font-lock-mode)
+(add-hook 'c-mode-hook #'modern-c++-font-lock-mode)
+
 (setq mouse-avoidance-mode 'animate) ;; 鼠标自动避开指针
 (setq blink-cursor-mode -1)			 ;; 指针停止闪动
 (setq transient-mark-mode 1)         ;; 高亮显示要拷贝的内容

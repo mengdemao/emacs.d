@@ -358,5 +358,9 @@ typical word processor."
 ;; 加载orgmode预览
 (require 'org-preview-html)
 
+;; 将图片拖入org-mode中
+(use-package org-download
+  :ensure t)
+
 (provide 'init-org)
 ;;; init-org.el ends here
