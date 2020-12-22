@@ -5,7 +5,12 @@
 (add-to-list 'custom-theme-load-path (expand-file-name "themes/" user-emacs-directory))
 (setq custom-safe-themes t)
 
- (load-theme 'monokai t)
+;; (load-theme 'monokai t)
+;; (load-theme 'molokai t)
+
+;; doom主题
+(load-theme 'doom-molokai t)
+
 ;; 基础主题
 ;; (load-theme 'zenburn t)
 ;; (load-theme 'grandshell t)

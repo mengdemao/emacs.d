@@ -25,17 +25,14 @@
 	(setq c-basic-offset 4)
 	)
 (defun linux-cpp-mode()
-  (define-key c++-mode-map [return] 'newline-and-indent)
- (define-key c++-mode-map [(control c) (c)] 'compile)
   (interactive)
   (c-set-style "K&R")
-  (c-toggle-auto-state)
   (c-toggle-hungry-state)
-  (setq c-basic-offset 4)
-  (imenu-add-menubar-index)
-  (which-function-mode))
+  (setq c-basic-offset 4))
 
 (add-hook 'c-mode-hook 'hs-minor-mode)
+(add-hook 'c++-mode-hook 'hs-minor-mode)
+
 (electric-pair-mode 1)
 (defun my-c-mode-auto-pair ()
   (interactive)
@@ -53,6 +50,7 @@
   (local-set-key (kbd "\"") 'skeleton-pair-insert-maybe)
   (local-set-key (kbd "[") 'skeleton-pair-insert-maybe))
 (add-hook 'c-mode-hook 'my-c-mode-auto-pair)
+(add-hook 'c++-mode-hook 'my-c-mode-auto-pair)
 
 (require 'ggtags)
 (add-hook 'c-mode-common-hook

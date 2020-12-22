@@ -327,6 +327,7 @@ typical word processor."
   (org-babel-do-load-languages
    'org-babel-load-languages
    `((R . t)
+	 (makefile . t)
 	 (ditaa . t)
 	 (dot . t)
 	 (emacs-lisp . t)

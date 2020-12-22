@@ -31,6 +31,8 @@
 (use-package yaml-mode
   :ensure t)
 
+(require 'ebuild-mode)
+
 ;; Makrdown Mode
 (use-package markdown-mode
   :ensure
@@ -50,12 +52,6 @@
   :config
   (progn
 	(setq geiser-active-implementations '(chez))))
-
-(use-package avy
-  :ensure t
-  :bind (("M-1" . avy-goto-char)
-		 ("M-2" . avy-goto-char-2)
-		 ("M-l" . avy-goto-line)))
 
 ;; docker file
 (use-package dockerfile-mode
