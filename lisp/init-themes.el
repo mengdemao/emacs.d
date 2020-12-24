@@ -9,7 +9,7 @@
 ;; (load-theme 'molokai t)
 
 ;; doom主题
-(load-theme 'doom-molokai t)
+(load-theme 'doom-monokai-classic t)
 
 ;; 基础主题
 ;; (load-theme 'zenburn t)

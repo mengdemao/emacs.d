@@ -330,6 +330,7 @@ typical word processor."
 	 (makefile . t)
 	 (ditaa . t)
 	 (dot . t)
+	 (shell . t)
 	 (emacs-lisp . t)
 	 (gnuplot . t)
 	 (haskell . nil)

@@ -237,8 +237,7 @@
 
 (provide 'doxymacs)
 
-(require 'custom)
-(require 'xml-parse)
+(require 'custom)(require 'xml-parse)
 (require 'url)
 (require 'tempo)
 

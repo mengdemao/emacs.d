@@ -1,4 +1,4 @@
-;;; init-custom.el --- const  -*- lexical-binding: t -*-
+;;; init-custom.el --- 配置文件解析  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
