@@ -328,6 +328,7 @@ typical word processor."
    'org-babel-load-languages
    `((R . t)
 	 (makefile . t)
+	 (scheme . t)
 	 (ditaa . t)
 	 (dot . t)
 	 (shell . t)

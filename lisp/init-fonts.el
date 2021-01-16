@@ -1,4 +1,4 @@
-;;; init-compile.el --- Helpers for M-x compile -*- lexical-binding: t -*-
+;;; init-fonts.el --- Configure Emacs Fonts -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -116,9 +116,4 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
 
 (set-face-attribute 'default nil :font (font-spec))
 
-;; {%org-mode%}
-;; here are 20 hanzi and 40 english chars, see if they are the same width
-;; 你你你你你你你你你你你你你你你你你你你你
-;; aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-;; /aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/
-;; {%/org-mode%}
+;;; init-fonts ends here

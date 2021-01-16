@@ -57,5 +57,12 @@
 (use-package dockerfile-mode
   :ensure t)
 
+;; rust
+(use-package rust-mode
+  :ensure t
+  :config
+  (add-hook 'rust-mode-hook
+			(lambda () (setq indent-tabs-mode nil))))
+
 (provide 'init-misc)
 ;;; init-misc.el ends here

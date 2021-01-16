@@ -34,7 +34,7 @@
 ;; (save-buffers-kill-emacs t))
 
 ;; 版本号
-
+;;
 (setq-default MAJOR_VERSION "1")
 (setq-default MINOR_VERSION "3")
 (setq-default PATCH_VERSION "2")
@@ -89,10 +89,11 @@
 ;; 扩展配置
 (require 'init-vcs)
 (require 'init-term)
-;; (require 'init-complete)
+(require 'init-complete)
 (require 'init-project)
 (require 'init-misc)
 (require 'init-hugo)
+(require 'init-input)
 
 ;; server模式启动
 (add-hook 'after-init-hook

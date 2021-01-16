@@ -21,20 +21,7 @@
 		  (set-fontset-font (frame-parameter nil 'font) charset
 							(font-spec :family chinese :size chinese-size))))))
 
-(set-font   "Source Code Pro" "YaHei Consolas Hybrid" 18 17)
-
-;; ;;中英文字体设置
-;; ;; ------------------------------------------------------------------------------
-;; (if (display-graphic-p)
-;;	(progn
-;;	  ;; Setting English Font
-;;	  (set-face-attribute 'default nil :font "Source Code Pro 12")
-;;	  ;; Chinese Font
-;;	  (dolist (charset '(kana han symbol cjk-misc bopomofo))
-;;		(set-fontset-font (frame-parameter nil 'font)
-;;						  charset (font-spec :family "新宋体"
-;;											 :size 16)))
-;;	  ))
+(set-font   "Source Code Pro" "YaHei Consolas Hybrid" 26 24)
 
 (setq backup-inhibited -1)                                        ;;不产生备份;
 
@@ -251,3 +238,4 @@
 (require 'bug-hunter)
 
 (provide 'init-basic)
+;;; init-basic.el ends here

@@ -215,4 +215,4 @@ advice for `require-package', to which ARGS are passed."
   (require 'use-package))
 
 (provide 'init-package)
-;; init-package.el ends here
+;;; init-package.el ends here
