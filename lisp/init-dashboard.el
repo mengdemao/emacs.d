@@ -27,7 +27,7 @@
 		 ("?" . dashboard-hydra/body))
   :hook (dashboard-mode . (lambda () (setq-local frame-title-format "")))
   :init
-  (setq dashboard-banner-logo-title "DogLock Emacs - Enjoy Programming & Writing"
+  (setq dashboard-banner-logo-title "DogLock Emacs - Armed To Teeth"
 		dashboard-startup-banner "~/.emacs.d/logo.png"
 		dashboard-center-content t
 		dashboard-show-shortcuts nil

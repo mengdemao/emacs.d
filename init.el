@@ -34,7 +34,11 @@
 ;; (save-buffers-kill-emacs t))
 
 ;; 版本号
-;;
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (setq-default MAJOR_VERSION "1")
 (setq-default MINOR_VERSION "3")
 (setq-default PATCH_VERSION "2")
@@ -44,7 +48,7 @@
 (add-to-list 'load-path (expand-file-name "user" user-emacs-directory))
 
 ;; 设置调试模式
-(setq debug-on-error t)
+(setq debug-on-error nil)
 
 ;;设置垃圾回收缓存为1G,开启结束压缩,加速软件开启
 (defvar default-file-name-handler-alist file-name-handler-alist)
@@ -89,7 +93,7 @@
 ;; 扩展配置
 (require 'init-vcs)
 (require 'init-term)
-(require 'init-complete)
+;; (require 'init-complete)
 (require 'init-project)
 (require 'init-misc)
 (require 'init-hugo)
@@ -101,6 +105,15 @@
 		(require 'server)
 		(unless (server-running-p)
 		  (server-start))))
+
+;; 报告emacs版本信息,只对git版本有效
+(defun insert-debug-version-info()
+  "Insert version of Emacs and 7 characters of the commit hash."
+  (interactive)
+  (insert
+   (format "GNU Emacs %s (commit %s)"
+		   emacs-version
+		   (substring (emacs-repository-get-version) 0 7))))
 
 (provide 'init)
 ;;; init.el ends here

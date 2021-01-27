@@ -21,7 +21,7 @@
 		  (set-fontset-font (frame-parameter nil 'font) charset
 							(font-spec :family chinese :size chinese-size))))))
 
-(set-font   "Source Code Pro" "YaHei Consolas Hybrid" 26 24)
+(set-font   "Source Code Pro" "YaHei Consolas Hybrid" 20 18)
 
 (setq backup-inhibited -1)                                        ;;不产生备份;
 
@@ -66,7 +66,7 @@
 (setq gdb-many-windows t)	;; gdb多窗口模式
 (global-hl-line-mode 1)		;; 高亮当前行
 (global-auto-revert-mode t)	;; 自动载入文件
-(add-hook 'before-save-hook 'whitespace-cleanup) ;; 保存时删除多余的空格个
+;; (add-hook 'before-save-hook 'whitespace-cleanup) ;; 保存时删除多余的空格个
 (delete-selection-mode 1)			 ;; 选中删除
 
 (setq time-stamp-active t)
@@ -81,7 +81,7 @@
 (cl-loop for x downfrom 40 to 1 do
 		 (setq tab-stop-list (cons (* x 4) tab-stop-list)))
 (setq backward-delete-char-untabify-method nil)             ;;tab退格删除
-(add-hook 'before-save-hook 'delete-trailing-whitespace) ;;关闭时自动删除多余空格
+;; (add-hook 'before-save-hook 'delete-trailing-whitespace) ;;关闭时自动删除多余空格
 
 (require 'font-lock+)
 (global-font-lock-mode 1)			 ;; 开启语法高亮
@@ -180,8 +180,9 @@
 
   (defun enable-trailing-whitespace ()
 	"Show trailing spaces and delete on saving."
-	(setq show-trailing-whitespace t)
-	(add-hook 'before-save-hook #'delete-trailing-whitespace nil t)))
+	;; (setq show-trailing-whitespace t)
+	;; (add-hook 'before-save-hook #'delete-trailing-whitespace nil t)
+	))
 
 ;; Mouse & Smooth Scroll
 ;; Scroll one line at a time (less "jumpy" than defaults)
@@ -236,6 +237,9 @@
   :ensure t)
 
 (require 'bug-hunter)
+
+(require 'ws-butler)
+(add-hook 'prog-mode-hook #'ws-butler-mode)
 
 (provide 'init-basic)
 ;;; init-basic.el ends here

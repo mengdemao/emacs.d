@@ -52,17 +52,21 @@
 (add-hook 'c-mode-hook 'my-c-mode-auto-pair)
 (add-hook 'c++-mode-hook 'my-c-mode-auto-pair)
 
-(require 'ggtags)
-(add-hook 'c-mode-common-hook
-		  (lambda ()
-			(when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
-			  (ggtags-mode 1))))
-(global-set-key (kbd "M-[") 'ggtags-find-definition)
+;; (require 'ggtags)
+;; (add-hook 'c-mode-common-hook
+;;		  (lambda ()
+;;			(when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
+;;			  (ggtags-mode 1))))
 
 (require 'doxymacs)
 (add-hook 'c-mode-common-hook 'doxymacs-mode)
 (add-hook 'c++-mode-common-hook 'doxymacs-mode)
 (add-hook 'asm-mode-common-hook 'doxymacs-mode)
+
+(use-package evil-nerd-commenter
+  :ensure t
+  :init
+  (global-set-key (kbd "M-'") 'evilnc-comment-or-uncomment-lines))
 
 (provide 'init-cpp)
 ;;; init-cpp.el ends here
