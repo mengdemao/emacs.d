@@ -21,25 +21,6 @@
 
 ;;; Code:
 
-;; ;; emacs版本号判断
-;; (when (or (< emacs-major-version 26)
-;;	  (and (= emacs-major-version 26)
-;;		   (< emacs-minor-version 6)))
-;;  (x-popup-dialog t `(,(format "Sorry, you need GNU Emacs version 26.6 or higher
-;; to run DogLock Emacs.
-;;
-;; Your installed Emacs reports:
-;; %s" (emacs-version))
-;;			  ("OK :(" . t)))
-;; (save-buffers-kill-emacs t))
-
-;; 版本号
-
-(setq-default MAJOR_VERSION "1")
-(setq-default MINOR_VERSION "3")
-(setq-default PATCH_VERSION "2")
-(setq-default TWAEK_VERSION "2")
-
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "user" user-emacs-directory))
 
@@ -67,17 +48,12 @@
   (compilation-start "cd ~/.emacs.d && git pull"))
 (define-key global-map (kbd "<f12>") 'doglock-update)
 
-;; 插件包配置
-(require 'init-custom)
-(require 'init-package)
-(require 'init-benchmark)
-
 ;; 基础配置
+(require 'init-package)
 (require 'init-graphic)
 (require 'init-basic)
 (require 'init-themes)
 (require 'init-edit)
-(require 'init-compile)
 (require 'init-cpp)
 
 ;; 增强配置
