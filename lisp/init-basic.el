@@ -264,8 +264,6 @@
 	  sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
 	  sentence-end-double-space nil)
 
-;; 插件包配置
-
 ;; 高亮括号
 (use-package highlight-parentheses
   :ensure nil

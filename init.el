@@ -84,7 +84,6 @@
 (require 'init-basic)
 (require 'init-graphic)
 (require 'init-themes)
-(require 'init-edit)
 (require 'init-cc)
 
 ;; 增强配置
@@ -94,7 +93,6 @@
 
 ;; 扩展配置
 (require 'init-vcs)
-(require 'init-term)
 (require 'init-complete)
 (require 'init-project)
 (require 'init-misc)

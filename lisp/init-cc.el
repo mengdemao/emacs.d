@@ -2,6 +2,9 @@
 ;;; Commentary:
 ;;; Code:
 
+(eval-when-compile
+  (require 'use-package))
+
 (use-package cc-mode
   :ensure t
   :bind (:map c-mode-base-map
@@ -14,8 +17,6 @@
 	:diminish
 	:init (modern-c++-font-lock-global-mode t)))
 
-;; 配置 C&c++ mode
-;; ------------------------------------------------------------------------------
 (add-hook 'c-mode-hook 'linux-c-mode)
 (add-hook 'c++-mode-hook 'linux-cpp-mode)
 (defun linux-c-mode()

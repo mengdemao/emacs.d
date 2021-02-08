@@ -2,16 +2,11 @@
 ;;; Commentary:
 ;;; Code:
 
-;;----------------------------------------------------------------------------
-;; Suppress GUI features
-;;----------------------------------------------------------------------------
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
 (setq inhibit-startup-screen t)
 (blink-cursor-mode -1) ;; 禁止光标闪烁
-;;----------------------------------------------------------------------------
-;; Window size and features
-;;----------------------------------------------------------------------------
+
 (setq-default
  window-resize-pixelwise t
  frame-resize-pixelwise t)
@@ -66,42 +61,14 @@
 (require 'window-numbering)
 (window-numbering-mode t)
 
-(use-package spaceline
-  :ensure t)
-
-(use-package spaceline-config
-  :ensure spaceline
-  :config
-  (spaceline-helm-mode 1)
-  (spaceline-emacs-theme)
-  (spaceline-toggle-org-clock-on)
-  (spaceline-toggle-minor-modes-off)
-(spaceline-toggle-version-control-off))
-
-(setq-default show-trailing-whitespace nil)
-
 ;; (require 'all-the-icons)
 
-;;; Whitespace
-
-(defun show-trailing-whitespace ()
-  "Enable display of trailing whitespace in this buffer."
-  (setq-local show-trailing-whitespace t))
-
-(dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
-  (add-hook hook 'show-trailing-whitespace))
-
-(require 'whitespace-cleanup-mode)
-(add-hook 'after-init-hook 'global-whitespace-cleanup-mode)
-(with-eval-after-load 'whitespace-cleanup-mode
-  (diminish 'whitespace-cleanup-mode))
-
-(global-set-key [remap just-one-space] 'cycle-spacing)
-
 ;; neotree
-(require 'neotree)
+(use-package neotree
+  :ensure t
+  :config
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
 (global-set-key [f8] 'neotree-toggle)
-(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 
 (provide 'init-graphic)
 ;;; init-graphic.el ends here
