@@ -323,6 +323,9 @@ typical word processor."
 (with-eval-after-load 'org-agenda
   (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
 
+(setq org-plantuml-jar-path
+	  (expand-file-name "~/.emacs.d/bin/plantuml.jar"))
+
 (with-eval-after-load 'org
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -389,6 +392,11 @@ typical word processor."
 (add-to-list 'find-file-not-found-hooks 'new-org-file-init)
 
 (setq org-confirm-babel-evaluate nil)	;; 直接计算
+
+;; ox-hugo
+(use-package ox-hugo
+  :ensure t            ;Auto-install the package from Melpa (optional)
+  :after ox)
 
 (provide 'init-org)
 ;;; init-org.el ends here
