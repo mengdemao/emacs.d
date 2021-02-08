@@ -81,7 +81,6 @@
 (require 'init-cpp)
 
 ;; 增强配置
-(require 'init-dashboard)
 (require 'init-helm)
 (require 'init-org)
 (require 'init-evil)
