@@ -5,7 +5,7 @@
 (use-package cc-mode
   :ensure t
   :bind (:map c-mode-base-map
-	 ("C-c c" . compile))
+			  ("C-c c" . compile))
   :hook (c-mode-common . (lambda () (c-set-style "gnu")))
   :init (setq-default c-basic-offset 4)
   :config
@@ -19,11 +19,11 @@
 (add-hook 'c-mode-hook 'linux-c-mode)
 (add-hook 'c++-mode-hook 'linux-cpp-mode)
 (defun linux-c-mode()
-	(interactive)
-	(c-set-style "K&R")
-	(c-toggle-hungry-state)
-	(setq c-basic-offset 4)
-	)
+  (interactive)
+  (c-set-style "K&R")
+  (c-toggle-hungry-state)
+  (setq c-basic-offset 4)
+  )
 (defun linux-cpp-mode()
   (interactive)
   (c-set-style "K&R")
@@ -40,7 +40,7 @@
   (setq skeleton-pair-alist  '(
 							   (?\' _ "'")
 							   (?\" _ "\"")
-							  (?\( _ ")")
+							   (?\( _ ")")
 							   (?\[ _ "]")
 							   (?{ \n > _ \n ?} >)))
   (setq skeleton-pair t)
@@ -52,10 +52,12 @@
 (add-hook 'c-mode-hook 'my-c-mode-auto-pair)
 (add-hook 'c++-mode-hook 'my-c-mode-auto-pair)
 
-(require 'doxymacs)
-(add-hook 'c-mode-common-hook 'doxymacs-mode)
-(add-hook 'c++-mode-common-hook 'doxymacs-mode)
-(add-hook 'asm-mode-common-hook 'doxymacs-mode)
+(use-package doxymacs
+  :ensure nil
+  :config
+  (add-hook 'c-mode-common-hook 'doxymacs-mode)
+  (add-hook 'c++-mode-common-hook 'doxymacs-mode)
+  (add-hook 'asm-mode-common-hook 'doxymacs-mode))
 
 (use-package evil-nerd-commenter
   :ensure t

@@ -23,12 +23,12 @@
 
 (require 'cl-lib)
 
-(setq package-archives '
-	  (
-	   ("gnu" . "http://mirrors.ustc.edu.cn/elpa/gnu/")
-	   ("melpa" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
-	   ("melpa-stable" . "http://mirrors.ustc.edu.cn/elpa/melpa-stable/")
-	   ("org" . "http://mirrors.ustc.edu.cn/elpa/org/")))
+(setq package-archives
+	  '(
+		("gnu" . "http://mirrors.ustc.edu.cn/elpa/gnu/")
+		("melpa" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
+		("melpa-stable" . "http://mirrors.ustc.edu.cn/elpa/melpa-stable/")
+		("org" . "http://mirrors.ustc.edu.cn/elpa/org/")))
 
 (defun add-subdirs-to-load-path (parent-dir)
   "Add every non-hidden subdir of PARENT-DIR to `load-path'."
@@ -51,6 +51,10 @@
 (let ((user-dir (expand-file-name "user/" user-emacs-directory)))
   (push user-dir load-path)
   (add-subdirs-to-load-path user-dir))
+
+(require 'packed)
+(require 'bind-key)
+(require 'diminish)
 
 ;; 设置调试模式
 (setq debug-on-error t)
@@ -86,7 +90,7 @@
 ;; 增强配置
 (require 'init-helm)
 (require 'init-org)
-(require 'init-evil)
+;; (require 'init-evil)
 
 ;; 扩展配置
 (require 'init-vcs)

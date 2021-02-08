@@ -80,7 +80,7 @@
 
 (setq-default show-trailing-whitespace nil)
 
-(require 'all-the-icons)
+;; (require 'all-the-icons)
 
 ;;; Whitespace
 
