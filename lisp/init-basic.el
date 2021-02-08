@@ -65,9 +65,13 @@
 (menu-bar-mode 0)		;; 禁用菜单栏，F10 开启关闭菜单
 (setq gdb-many-windows t)	;; gdb多窗口模式
 (global-hl-line-mode 1)		;; 高亮当前行
-(global-auto-revert-mode t)	;; 自动载入文件
 ;; (add-hook 'before-save-hook 'whitespace-cleanup) ;; 保存时删除多余的空格个
 (delete-selection-mode 1)			 ;; 选中删除
+(global-auto-revert-mode t)	;; 自动载入文件
+(setq global-auto-revert-non-file-buffers t
+	  auto-revert-verbose nil)
+(with-eval-after-load 'autorevert
+  (diminish 'auto-revert-mode))
 
 (setq time-stamp-active t)
 (setq time-stamp-warn-inactive t)
@@ -212,26 +216,15 @@
 	  sentence-end-double-space nil)
 
 ;; 高亮括号
-(show-paren-mode 1)
-(require 'highlight-parentheses)
-(define-globalized-minor-mode global-highlight-parentheses-mode
-  highlight-parentheses-mode
-  (lambda ()
-	(highlight-parentheses-mode t)))
-(global-highlight-parentheses-mode t)
-
-(add-hook 'after-init-hook 'global-auto-revert-mode)
-(setq global-auto-revert-non-file-buffers t
-	  auto-revert-verbose nil)
-(with-eval-after-load 'autorevert
-  (diminish 'auto-revert-mode))
-
-(require 'undo-tree)
-(global-undo-tree-mode)
-(defadvice undo-tree-visualizer-mode (after undo-tree-face activate)
-  (buffer-face-mode))
-
-(require 'tramp)
+(use-package highlight-parentheses
+  :ensure nil
+  :config
+  (progn
+	(define-globalized-minor-mode global-highlight-parentheses-mode
+	  highlight-parentheses-mode
+	  (lambda ()
+		(highlight-parentheses-mode t)))
+	(global-highlight-parentheses-mode t)))
 
 (use-package smartparens
   :ensure t)

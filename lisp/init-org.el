@@ -64,7 +64,7 @@
 
 
 
-(maybe-require-package 'writeroom-mode)
+(require-package 'writeroom-mode)
 
 (define-minor-mode prose-mode
   "Set up a buffer for prose editing.
