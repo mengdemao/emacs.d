@@ -226,13 +226,5 @@
 		(highlight-parentheses-mode t)))
 	(global-highlight-parentheses-mode t)))
 
-(use-package smartparens
-  :ensure t)
-
-(require 'bug-hunter)
-
-(require 'ws-butler)
-(add-hook 'prog-mode-hook #'ws-butler-mode)
-
 (provide 'init-basic)
 ;;; init-basic.el ends here

@@ -52,12 +52,6 @@
 (add-hook 'c-mode-hook 'my-c-mode-auto-pair)
 (add-hook 'c++-mode-hook 'my-c-mode-auto-pair)
 
-;; (require 'ggtags)
-;; (add-hook 'c-mode-common-hook
-;;		  (lambda ()
-;;			(when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
-;;			  (ggtags-mode 1))))
-
 (require 'doxymacs)
 (add-hook 'c-mode-common-hook 'doxymacs-mode)
 (add-hook 'c++-mode-common-hook 'doxymacs-mode)

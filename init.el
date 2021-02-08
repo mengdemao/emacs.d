@@ -92,24 +92,7 @@
 (require 'init-complete)
 (require 'init-project)
 (require 'init-misc)
-(require 'init-hugo)
 (require 'init-input)
-
-;; server模式启动
-(add-hook 'after-init-hook
-	  (lambda ()
-		(require 'server)
-		(unless (server-running-p)
-		  (server-start))))
-
-;; 报告emacs版本信息,只对git版本有效
-(defun insert-debug-version-info()
-  "Insert version of Emacs and 7 characters of the commit hash."
-  (interactive)
-  (insert
-   (format "GNU Emacs %s (commit %s)"
-		   emacs-version
-		   (substring (emacs-repository-get-version) 0 7))))
 
 (provide 'init)
 ;;; init.el ends here
