@@ -21,9 +21,36 @@
 
 ;;; Code:
 
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "user" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "site" user-emacs-directory))
+(require 'cl-lib)
+
+(setq package-archives '
+	  (
+	   ("gnu" . "http://mirrors.ustc.edu.cn/elpa/gnu/")
+	   ("melpa" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
+	   ("melpa-stable" . "http://mirrors.ustc.edu.cn/elpa/melpa-stable/")
+	   ("org" . "http://mirrors.ustc.edu.cn/elpa/org/")))
+
+(defun add-subdirs-to-load-path (parent-dir)
+  "Add every non-hidden subdir of PARENT-DIR to `load-path'."
+  (let ((default-directory parent-dir))
+	(setq load-path
+		  (append
+		   (cl-remove-if-not
+			#'file-directory-p
+			(directory-files (expand-file-name parent-dir) t "^[^\\.]"))
+		   load-path))))
+
+(let ((lisp-dir (expand-file-name "lisp/" user-emacs-directory)))
+  (push lisp-dir load-path)
+  (add-subdirs-to-load-path lisp-dir))
+
+(let ((site-dir (expand-file-name "site/" user-emacs-directory)))
+  (push site-dir load-path)
+  (add-subdirs-to-load-path site-dir))
+
+(let ((user-dir (expand-file-name "user/" user-emacs-directory)))
+  (push user-dir load-path)
+  (add-subdirs-to-load-path user-dir))
 
 ;; 设置调试模式
 (setq debug-on-error t)

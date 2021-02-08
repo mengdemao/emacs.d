@@ -2,7 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-(require 'cl-lib)
 (require 'packed)
 (require 'bind-key)
 (require 'diminish)
@@ -271,28 +270,6 @@ advice for `require-package', to which ARGS are passed."
 	  (set-tabulated-list-column-width "Archive" longest-archive-name))))
 
 (add-hook 'package-menu-mode-hook 'maybe-widen-package-menu-columns)
-
-(setq package-archives '
-	  (
-	   ("gnu" . "http://mirrors.ustc.edu.cn/elpa/gnu/")
-	   ("melpa" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
-	   ("melpa-stable" . "http://mirrors.ustc.edu.cn/elpa/melpa-stable/")
-	   ("org" . "http://mirrors.ustc.edu.cn/elpa/org/")))
-
-(defun add-subdirs-to-load-path (parent-dir)
-  "Add every non-hidden subdir of PARENT-DIR to `load-path'."
-  (let ((default-directory parent-dir))
-	(setq load-path
-		  (append
-		   (cl-remove-if-not
-			#'file-directory-p
-			(directory-files (expand-file-name parent-dir) t "^[^\\.]"))
-		   load-path))))
-
-;; Add both site and its immediate subdirs to `load-path'
-(let ((site-dir (expand-file-name "site/" user-emacs-directory)))
-  (push site-dir load-path)
-  (add-subdirs-to-load-path site-dir))
 
 (unless (bound-and-true-p package--initialized) ; To avoid warnings in 27
   (setq package-enable-at-startup nil)          ; To prevent initializing twice
