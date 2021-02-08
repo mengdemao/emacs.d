@@ -42,8 +42,6 @@
   :diminish eldoc-mode
   :config (global-eldoc-mode 1))
 
-;; 补全后端
-
 ;; tags补全
 (use-package company-ctags
   :ensure t)
