@@ -1,4 +1,4 @@
-;;; init-cpp.el --- Day-to-day editing helpers -*- lexical-binding: t -*-
+;;; init-cc.el --- Day-to-day editing helpers -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -62,5 +62,5 @@
   :init
   (global-set-key (kbd "M-'") 'evilnc-comment-or-uncomment-lines))
 
-(provide 'init-cpp)
-;;; init-cpp.el ends here
+(provide 'init-cc)
+;;; init-cc.el ends here

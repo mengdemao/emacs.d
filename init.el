@@ -23,9 +23,10 @@
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "user" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "site" user-emacs-directory))
 
 ;; 设置调试模式
-(setq debug-on-error nil)
+(setq debug-on-error t)
 
 ;;设置垃圾回收缓存为1G,开启结束压缩,加速软件开启
 (defvar default-file-name-handler-alist file-name-handler-alist)
@@ -49,12 +50,11 @@
 (define-key global-map (kbd "<f12>") 'doglock-update)
 
 ;; 基础配置
-(require 'init-package)
-(require 'init-graphic)
 (require 'init-basic)
+(require 'init-graphic)
 (require 'init-themes)
 (require 'init-edit)
-(require 'init-cpp)
+(require 'init-cc)
 
 ;; 增强配置
 (require 'init-helm)
