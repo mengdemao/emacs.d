@@ -59,7 +59,6 @@
 (setq column-number-mode t)
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
-(setq indent-tabs-mode t)
 (setq create-lockfiles nil)
 (setq auto-save-default nil)
 (setq make-backup-files nil)
@@ -105,7 +104,7 @@
 
 (global-set-key [(meta ?/)] 'hippie-expand) ;; 绑定自动补全按键
 (setq hippie-expand-try-functions-list      ;; 搜索路径
-	  '(try-expand-dabbrev try-expand-dabbrev-visible try-expand-dabbrev-all-buffers
+      '(try-expand-dabbrev try-expand-dabbrev-visible try-expand-dabbrev-all-buffers
 			   try-expand-dabbrev-from-kill try-complete-file-name-partially
 			   try-complete-file-name try-expand-all-abbrevs try-expand-list
 			   try-expand-line try-complete-lisp-symbol-partially
@@ -132,13 +131,13 @@
   (add-to-list 'initial-frame-alist no-border))
 
 ;; TAB按键的长度设置
-(setq default-tab-width 4)					;;
-(setq tab-width 4)							;;
-(setq indent-tabs-mode t)
+(setq default-tab-width 4)  ;; 设置tab默认长度
+(setq tab-width 4)	    ;; 设置tab默认长度
+(setq indent-tabs-mode t)   ;; 不使用空格替换tab
 (cl-loop for x downfrom 40 to 1 do
 	 (setq tab-stop-list (cons (* x 4) tab-stop-list)))
-(setq backward-delete-char-untabify-method nil)             ;; tab退格删除
-(add-hook 'before-save-hook 'delete-trailing-whitespace) ;; 关闭时自动删除多余空格
+(setq backward-delete-char-untabify-method nil)		    ;; tab退格删除
+(add-hook 'before-save-hook 'delete-trailing-whitespace)    ;; 关闭时自动删除多余空格
 
 ;; 编码
 (prefer-coding-system 'utf-8)
@@ -152,21 +151,21 @@
   (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))
 	mouse-wheel-progressive-speed nil))
 (setq scroll-step 1
-	  scroll-margin 0
-	  scroll-conservatively 100000)
+      scroll-margin 0
+      scroll-conservatively 100000)
 
 ;; Misc
 (setq visible-bell t
-	  inhibit-compacting-font-caches t  ; Don’t compact font caches during GC.
-	  delete-by-moving-to-trash t       ; Deleting files go to OS's trash folder
-	  make-backup-files nil             ; Forbide to make backup files
-	  auto-save-default nil             ; Disable auto save
+      inhibit-compacting-font-caches t  ; Don’t compact font caches during GC.
+      delete-by-moving-to-trash t       ; Deleting files go to OS's trash folder
+      make-backup-files nil             ; Forbide to make backup files
+      auto-save-default nil             ; Disable auto save
 
-	  uniquify-buffer-name-style 'post-forward-angle-brackets ; Show path if names are same
-	  adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*"
-	  adaptive-fill-first-line-regexp "^* *$"
-	  sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
-	  sentence-end-double-space nil)
+      uniquify-buffer-name-style 'post-forward-angle-brackets ; Show path if names are same
+      adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*"
+      adaptive-fill-first-line-regexp "^* *$"
+      sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
+      sentence-end-double-space nil)
 
 (display-time-mode 1)							;; 时间显示
 (setq display-time-24hr-format t)				;; 24小时制
@@ -174,8 +173,6 @@
 (setq display-time-format "%02H:%02M:%02S %Y-%02m-%02d %3a") ;; 设定时间格式
 (setq display-time-interval 1)					;; 时间的变化频率
 (display-time)									;; 显示时间
-
-;; 设置内部package
 
 ;; 设置行号
 (require 'linum)
@@ -188,16 +185,16 @@
 If NO-REFRESH is non-nil, the available package lists will not be
 re-downloaded in order to locate PACKAGE."
   (or (package-installed-p package min-version)
-	  (let* ((known (cdr (assoc package package-archive-contents)))
-		 (best (car (sort known (lambda (a b)
-					  (version-list-<= (package-desc-version b)
-							   (package-desc-version a)))))))
+      (let* ((known (cdr (assoc package package-archive-contents)))
+	     (best (car (sort known (lambda (a b)
+				      (version-list-<= (package-desc-version b)
+						       (package-desc-version a)))))))
 	(if (and best (version-list-<= min-version (package-desc-version best)))
-		(package-install best)
+	    (package-install best)
 	  (if no-refresh
-		  (error "No version of %s >= %S is available" package min-version)
-		(package-refresh-contents)
-		(require-package package min-version t)))
+	      (error "No version of %s >= %S is available" package min-version)
+	    (package-refresh-contents)
+	    (require-package package min-version t)))
 	(package-installed-p package min-version))))
 
 ;; auto-compile
@@ -216,19 +213,19 @@ re-downloaded in order to locate PACKAGE."
   (setq use-package-verbose t))
 
 (eval-when-compile
-	(require-package 'use-package))
+  (require-package 'use-package))
 
 ;; Load path
 ;; Optimize: Force "lisp"" and "site-lisp" at the head to reduce the startup time.
 (defun update-load-path (&rest _)
   "Update `load-path'."
   (dolist (dir '("site" "lisp"))
-	(push (expand-file-name dir user-emacs-directory) load-path)))
+    (push (expand-file-name dir user-emacs-directory) load-path)))
 
 (defun add-subdirs-to-load-path (&rest _)
   "Add subdirectories to `load-path'."
   (let ((default-directory (expand-file-name "site" user-emacs-directory)))
-	(normal-top-level-add-subdirs-to-load-path)))
+    (normal-top-level-add-subdirs-to-load-path)))
 
 (advice-add #'package-initialize :after #'update-load-path)
 (advice-add #'package-initialize :after #'add-subdirs-to-load-path)
@@ -243,12 +240,12 @@ re-downloaded in order to locate PACKAGE."
 
 ;; 设置title
 (setq frame-title-format
-	  (list "[" '(:eval (projectile-project-name)) "]" " @ "
-			'(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
+      (list "[" '(:eval (projectile-project-name)) "]" " @ "
+	    '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
 
 ;; 如果有工程文件存在则设置工程,否则设置文件名字
 (setq frame-title-format
-	  '((:eval (if (buffer-file-name)
+      '((:eval (if (buffer-file-name)
 		   (abbreviate-file-name (buffer-file-name))
 		 "%b"))))
 
@@ -256,12 +253,12 @@ re-downloaded in order to locate PACKAGE."
 (defun set-font (english chinese english-size chinese-size)
   "Set fonts."
   (if (display-graphic-p)
-	  (progn
+      (progn
 	(set-face-attribute 'default nil :font
-				(format   "%s:pixelsize=%d"  english english-size))
+			    (format   "%s:pixelsize=%d"  english english-size))
 	(dolist (charset '(kana han symbol cjk-misc bopomofo))
 	  (set-fontset-font (frame-parameter nil 'font) charset
-				(font-spec :family chinese :size chinese-size))))))
+			    (font-spec :family chinese :size chinese-size))))))
 (set-font   "Source Code Pro" "YaHei Consolas Hybrid" 22 22)
 
 (require 'font-lock-plus)           ;; 语法高亮文件
@@ -269,21 +266,22 @@ re-downloaded in order to locate PACKAGE."
 
 (require-package 'monokai-theme)
 (require-package 'molokai-theme)
+(require-package 'doom-themes)
+
 (load-theme 'monokai t)
-;; (load-theme 'molokai t)
 
 ;; 调整透明状态
 (defun adjust-opacity (frame incr)
   "Adjust the background opacity of FRAME by increment INCR."
   (unless (display-graphic-p frame)
-	(Error "Cannot Adjust opacity of this frame"))
+    (Error "Cannot Adjust opacity of this frame"))
   (let* ((oldalpha (or (frame-parameter frame 'alpha) 100))
 	 ;; The 'alpha frame param became a pair at some point in
 	 ;; emacs 24.x, e.g. (100 100)
 	 (oldalpha (if (listp oldalpha) (car oldalpha) oldalpha))
 	 (newalpha (+ incr oldalpha)))
-	(when (and (<= frame-alpha-lower-limit newalpha) (>= 100 newalpha))
-	  (modify-frame-parameters frame (list (cons 'alpha newalpha))))))
+    (when (and (<= frame-alpha-lower-limit newalpha) (>= 100 newalpha))
+      (modify-frame-parameters frame (list (cons 'alpha newalpha))))))
 
 (global-set-key (kbd "M-C-8") (lambda () (interactive) (adjust-opacity nil -2)))
 (global-set-key (kbd "M-C-9") (lambda () (interactive) (adjust-opacity nil 2)))
@@ -307,30 +305,39 @@ re-downloaded in order to locate PACKAGE."
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 (global-set-key [f8] 'neotree-toggle)
 
-;; 对称符号自动补全
-(defun text-mode-auto-pair()
-  (interactive)
-  (make-local-variable 'skeleton-pair-alist)
-  (setq skeleton-pair-alist '(
-				  (?{ \n > _ \n ?} >)))
-  (setq skeleton-pair t)
-  (local-set-key (kbd "(") 'skeleton-pair-insert-maybe)
-  (local-set-key (kbd "[") 'skeleton-pair-insert-maybe)
-  (local-set-key (kbd "\"") 'skeleton-pair-insert-maybe)
-  (local-set-key (kbd "{") 'skeleton-pair-insert-maybe)
-  (backward-char))
-(add-hook 'text-mode 'text-mode-auto-pair)
+;; 括号自动补全
+(use-package elec-pair
+  :ensure nil
+  :hook (after-init . electric-pair-mode)
+  :init (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit))
+
+
+;; 设置C/C++编程模式
+(use-package cc-mode
+  :ensure nil
+  :bind (:map c-mode-base-map
+	      ("C-c c" . compile))
+  :hook (c-mode-common . (lambda () (c-set-style "java")))
+  :init (setq-default c-basic-offset 4)
+  :config
+  (use-package modern-cpp-font-lock
+    :diminish
+    :init (modern-c++-font-lock-global-mode t)))
+;; C语言的TAB
+(setq-default c-basic-offset 4)
+
+;; 触发IDENT
+(add-hook 'c-mode-common-hook '(lambda () (c-toggle-auto-state 1)))
+(add-hook 'c++-mode-common-hook '(lambda () (c-toggle-auto-state 1)))
 
 (require 'init-org)
 (require 'init-evil)
-
-;; (if *linux*
-;;     ((require 'init-helm)
-;;      (require 'init-latex)
-;;      (require 'init-vcs)
-;;      (require 'init-complete)
-;;      (require 'init-project)
-;;      (require 'init-misc)))
+(require 'init-helm)
+(require 'init-latex)
+(require 'init-vcs)
+(require 'init-complete)
+(require 'init-project)
+(require 'init-misc)
 
 (provide 'init)
 ;;; init.el ends here
