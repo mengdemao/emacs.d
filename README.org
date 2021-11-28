@@ -1,0 +1,91 @@
+#+TITLE: emacs配置文件
+#+AUTHOR: Meng Demao
+#+EMAIL: mengdemao19951021@163.com
+#+DATE:<2020-12-09 三 13:39>
+
+* 配置文件结构
+#+begin_src text
+|── custom.el       自定义配置(自动生成,可以修改)
+├── early-init.el   emacs27加载文件
+├── fonts           存放字体文件
+├── init.el         初始化文件
+├── lisp            配置文件
+├── site            三方包
+├── README.org      说明文件
+└── test.sh         测试脚本
+#+end_src
+
+* 基础配置
+** emacs系统配置
+*** 增大垃圾回收的大小
+#+BEGIN_SRC elisp
+(defvar default-file-name-handler-alist file-name-handler-alist)
+(setq file-name-handler-alist nil)
+(setq gc-cons-threshold 8000000000)
+(add-hook 'emacs-startup-hook (lambda () "Restore defalut values after init."
+				(setq file-name-handler-alist default-file-name-handler-alist)
+				(setq gc-cons-threshold (* 1024 1024 1024))
+				(add-hook 'focus-out-hook 'garbage-collect)))
+#+END_SRC
+
+*** 加载custom.el文件
+#+BEGIN_SRC elisp
+;; 减少污染文件
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(when (file-exists-p custom-file)
+  (load custom-file))
+#+END_SRC
+
+*** 自动下载并且更新插件
+#+BEGIN_SRC elisp
+(defun require-package (package &optional min-version no-refresh)
+  "Install given PACKAGE, optionally requiring MIN-VERSION.
+If NO-REFRESH is non-nil, the available package lists will not be
+re-downloaded in order to locate PACKAGE."
+  (or (package-installed-p package min-version)
+	  (let* ((known (cdr (assoc package package-archive-contents)))
+		 (best (car (sort known (lambda (a b)
+					  (version-list-<= (package-desc-version b)
+							   (package-desc-version a)))))))
+	(if (and best (version-list-<= min-version (package-desc-version best)))
+		(package-install best)
+	  (if no-refresh
+		  (error "No version of %s >= %S is available" package min-version)
+		(package-refresh-contents)
+		(require-package package min-version t)))
+	(package-installed-p package min-version))))
+#+END_SRC
+
+*** 添加子文件夹
+#+BEGIN_SRC elisp
+(defun add-subdirs-to-load-path (parent-dir)
+  "Add every non-hidden subdir of PARENT-DIR to `load-path'."
+  (let ((default-directory parent-dir))
+	(setq load-path
+	  (append
+	   (cl-remove-if-not
+		#'file-directory-p
+		(directory-files (expand-file-name parent-dir) t "^[^\\.]"))
+	   load-path))))
+
+(let ((lisp-dir (expand-file-name "lisp/" user-emacs-directory)))
+  (push lisp-dir load-path)
+  (add-subdirs-to-load-path lisp-dir))
+
+(let ((site-dir (expand-file-name "site/" user-emacs-directory)))
+  (push site-dir load-path)
+  (add-subdirs-to-load-path site-dir))
+#+END_SRC
+
+*** 自动更新配置
+#+BEGIN_SRC elisp
+;; 自动更新配置文件
+(defun config-update()
+  "Autoupdate local git repository .emacs.d."
+  (interactive)
+  (compilation-start "cd ~/.emacs.d && git pull"))
+(define-key global-map (kbd "<f12>") 'config-update)
+#+END_SRC
+
+* 扩展配置
+**
