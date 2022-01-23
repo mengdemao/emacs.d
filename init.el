@@ -1,7 +1,7 @@
 ;; init.el --- Where all config file start -*- lexical-binding: t -*-
 ;;; Commentary:
 
-;; Copyright (C) 2021 Meng Demao
+;; Copyright (C) 2022 Meng Demao
 
 ;; Author: Meng Demao mengdemao19951021@163.com
 
@@ -327,17 +327,17 @@ re-downloaded in order to locate PACKAGE."
 (setq-default c-basic-offset 4)
 
 ;; 触发IDENT
-(add-hook 'c-mode-common-hook '(lambda () (c-toggle-auto-state 1)))
-(add-hook 'c++-mode-common-hook '(lambda () (c-toggle-auto-state 1)))
+;; (add-hook 'c-mode-common-hook '(lambda () (c-toggle-auto-state 1)))
+;; (add-hook 'c++-mode-common-hook '(lambda () (c-toggle-auto-state 1)))
 
 (require 'init-org)
 (require 'init-evil)
 (require 'init-helm)
-(require 'init-latex)
-(require 'init-vcs)
-(require 'init-complete)
-(require 'init-project)
-(require 'init-misc)
+;; (require 'init-latex)
+;; (require 'init-vcs)
+;; (require 'init-complete)
+;; (require 'init-project)
+;; (require 'init-misc)
 
 (provide 'init)
 ;;; init.el ends here
