@@ -96,11 +96,11 @@
 (fset 'yes-or-no-p'y-or-n-p) ;;
 
 (setq-default initial-major-mode 'fundamental-mode) ;; 启动为普通模式
-(setq-default major-mode 'text-mode)				;; 设置为文本模式
-(setq make-backup-files nil)                ;;
-(setq auto-save-mode nil)               ;;
-(setq-default make-backup-files nil)            ;;
-(setq-default initial-scratch-message nil)      ;;
+(setq-default major-mode 'text-mode)		    ;; 设置为文本模式
+(setq make-backup-files nil)			    ;;
+(setq-default auto-save-mode t)				    ;;
+(setq-default make-backup-files nil)		    ;;
+(setq-default initial-scratch-message nil)	    ;;
 
 (global-set-key [(meta ?/)] 'hippie-expand) ;; 绑定自动补全按键
 (setq hippie-expand-try-functions-list      ;; 搜索路径
@@ -133,7 +133,7 @@
 ;; TAB按键的长度设置
 (setq default-tab-width 4)  ;; 设置tab默认长度
 (setq tab-width 4)	    ;; 设置tab默认长度
-(setq indent-tabs-mode t)   ;; 不使用空格替换tab
+(setq indent-tabs-mode nil)   ;; 不使用空格替换tab
 (cl-loop for x downfrom 40 to 1 do
 	 (setq tab-stop-list (cons (* x 4) tab-stop-list)))
 (setq backward-delete-char-untabify-method nil)		    ;; tab退格删除
@@ -268,6 +268,7 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'molokai-theme)
 (require-package 'doom-themes)
 
+(load-theme 'molokai t)
 (load-theme 'monokai t)
 
 ;; 调整透明状态
@@ -313,31 +314,81 @@ re-downloaded in order to locate PACKAGE."
 
 
 ;; 设置C/C++编程模式
-(use-package cc-mode
-  :ensure nil
-  :bind (:map c-mode-base-map
-	      ("C-c c" . compile))
-  :hook (c-mode-common . (lambda () (c-set-style "java")))
-  :init (setq-default c-basic-offset 4)
-  :config
-  (use-package modern-cpp-font-lock
-    :diminish
-    :init (modern-c++-font-lock-global-mode t)))
-;; C语言的TAB
+;; avoid default "gnu" style, use more popular one
+(setq c-default-style '((java-mode . "java")
+                        (awk-mode . "awk")
+                        (other . "linux")))
+
+(defun fix-c-indent-offset-according-to-syntax-context (key val)
+  ;; remove the old element
+  (setq c-offsets-alist (delq (assoc key c-offsets-alist) c-offsets-alist))
+  ;; new value
+  (add-to-list 'c-offsets-alist '(key . val)))
+
 (setq-default c-basic-offset 4)
 
-;; 触发IDENT
-;; (add-hook 'c-mode-common-hook '(lambda () (c-toggle-auto-state 1)))
-;; (add-hook 'c++-mode-common-hook '(lambda () (c-toggle-auto-state 1)))
+(defun my-common-cc-mode-setup ()
+  "setup shared by all languages (java/groovy/c++ ...)"
+  ;; give me NO newline automatically after electric expressions are entered
+  (setq c-auto-newline nil)
+
+  ;; syntax-highlight aggressively
+  ;; (setq font-lock-support-mode 'lazy-lock-mode)
+  (setq lazy-lock-defer-contextually t)
+  (setq lazy-lock-defer-time 0)
+
+  ;make DEL take all previous whitespace with it
+  (c-toggle-hungry-state 1)
+
+  ;; indent
+  ;; google "C/C++/Java code indentation in Emacs" for more advanced skills
+  ;; C code:
+  ;;   if(1) // press ENTER here, zero means no indentation
+  (fix-c-indent-offset-according-to-syntax-context 'substatement 0)
+  ;;   void fn() // press ENTER here, zero means no indentation
+  (fix-c-indent-offset-according-to-syntax-context 'func-decl-cont 0))
+
+(defun my-c-mode-setup ()
+  "C/C++ only setup."
+  ;; @see http://stackoverflow.com/questions/3509919/ \
+  ;; emacs-c-opening-corresponding-header-file
+  (local-set-key (kbd "C-x C-o") 'ff-find-other-file)
+
+  (setq cc-search-directories '("." "/usr/include" "/usr/local/include/*" "../*/include" "$WXWIN/include"))
+
+  ;; @see https://github.com/redguardtoo/cpputils-cmake
+  ;; In theory, you can write your own Makefile for `flymake-mode' without cmake.
+  ;; Nobody actually does it in real world.
+
+  ;; debugging Emacs C code
+  (push '(nil "^DEFUN *(\"\\([a-zA-Z0-9-]+\\)" 1) imenu-generic-expression )
+
+  ;; make a #define be left-aligned
+  (setq c-electric-pound-behavior (quote (alignleft))))
+
+(defun cc-mode-common-hook-setup ()
+  "C/C++ setup."
+    (my-common-cc-mode-setup)
+    (unless (or (derived-mode-p 'java-mode) 
+                (derived-mode-p 'groovy-mode))
+      (my-c-mode-setup)))
+
+(add-hook 'c-mode-common-hook 'cc-mode-common-hook-setup)
+(add-hook 'c++-mode-common-hook 'cc-mode-common-hook-setup)
+
+;; 触发ident
+(add-hook 'c-mode-common-hook '(lambda () (c-toggle-auto-state 1)))
+(add-hook 'c++-mode-common-hook '(lambda () (c-toggle-auto-state 1)))
 
 (require 'init-org)
 (require 'init-evil)
-(require 'init-helm)
-;; (require 'init-latex)
-;; (require 'init-vcs)
-;; (require 'init-complete)
-;; (require 'init-project)
-;; (require 'init-misc)
+(require 'init-ivy)
+
+(require 'init-latex)
+(require 'init-vcs)
+(require 'init-complete)
+(require 'init-project)
+(require 'init-misc)
 
 (provide 'init)
 ;;; init.el ends here

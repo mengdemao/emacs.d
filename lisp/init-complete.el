@@ -12,8 +12,8 @@
   :diminish company-mode
   :init (add-hook 'after-init-hook'global-company-mode)
   :bind (:map company-active-map
-			  ("M-j" . company-select-next)
-			  ("M-k" . company-select-previous)))
+	      ("M-j" . company-select-next)
+	      ("M-k" . company-select-previous)))
 
 (use-package company-posframe
   :ensure t
@@ -24,7 +24,7 @@
   :ensure t
   :config
   (push '(company-posframe-mode . nil)
-		desktop-minor-mode-table))
+	desktop-minor-mode-table))
 
 ;; 检查前端
 (use-package flycheck
@@ -75,53 +75,43 @@
   (add-hook 'yaml-mode-hook #'lsp)
   (add-hook 'dockerfile-mode-hook #'lsp)
   (add-hook 'shell-mode-hook #'lsp)
-  (add-hook 'css-mode-hook #'lsp)
-
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection "pyls")
-					:major-modes '(python-mode)
-					:server-id 'pyls))
-  (setq company-minimum-prefix-length 1
-		company-idle-delay 0.500) ;; default is 0.2
-  (require 'lsp-clients)
-  :commands lsp)
+  (add-hook 'css-mode-hook #'lsp))
 
 (use-package lsp-ui
   :ensure t
   :custom-face
   (lsp-ui-doc-background ((t (:background ni))))
   :init (setq lsp-ui-doc-enable t
-			  lsp-ui-doc-include-signature t
+	      lsp-ui-doc-include-signature t
 
-			  lsp-enable-snippet nil
-			  lsp-ui-sideline-enable nil
-			  lsp-ui-peek-enable nil
+	      lsp-enable-snippet nil
+	      lsp-ui-sideline-enable nil
+	      lsp-ui-peek-enable nil
 
-			  lsp-ui-doc-position              'at-point
-			  lsp-ui-doc-header                nil
-			  lsp-ui-doc-border                "white"
-			  lsp-ui-doc-include-signature     t
-			  lsp-ui-sideline-update-mode      'point
-			  lsp-ui-sideline-delay            1
-			  lsp-ui-sideline-ignore-duplicate t
-			  lsp-ui-peek-always-show          t
-			  lsp-ui-flycheck-enable           nil
-			  )
+	      lsp-ui-doc-position              'at-point
+	      lsp-ui-doc-header                nil
+	      lsp-ui-doc-border                "white"
+	      lsp-ui-doc-include-signature     t
+	      lsp-ui-sideline-update-mode      'point
+	      lsp-ui-sideline-delay            1
+	      lsp-ui-sideline-ignore-duplicate t
+	      lsp-ui-peek-always-show          t
+	      lsp-ui-flycheck-enable           nil
+	      )
   :bind (:map lsp-ui-mode-map
-			  ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
-			  ([remap xref-find-references] . lsp-ui-peek-find-references)
-			  ("C-c u" . lsp-ui-imenu))
+	      ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
+	      ([remap xref-find-references] . lsp-ui-peek-find-references)
+	      ("C-c u" . lsp-ui-imenu))
   :config
   (setq lsp-ui-sideline-ignore-duplicate t)
   (add-hook 'lsp-mode-hook 'lsp-ui-mode))
 
 (setq lsp-prefer-capf t)
 
-;; 头文件补全
-;; (use-package company-c-headers
-;;  :ensure t
-;;  :config
-;;  ((add-to-list 'company-backends 'company-c-headers)))
+(use-package company-c-headers
+  :ensure t
+  :config
+  ((add-to-list 'company-backends 'company-c-headers)))
 
 (provide 'init-complete)
 ;;; init-complete.el ends here
