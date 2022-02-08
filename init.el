@@ -264,12 +264,12 @@ re-downloaded in order to locate PACKAGE."
 (require 'font-lock-plus)           ;; 语法高亮文件
 (global-font-lock-mode 1)           ;; 开启语法高亮
 
-(require-package 'monokai-theme)
+;; (require-package 'monokai-theme)
 (require-package 'molokai-theme)
-(require-package 'doom-themes)
+;; (require-package 'doom-themes)
 
 (load-theme 'molokai t)
-(load-theme 'monokai t)
+;; (load-theme 'monokai t)
 
 ;; 调整透明状态
 (defun adjust-opacity (frame incr)
@@ -316,8 +316,8 @@ re-downloaded in order to locate PACKAGE."
 ;; 设置C/C++编程模式
 ;; avoid default "gnu" style, use more popular one
 (setq c-default-style '((java-mode . "java")
-                        (awk-mode . "awk")
-                        (other . "linux")))
+			(awk-mode . "awk")
+			(other . "linux")))
 
 (defun fix-c-indent-offset-according-to-syntax-context (key val)
   ;; remove the old element
@@ -369,8 +369,8 @@ re-downloaded in order to locate PACKAGE."
 (defun cc-mode-common-hook-setup ()
   "C/C++ setup."
     (my-common-cc-mode-setup)
-    (unless (or (derived-mode-p 'java-mode) 
-                (derived-mode-p 'groovy-mode))
+    (unless (or (derived-mode-p 'java-mode)
+		(derived-mode-p 'groovy-mode))
       (my-c-mode-setup)))
 
 (add-hook 'c-mode-common-hook 'cc-mode-common-hook-setup)

@@ -71,8 +71,40 @@
      ("已取消" . (:background "gray" :foreground "black"))
 ))
 
-(setq org-agenda-files (list "~.emacs.d/gtd/todo.org"))      
+(setq org-agenda-files (list "~.emacs.d/gtd/todo.org"))
 (global-set-key "\C-ca" 'org-agenda)
+
+;; 添加awesome简历
+(require 'ox-awesomecv)
+
+;; 添加导出minted
+(setq org-latex-listings 'minted)
+(setq org-latex-minted-options
+      '(
+        ("bgcolor" "bg")
+        ("breaklines" "true")
+        ("autogobble" "true")
+        ("fontsize" "\\small")
+       )
+)
+
+(setq org-latex-default-packages-alist
+  '(
+    ("" "amsmath" t) ; include first to avoid iint and iiint error
+    ("" "amssymb" t)
+    ("" "wasysym" t) ; include last to avoid iint and iint error
+    ("AUTO" "inputenc"  t ("pdflatex"))
+    ("T1"   "fontenc"   t ("pdflatex"))
+    (""     "CJKutf8"   t ("pdflatex"))
+    (""     "xeCJK"     nil ("xelatex", "xetex"))
+    (""     "fontspec"  nil ("xelatex", "xetex", "lualatex", "luatex"))
+    (""     "graphicx"  t)
+    (""     "xcolor"  t)
+    ("newfloat,cache=true"   "minted"   nil)
+  )
+)
+
+(add-to-list 'org-latex-packages-alist '("" "minted"))
 
 (provide 'init-org)
 ;;; init-org.el ends here
