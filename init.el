@@ -182,8 +182,8 @@
 ;; 添加自动插件
 (defun require-package (package &optional min-version no-refresh)
   "Install given PACKAGE, optionally requiring MIN-VERSION.
-If NO-REFRESH is non-nil, the available package lists will not be
-re-downloaded in order to locate PACKAGE."
+   If NO-REFRESH is non-nil, the available package lists will not be
+   re-downloaded in order to locate PACKAGE."
   (or (package-installed-p package min-version)
       (let* ((known (cdr (assoc package package-archive-contents)))
 	     (best (car (sort known (lambda (a b)
@@ -205,6 +205,10 @@ re-downloaded in order to locate PACKAGE."
 (setq auto-compile-mode-line-counter t)
 
 ;; Should set before loading `use-package'
+;; 安装包管理器
+(eval-when-compile
+  (require-package 'use-package))
+
 (eval-and-compile
   (setq use-package-always-ensure t)
   (setq use-package-always-defer t)
@@ -212,8 +216,6 @@ re-downloaded in order to locate PACKAGE."
   (setq use-package-enable-imenu-support t)
   (setq use-package-verbose t))
 
-(eval-when-compile
-  (require-package 'use-package))
 
 ;; Load path
 ;; Optimize: Force "lisp"" and "site-lisp" at the head to reduce the startup time.
