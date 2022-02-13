@@ -2,9 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-(eval-when-compile
-  (require 'use-package))
-
 ;; 补全前端
 (use-package company
   :ensure t

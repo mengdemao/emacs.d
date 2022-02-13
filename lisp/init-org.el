@@ -11,6 +11,23 @@
 ;; 禁止下划线转义
 (setq org-export-with-sub-superscripts nil)
 
+(setq org-startup-indented t
+      org-ellipsis "  " ;; folding symbol
+      org-pretty-entities t
+      org-hide-emphasis-markers t
+      ;; show actually italicized text instead of /italicized text/
+      org-agenda-block-separator ""
+      org-fontify-whole-heading-line t
+      org-fontify-done-headline t
+      org-fontify-quote-and-verse-blocks t)
+
+;; 修复org-mode源码格式化错误
+(setq org-src-preserve-indentation t)
+(setq org-edit-src-content-indentation 0)
+
+;; 导出html禁止validate
+(setq org-html-validation-link nil)
+
 (setq org-plantuml-jar-path
 	  (expand-file-name "~/.emacs.d/bin/plantuml.jar"))
 
@@ -40,8 +57,9 @@
 
 (setq geiser-default-implementation 'chez)
 
-(require-package 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(require-package 'org-superstar)
+(add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
+(setq org-superstar-prettify-item-bullets t)
 
 (require-package 'toc-org)
 (if (require 'toc-org nil t)
@@ -81,27 +99,11 @@
 (setq org-latex-listings 'minted)
 (setq org-latex-minted-options
       '(
-        ("bgcolor" "bg")
-        ("breaklines" "true")
-        ("autogobble" "true")
-        ("fontsize" "\\small")
+	("bgcolor" "white")
+	("breaklines" "true")
+	("autogobble" "true")
+	("fontsize" "\\large")
        )
-)
-
-(setq org-latex-default-packages-alist
-  '(
-    ("" "amsmath" t) ; include first to avoid iint and iiint error
-    ("" "amssymb" t)
-    ("" "wasysym" t) ; include last to avoid iint and iint error
-    ("AUTO" "inputenc"  t ("pdflatex"))
-    ("T1"   "fontenc"   t ("pdflatex"))
-    (""     "CJKutf8"   t ("pdflatex"))
-    (""     "xeCJK"     nil ("xelatex", "xetex"))
-    (""     "fontspec"  nil ("xelatex", "xetex", "lualatex", "luatex"))
-    (""     "graphicx"  t)
-    (""     "xcolor"  t)
-    ("newfloat,cache=true"   "minted"   nil)
-  )
 )
 
 (add-to-list 'org-latex-packages-alist '("" "minted"))
