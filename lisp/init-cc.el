@@ -4,28 +4,11 @@
 (add-hook 'c++-mode-common-hook 'doxymacs-mode)
 (add-hook 'asm-mode-common-hook 'doxymacs-mode)
 
-;; 编号
-(require-package 'window-numbering)
-(window-numbering-mode t)
-
-;; 图标
-(require-package 'all-the-icons)
-
-;; neotree
-(require-package 'neotree)
-(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-(global-set-key [f8] 'neotree-toggle)
-
-;; modeline
-;; (require-package 'doom-modeline)
-;; (doom-modeline-mode 1)
-
 ;; 括号自动补全
 (use-package elec-pair
   :ensure nil
   :hook (after-init . electric-pair-mode)
   :init (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit))
-
 
 ;; 设置C/C++编程模式
 ;; avoid default "gnu" style, use more popular one

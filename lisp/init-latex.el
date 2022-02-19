@@ -3,14 +3,14 @@
 ;;; Code:
 (require 'ox-latex)
 
-(setq org-latex-pdf-process '("latexmk -lualatex -quiet -shell-escape -f %f"))
+(setq org-latex-pdf-process '("latexmk -xelatex -quiet -shell-escape -f %f"))
 
 (setq org-latex-listings 'minted)
 (setq org-latex-minted-options
       '(("bgcolor" "white")
-	("breaklines" "true")
-	("autogobble" "true")
-	("fontsize" "\\small")))
+		("breaklines" "true")
+		("autogobble" "true")
+		("fontsize" "\\small")))
 
 (add-to-list 'org-latex-classes
 	     '("org-cv"

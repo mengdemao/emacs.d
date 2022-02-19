@@ -2,6 +2,9 @@
 ;;; Commentary:
 ;;; Code:
 
+(use-package spinner
+  :ensure t)
+
 ;; 补全前端
 (use-package company
   :ensure t
@@ -43,13 +46,6 @@
 (use-package company-ctags
   :ensure t)
 
-;; Clang Tool
-(use-package flycheck-clang-analyzer
-  :ensure t)
-
-(use-package flycheck-clang-tidy
-  :ensure t)
-
 (use-package lsp-mode
   :ensure t
   :custom
@@ -73,37 +69,6 @@
   (add-hook 'dockerfile-mode-hook #'lsp)
   (add-hook 'shell-mode-hook #'lsp)
   (add-hook 'css-mode-hook #'lsp))
-
-(use-package lsp-ui
-  :ensure t
-  :custom-face
-  (lsp-ui-doc-background ((t (:background ni))))
-  :init (setq lsp-ui-doc-enable t
-	      lsp-ui-doc-include-signature t
-
-	      lsp-enable-snippet nil
-	      lsp-ui-sideline-enable nil
-	      lsp-ui-peek-enable nil
-
-	      lsp-ui-doc-position              'at-point
-	      lsp-ui-doc-header                nil
-	      lsp-ui-doc-border                "white"
-	      lsp-ui-doc-include-signature     t
-	      lsp-ui-sideline-update-mode      'point
-	      lsp-ui-sideline-delay            1
-	      lsp-ui-sideline-ignore-duplicate t
-	      lsp-ui-peek-always-show          t
-	      lsp-ui-flycheck-enable           nil
-	      )
-  :bind (:map lsp-ui-mode-map
-	      ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
-	      ([remap xref-find-references] . lsp-ui-peek-find-references)
-	      ("C-c u" . lsp-ui-imenu))
-  :config
-  (setq lsp-ui-sideline-ignore-duplicate t)
-  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
-
-(setq lsp-prefer-capf t)
 
 (use-package company-c-headers
   :ensure t

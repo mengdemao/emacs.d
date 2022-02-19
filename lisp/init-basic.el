@@ -1,4 +1,3 @@
-
 ;; emacs基础配置
 (setq debug-on-error t)			;; 调试模式
 (setq load-prefer-newer t)		;; 加载新的脚本
@@ -96,7 +95,6 @@
 (set-keyboard-coding-system 'utf-8)
 
 ;; Mouse & Smooth Scroll
-;; Scroll one line at a time (less "jumpy" than defaults)
 (when (display-graphic-p)
   (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))
 	mouse-wheel-progressive-speed nil))
@@ -125,8 +123,10 @@
 (display-time)									;; 显示时间
 
 ;; 设置行号
-(require 'linum)
-(global-display-line-numbers-mode nil)
-(setq display-line-numbers "%4d \u2502")
+(use-package linum
+  :ensure nil
+  :config 
+  (global-display-line-numbers-mode nil)
+  (setq display-line-numbers "%4d \u2502"))
 
 (provide 'init-basic)

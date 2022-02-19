@@ -24,69 +24,55 @@
 (require 'cl-lib)
 (require 'package)
 
-(unless (bound-and-true-p package--initialized) ; To avoid warnings in 27
-  (setq package-enable-at-startup nil)          ; To prevent initializing twice
-  (package-initialize))
-
-;; 新建
-(setq *win* (eq system-type 'windows-nt))
-(setq *cygwin* (eq system-type 'cygwin) )
-(setq *linux* (or (eq system-type 'gnu/linux) (eq system-type 'linux)) )
-(setq *unix* (or *linux* (eq system-type 'usg-unix-v) (eq system-type 'berkeley-unix)) )
-
-;; 加载custom.el
-;; 用户可以在此文件中加载自设定配置
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(when (file-exists-p custom-file)
-  (load custom-file))
-(unless package-archive-contents
-  (package-refresh-contents))
+;; 计算启动时间
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "Emacs ready in %s with %d garbage collections."
+                     (format "%.2f seconds"
+                             (float-time
+                              (time-subtract after-init-time before-init-time)))
+                     gcs-done)))
 
 ;; 设置垃圾回收缓存为1G,开启结束压缩,加速软件开启
 (defvar default-file-name-handler-alist file-name-handler-alist)
 (setq file-name-handler-alist nil)
-(setq gc-cons-threshold 8000000000)
-(add-hook 'emacs-startup-hook (lambda () "Restore defalut values after init."
-				(setq file-name-handler-alist default-file-name-handler-alist)
-				(setq gc-cons-threshold (* 1024 1024 1024))
-				(add-hook 'focus-out-hook 'garbage-collect)))
+(setq gc-cons-threshold most-positive-fixnum)
 
-;; 添加自动插件
-(defun require-package (package &optional min-version no-refresh)
-  "Install given PACKAGE, optionally requiring MIN-VERSION.
-   If NO-REFRESH is non-nil, the available package lists will not be
-   re-downloaded in order to locate PACKAGE."
-  (or (package-installed-p package min-version)
-      (let* ((known (cdr (assoc package package-archive-contents)))
-	     (best (car (sort known (lambda (a b)
-				      (version-list-<= (package-desc-version b)
-						       (package-desc-version a)))))))
-	(if (and best (version-list-<= min-version (package-desc-version best)))
-	    (package-install best)
-	  (if no-refresh
-	      (error "No version of %s >= %S is available" package min-version)
-	    (package-refresh-contents)
-	    (require-package package min-version t)))
-	(package-installed-p package min-version))))
+;; 加载自定义文件
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(when (file-exists-p custom-file)
+  (load custom-file))
 
-;; auto-compile
-(require-package 'auto-compile)
-(auto-compile-on-load-mode)
-(auto-compile-on-save-mode)
-(setq auto-compile-display-buffer nil)
-(setq auto-compile-mode-line-counter t)
+;; 系统信息
+(setq *windows* (eq system-type 'windows-nt))
+(setq *cygwin* (eq system-type 'cygwin) )
+(setq *linux* (or (eq system-type 'gnu/linux) (eq system-type 'linux)) )
+(setq *unix* (or *linux* (eq system-type 'usg-unix-v) (eq system-type 'berkeley-unix)) )
 
-;; Should set before loading `use-package'
-;; 安装包管理器
-(eval-when-compile
-  (require-package 'use-package))
+;; 配置插件管理
+(unless (bound-and-true-p package--initialized) ; To avoid warnings in 27
+  (setq package-enable-at-startup nil)          ; To prevent initializing twice
+  (package-initialize))
 
-(eval-and-compile
-  (setq use-package-always-ensure t)
-  (setq use-package-always-defer t)
-  (setq use-package-expand-minimally t)
-  (setq use-package-enable-imenu-support t)
-  (setq use-package-verbose t))
+(unless package-archive-contents
+  (package-refresh-contents))
+
+(when (not (package-installed-p 'use-package))
+  (package-install 'use-package))
+
+(require 'use-package)
+
+(custom-set-variables '(use-package-always-ensure t))
+
+(custom-set-variables '(use-package-always-defer t))
+
+(custom-set-variables '(use-package-verbose nil))
+
+(custom-set-variables '(load-prefer-newer t))
+
+(use-package auto-compile
+  :defer nil
+  :config (auto-compile-on-load-mode))
 
 ;; Load path
 ;; Optimize: Force "lisp"" and "site-lisp" at the head to reduce the startup time.
@@ -120,8 +106,7 @@
 (require 'init-evil)
 (require 'init-ivy)
 (require 'init-vcs)
-
-;; (require 'init-complete)
+(require 'init-complete)
 (require 'init-project)
 (require 'init-misc)
 

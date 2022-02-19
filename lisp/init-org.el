@@ -2,8 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
-(require-package 'org)
-(require-package 'org-plus-contrib)
+(use-package org)
+(use-package org-plus-contrib)
 
 ;; 允许使用选择
 (setq org-support-shift-select t)
@@ -34,7 +34,7 @@
 (with-eval-after-load 'org
   (org-babel-do-load-languages
    'org-babel-load-languages
-   `((R . t)
+   '((R . t)
 	 (makefile . t)
 	 (scheme . t)
 	 (ditaa . t)
@@ -51,17 +51,16 @@
 	 (python . t)
 	 (ruby . t)
 	 (screen . nil)
-	 (,(if (locate-library "ob-sh") 'sh 'shell) . t)
 	 (sql . t)
 	 (sqlite . t))))
 
 (setq geiser-default-implementation 'chez)
 
-(require-package 'org-superstar)
+(use-package org-superstar)
 (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
 (setq org-superstar-prettify-item-bullets t)
 
-(require-package 'toc-org)
+(use-package toc-org)
 (if (require 'toc-org nil t)
 	(add-hook 'org-mode-hook 'toc-org-mode)
 
@@ -70,11 +69,11 @@
   (define-key markdown-mode-map (kbd "\C-c\C-o") 'toc-org-markdown-follow-thing-at-point))
 
 ;; 将图片拖入org-mode中
-(require-package 'org-download)
+(use-package org-download)
 
 (setq org-confirm-babel-evaluate nil)	;; 直接计算
 
-(require-package 'ox-hugo)
+(use-package ox-hugo)
 
 ;; 设置任务流程(这是我的配置)
 (setq org-todo-keywords
@@ -92,8 +91,11 @@
 (setq org-agenda-files (list "~.emacs.d/gtd/todo.org"))
 (global-set-key "\C-ca" 'org-agenda)
 
-;; 添加awesome简历
+;; 添加orgmode简历
 (require 'ox-awesomecv)
+(require 'ox-moderncv)
+(require 'ox-hugocv)
+(require 'ox-altacv)
 
 ;; 添加导出minted
 (setq org-latex-listings 'minted)

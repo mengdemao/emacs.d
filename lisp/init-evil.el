@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(require-package 'evil)
+(use-package evil)
 (evil-mode 1)
 
 ;; 设置打开时默认emacs模式

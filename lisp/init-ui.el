@@ -21,11 +21,44 @@
 			    (font-spec :family chinese :size chinese-size))))))
 (set-font   "Source Code Pro" "YaHei Consolas Hybrid" 22 22)
 
-(require 'font-lock-plus)           ;; 语法高亮文件
-(global-font-lock-mode 1)           ;; 开启语法高亮
+;; (require 'font-lock-plus)           ;; 语法高亮文件
+;; (global-font-lock-mode 1)           ;; 开启语法高亮
 
-(require-package 'doom-themes)
-(load-theme 'doom-molokai t)
+(use-package doom-themes
+  :ensure t
+  :config
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t)
+  (doom-themes-visual-bell-config)
+  (doom-themes-neotree-config)  
+  (setq doom-theme 'doom-gruvbox)
+  (setq doom-themes-treemacs-theme "doom-gruvbox")
+  (doom-themes-treemacs-config)
+  (doom-themes-org-config))
+(load-theme 'doom-gruvbox t)
+
+;; 编号
+(use-package window-numbering)
+(window-numbering-mode t)
+
+;; 图标
+(use-package all-the-icons)
+
+;; neotree
+(use-package neotree)
+(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+(global-set-key [f8] 'neotree-toggle)
+
+(use-package smart-mode-line 
+    :init 
+    (setq sml/no-confirm-load-theme t) 
+    (setq sml/theme 'respectful) 
+    (sml/setup))
+
+(defun dashboard-banner ()
+  (setq dashboard-banner-logo-title
+        (format "Emacs ready in %.2f seconds with %d garbage collections."
+                (float-time (time-subtract after-init-time before-init-time)) gcs-done)))
 
 ;; 调整透明状态
 (defun adjust-opacity (frame incr)
