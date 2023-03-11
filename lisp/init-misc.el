@@ -15,15 +15,6 @@
 
 (require 'kconfig-mode)
 
-;; cmake配置
-(use-package cmake-mode
-  :ensure t
-  :config
-  (setq auto-mode-alist
-	(append '(("CMakeLists\\.txt\\'" . cmake-mode)
-		  ("\\.cmake\\'" . cmake-mode))
-		auto-mode-alist)))
-
 ;; editorconfig
 (use-package editorconfig
   :ensure t)
