@@ -72,35 +72,35 @@
 (setq backup-inhibited -1)                                        ;; 不产生备份
 
 (add-to-list 'default-frame-alist '(fullscreen	. maximized)) ;; 设置全屏
-(setq set-scroll-bar-mode nil)	;; 取消滚动栏
-(setq tool-bar-mode 0)		;; 取消工具栏
-(setq menu-bar-mode 0)		;; 禁用菜单栏，F10 开启关闭菜单
-(setq gdb-many-windows t)	;; gdb多窗口模式
-(setq global-hl-line-mode 1)		;; 高亮当前行
+(setq set-scroll-bar-mode nil) 	;; 取消滚动栏
+(setq tool-bar-mode 0) 		;; 取消工具栏
+(setq menu-bar-mode 0) 		;; 禁用菜单栏，F10 开启关闭菜单
+(setq gdb-many-windows t) 	;; gdb多窗口模式
+(setq global-hl-line-mode 1) 		;; 高亮当前行
 (add-hook 'before-save-hook 'whitespace-cleanup) ;; 保存时删除多余的空格个
-(delete-selection-mode 1)			 ;; 选中删除
-(global-auto-revert-mode t)	;; 自动载入文件
+(delete-selection-mode 1) 		 ;; 选中删除
+(global-auto-revert-mode t) 	;; 自动载入文件
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
 (setq time-stamp-active t)
 (setq time-stamp-warn-inactive t)
 (setq time-stamp-format "%:y-%02m-%02d %3a %02H:%02M:%02S mengdemao")
 (setq mouse-avoidance-mode 'animate) ;; 鼠标自动避开指针
-(setq blink-cursor-mode -1)	     ;; 指针停止闪动
+(setq blink-cursor-mode -1) 	     ;; 指针停止闪动
 (setq transient-mark-mode 1)         ;; 高亮显示要拷贝的内容
-(setq show-paren-mode 1)	     ;; 当指针到一个括号时，自动显示所匹配的另一个括号
-(setq mouse-wheel-mode t)	     ;; 是用滚轴鼠标
-(setq track-eol t)		     ;; 当光标在行尾上下移动的时候，始终保持在行尾。
+(setq show-paren-mode 1) 	     ;; 当指针到一个括号时，自动显示所匹配的另一个括号
+(setq mouse-wheel-mode t) 	     ;; 是用滚轴鼠标
+(setq track-eol t) 	     	     ;; 当光标在行尾上下移动的时候，始终保持在行尾。
 (setq transient-mark-mode t) ;;
-(setq visible-bell t)		 ;;
+(setq visible-bell t) 	 	 ;;
 (fset 'yes-or-no-p'y-or-n-p) ;;
 
 (setq-default initial-major-mode 'fundamental-mode) ;; 启动为普通模式
-(setq-default major-mode 'text-mode)		    ;; 设置为文本模式
-(setq make-backup-files nil)			    ;;
-(setq-default auto-save-mode t)				    ;;
-(setq-default make-backup-files nil)		    ;;
-(setq-default initial-scratch-message nil)	    ;;
+(setq-default major-mode 'text-mode) 		    ;; 设置为文本模式
+(setq make-backup-files nil) 			    ;;
+(setq-default auto-save-mode t) 			    ;;
+(setq-default make-backup-files nil) 		    ;;
+(setq-default initial-scratch-message nil) 	    ;;
 
 (global-set-key [(meta ?/)] 'hippie-expand) ;; 绑定自动补全按键
 (setq hippie-expand-try-functions-list      ;; 搜索路径
@@ -132,11 +132,11 @@
 
 ;; TAB按键的长度设置
 (setq default-tab-width 4)      ;; 设置tab默认长度
-(setq tab-width 4)	            ;; 设置tab默认长度
+(setq tab-width 4) 	            ;; 设置tab默认长度
 (setq indent-tabs-mode nil)     ;; 不使用空格替换tab
 (cl-loop for x downfrom 40 to 1 do
 	 (setq tab-stop-list (cons (* x 4) tab-stop-list)))
-(setq backward-delete-char-untabify-method nil)		    ;; tab退格删除
+(setq backward-delete-char-untabify-method nil) 			    ;; tab退格删除
 (add-hook 'before-save-hook 'delete-trailing-whitespace)    ;; 关闭时自动删除多余空格
 
 ;; 编码
@@ -163,15 +163,15 @@
       uniquify-buffer-name-style 'post-forward-angle-brackets ; Show path if names are same
       adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*"
       adaptive-fill-first-line-regexp "^* *$"
-      sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
+      sentence-end "\([。！？]\|……\|[.?!][]\"')}]*\($\|[ \t]\)\)[ \t\n]*"
       sentence-end-double-space nil)
 
-(display-time-mode 1)							;; 时间显示
-(setq display-time-24hr-format t)				;; 24小时制
-(setq display-time-day-and-date t)				;; 显示具体的时间和日期
+(display-time-mode 1) 						;; 时间显示
+(setq display-time-24hr-format t) 				;; 24小时制
+(setq display-time-day-and-date t) 				;; 显示具体的时间和日期
 (setq display-time-format "%02H:%02M:%02S %Y-%02m-%02d %3a") ;; 设定时间格式
-(setq display-time-interval 1)					;; 时间的变化频率
-(display-time)									;; 显示时间
+(setq display-time-interval 1) 					;; 时间的变化频率
+(display-time) 							;; 显示时间
 
 ;; 配置插件管理
 (eval-and-compile
@@ -222,10 +222,14 @@
 (define-key global-map (kbd "<f12>") 'config-update)
 
 ;; 设置行号
-(use-package linum
-  :init
-  (global-display-line-numbers-mode t)
+;; Use built-in line number display (avoid trying to install 'linum')
+(when (version<= "26.0.50" emacs-version)
+  (global-display-line-numbers-mode 1)
   (setq display-line-numbers "%4d \u2502"))
+;; For older Emacs, fallback to linum
+(unless (version<= "26.0.50" emacs-version)
+  (global-linum-mode 1)
+  (setq linum-format "%4d \u2502"))
 
 ;; 自动补全指令
 (use-package which-key 
@@ -257,10 +261,10 @@
   (if (display-graphic-p)
       (progn
 	(set-face-attribute 'default nil :font
-			    (format   "%s:pixelsize=%d"  english english-size))
+				(format   "%s:pixelsize=%d"  english english-size))
 	(dolist (charset '(kana han symbol cjk-misc bopomofo))
 	  (set-fontset-font (frame-parameter nil 'font) charset
-			    (font-spec :family chinese :size chinese-size))))))
+				    (font-spec :family chinese :size chinese-size))))))
 (set-font   "Source Code Pro" "YaHei Consolas Hybrid" 22 22)
 
 (use-package doom-themes
