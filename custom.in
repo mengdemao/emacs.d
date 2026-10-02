@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
 						 ("gnu-devel" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu-devel/")
 						 ("nongnu" .   "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")

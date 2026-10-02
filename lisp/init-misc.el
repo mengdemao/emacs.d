@@ -13,8 +13,6 @@
 (use-package lua-mode
   :ensure t)
 
-(require 'kconfig-mode)
-
 ;; editorconfig
 (use-package editorconfig
   :ensure t)

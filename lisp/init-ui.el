@@ -1,5 +1,4 @@
-
-
+;; -*- lexical-binding: t; -*-
 (defun dashboard-banner ()
   (setq dashboard-banner-logo-title
         (format "Emacs ready in %.2f seconds with %d garbage collections."

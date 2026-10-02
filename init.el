@@ -198,7 +198,7 @@
 ;; 设置自定义变量
 (custom-set-variables '(load-prefer-newer t))
 
-;; 更新load_path 
+;; 更新load_path
 ;; Optimize: Force "lisp"" and "site-lisp" at the head to reduce the startup time.
 (defun update-load-path (&rest _)
   "Update `load-path'."
@@ -232,7 +232,7 @@
   (setq linum-format "%4d \u2502"))
 
 ;; 自动补全指令
-(use-package which-key 
+(use-package which-key
   :init (which-key-mode))
 
 ;; 括号自动补全
@@ -274,7 +274,7 @@
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
   (doom-themes-visual-bell-config)
-  (doom-themes-neotree-config)  
+  (doom-themes-neotree-config)
   (setq doom-theme 'doom-gruvbox)
   (setq doom-themes-treemacs-theme "doom-gruvbox")
   (doom-themes-treemacs-config)
@@ -288,10 +288,10 @@
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 (global-set-key [f8] 'neotree-toggle)
 
-(use-package smart-mode-line 
-    :init 
-    (setq sml/no-confirm-load-theme t) 
-    (setq sml/theme 'respectful) 
+(use-package smart-mode-line
+    :init
+    (setq sml/no-confirm-load-theme t)
+    (setq sml/theme 'respectful)
     (sml/setup))
 
 (require 'init-cc)
