@@ -20,6 +20,18 @@ jobs:
           - emacs_version: snapshot
             experimental: true
     steps:
+    - name: Install Source Code Pro
+      run: |
+        mkdir -p ~/.local/share/fonts
+        cd /tmp
+        curl -L -o source-code-pro.zip \
+          https://github.com/adobe-fonts/source-code-pro/releases/download/2.042R-u%2F1.062R-i%2F1.026R-vf/VF-source-code-VF-1.026R.zip
+        unzip -o source-code-pro.zip -d source-code-pro
+        find source-code-pro -name "*.otf" -o -name "*.ttf" \
+          | xargs -I {} cp {} ~/.local/share/fonts/
+        fc-cache -fv
+        fc-list | grep -i "Source Code Pro"
+
     - uses: purcell/setup-emacs@master
       with:
         version: ${{ matrix.emacs_version }}
